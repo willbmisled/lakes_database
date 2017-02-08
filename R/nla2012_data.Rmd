@@ -1,0 +1,40 @@
+---
+title: "nla2012_data"
+author: "Bryan"
+date: "February 7, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options("stringsAsFactors" = FALSE) 
+library(knitr)
+library(tidyverse)
+
+```
+
+## Introduction
+
+The National Lake Assessment data are available online at: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  The data include 20 data files and 19 metadata files (according to the website two of the datasets share metadata).  All files were downloaded to our server Kali.  This server is not public facing so if you want the data you use the following script to download and save the data: 
+
+'Y:/data/NLA2012/raw_data/'  #location of data files
+
+```{r kable, include=TRUE, echo=FALSE}
+datasets<-read.csv('./data/NLA2012_data_sources.csv',sep=',')
+
+kable(datasets[,2:4])
+```
+
+* Make a master file of the data definitions
+
+```{r meta, include=TRUE, echo=FALSE}
+#metadata files
+m<-filter(datasets,type=='metadata')[-8,] %>%
+    select(dataset,filename)
+m$filename_short<-as.vector(sapply(m$filename,function(x) unlist(strsplit(x,"_"))[2]))
+m$filename_short[grep('nla2012_wide',m$filename)]<-as.vector(sapply(m$filename[grep('nla2012_wide',m$filename)],function(x) unlist(strsplit(x,"_"))[3]))
+
+
+
+```
