@@ -123,18 +123,31 @@ $(document).ready(function () {
 </div>
 
 
+<div id="to-do" class="section level2">
+<h2>To Do</h2>
+<ul>
+<li>Check that the metadata for “phytocnt” are in the metadata document for “phytotaxa”</li>
+<li>convert all variable names in the metadata and field to snake_case</li>
+</ul>
+</div>
+<div id="naming-conventions" class="section level2">
+<h2>Naming Conventions</h2>
+<ul>
+<li>All variable names in lowercase</li>
+<li>use snake case for compound names (e.g., big_data)</li>
+</ul>
+</div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<pre class="r"><code>kali&lt;-'Y:/data/NLA2012/raw_data/'  #location of data files
-datasets&lt;-read.csv(paste(kali,'NLA2012_data_sources.csv',sep=''))
-
-kable(datasets[,1:3])</code></pre>
+<p>The National Lake Assessment data are available online at: <a href="https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys" class="uri">https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys</a>. The data include 20 data files and 19 metadata files (according to the website two of the datasets share metadata). All files were downloaded to our server Kali. This server limited access so if you want the data you use the following script to download and save the data: <a href="https://github.com/willbmisled/lakes_database/blob/master/R/download_data_from_nla.Rmd" class="uri">https://github.com/willbmisled/lakes_database/blob/master/R/download_data_from_nla.Rmd</a>. NOTE: some of the original metadata files are in tab delimited format. This script changes them to csv format. The downloaded files will include:</p>
+<pre><code>## [1] 2.302585</code></pre>
 <table>
 <thead>
 <tr class="header">
 <th align="left">type</th>
 <th align="left">dataset</th>
 <th align="left">filename</th>
+<th align="left">filename_old</th>
 </tr>
 </thead>
 <tbody>
@@ -142,204 +155,262 @@ kable(datasets[,1:3])</code></pre>
 <td align="left">data</td>
 <td align="left">Algal Toxin</td>
 <td align="left">nla2012_algaltoxins_08192016.csv</td>
+<td align="left">nla2012_algaltoxins_08192016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Algal Toxin</td>
+<td align="left">nla2012_algaltoxins_meta_08192016.csv</td>
 <td align="left">nla2012_algaltoxins_meta_08192016.txt</td>
-</tr>
-<tr class="odd">
-<td align="left">data</td>
-<td align="left">All</td>
-<td align="left">nla_2012_condition_categories.csv</td>
-</tr>
-<tr class="even">
-<td align="left">metadata</td>
-<td align="left">All</td>
-<td align="left">nla_2012_condition_categories_meta.csv</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Atrazine</td>
 <td align="left">nla2012_atrazine_08192016.csv</td>
+<td align="left">nla2012_atrazine_08192016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Atrazine</td>
+<td align="left">nla2012_atrazine_meta_08192016.csv</td>
 <td align="left">nla2012_atrazine_meta_08192016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Benthic Macroinvertebrates</td>
 <td align="left">nla2012_bentcond_08232016.csv</td>
+<td align="left">nla2012_bentcond_08232016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Benthic Macroinvertebrates</td>
+<td align="left">nla2012_bentcond_meta_08232016.csv</td>
 <td align="left">nla2012_bentcond_meta_08232016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Benthic Macroinvertebrates</td>
 <td align="left">nla2012_bentmet.csv</td>
+<td align="left">nla2012_bentmet.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Benthic Macroinvertebrates</td>
+<td align="left">nla2012_bentmet_meta.csv</td>
 <td align="left">nla2012_bentmet_meta.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Benthic Macroinvertebrates</td>
 <td align="left">nla2012_benttaxa_wide_10272015.csv</td>
+<td align="left">nla2012_benttaxa_wide_10272015.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Benthic Macroinvertebrates</td>
+<td align="left">nla2012_benttaxa_wide_meta_10272015.csv</td>
 <td align="left">nla2012_benttaxa_wide_meta_10272015.txt</td>
-</tr>
-<tr class="odd">
-<td align="left">data</td>
-<td align="left">Benthic Macroinvertebrates</td>
-<td align="left">nla2012_wide_benthic_08232016.csv</td>
-</tr>
-<tr class="even">
-<td align="left">metadata</td>
-<td align="left">Benthic Macroinvertebrates</td>
-<td align="left">nla2012_wide_benthic_meta_08232016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Chlorophyll-a</td>
 <td align="left">nla2012_chla_wide.csv</td>
+<td align="left">nla2012_chla_wide.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Chlorophyll-a</td>
+<td align="left">nla2012_chla_wide_meta.csv</td>
 <td align="left">nla2012_chla_wide_meta.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
-<td align="left">Physical Habitat</td>
-<td align="left">nla2012_wide_phab_08232016_0.csv</td>
+<td align="left">Condition Category</td>
+<td align="left">nla_2012_condition_categories.csv</td>
+<td align="left">nla_2012_condition_categories.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
-<td align="left">Physical Habitat</td>
-<td align="left">nla2012_wide_phab_meta_08232016.txt</td>
-</tr>
-<tr class="odd">
-<td align="left">data</td>
-<td align="left">Physical Habitat</td>
-<td align="left">nla2012_wide_phabmet_10202016.csv</td>
-</tr>
-<tr class="even">
-<td align="left">metadata</td>
-<td align="left">Physical Habitat</td>
-<td align="left">nla2012_wide_phabmet_meta_08232016.txt</td>
+<td align="left">Condition Category</td>
+<td align="left">nla_2012_condition_categories_meta.csv</td>
+<td align="left">nla_2012_condition_categories_meta.csv</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Phytoplankton</td>
 <td align="left">nla2012_phytocnt_02122014.csv</td>
+<td align="left">nla2012_phytocnt_02122014.csv</td>
 </tr>
 <tr class="even">
+<td align="left">metadata</td>
+<td align="left">Phytoplankton</td>
+<td align="left">SEE: nla2012_phytotaxa_wide_meta_10272015.csv</td>
+<td align="left">SEE: nla2012_phytotaxa_wide_meta_10272015.txt</td>
+</tr>
+<tr class="odd">
 <td align="left">data</td>
 <td align="left">Phytoplankton</td>
 <td align="left">nla2012_phytotaxa_wide_10272015.csv</td>
-</tr>
-<tr class="odd">
-<td align="left">metadata</td>
-<td align="left">Phytoplankton</td>
-<td align="left">nla2012_phytotaxa_wide_meta_10272015.txt</td>
+<td align="left">nla2012_phytotaxa_wide_10272015.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Phytoplankton</td>
-<td align="left">SEE: nla2012_phytotaxa_wide_meta_10272015.txt</td>
+<td align="left">nla2012_phytotaxa_wide_meta_10272015.csv</td>
+<td align="left">nla2012_phytotaxa_wide_meta_10272015.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Secchi</td>
 <td align="left">nla2012_secchi_08232016.csv</td>
+<td align="left">nla2012_secchi_08232016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Secchi</td>
+<td align="left">nla2012_secchi_meta_08232016.csv</td>
 <td align="left">nla2012_secchi_meta_08232016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Sediment</td>
 <td align="left">nla2012_topsedhg_08192016.csv</td>
+<td align="left">nla2012_topsedhg_08192016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Sediment</td>
+<td align="left">nla2012_topsedhg_meta_08192016.csv</td>
 <td align="left">nla2012_topsedhg_meta_08192016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
-<td align="left">Site Information</td>
-<td align="left">nla2012_wide_siteinfo_08232016.csv</td>
-</tr>
-<tr class="even">
-<td align="left">metadata</td>
-<td align="left">Site Information</td>
-<td align="left">nla2012_wide_siteinfo_meta_08232016.txt</td>
-</tr>
-<tr class="odd">
-<td align="left">metadata</td>
-<td align="left">Water Chemistry</td>
-<td align="left">nla2012_waterchem_meta.txt</td>
-</tr>
-<tr class="even">
-<td align="left">data</td>
 <td align="left">Water Chemistry</td>
 <td align="left">nla2012_waterchem_wide.csv</td>
+<td align="left">nla2012_waterchem_wide.csv</td>
+</tr>
+<tr class="even">
+<td align="left">metadata</td>
+<td align="left">Water Chemistry</td>
+<td align="left">nla2012_waterchem_meta.csv</td>
+<td align="left">nla2012_waterchem_meta.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">data</td>
+<td align="left">Benthic Macroinvertebrates</td>
+<td align="left">nla2012_wide_benthic_08232016.csv</td>
+<td align="left">nla2012_wide_benthic_08232016.csv</td>
+</tr>
+<tr class="even">
+<td align="left">metadata</td>
+<td align="left">Benthic Macroinvertebrates</td>
+<td align="left">nla2012_wide_benthic_meta_08232016.csv</td>
+<td align="left">nla2012_wide_benthic_meta_08232016.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">data</td>
+<td align="left">Physical Habitat</td>
+<td align="left">nla2012_wide_phab_08232016_0.csv</td>
+<td align="left">nla2012_wide_phab_08232016_0.csv</td>
+</tr>
+<tr class="even">
+<td align="left">metadata</td>
+<td align="left">Physical Habitat</td>
+<td align="left">nla2012_wide_phab_meta_08232016.csv</td>
+<td align="left">nla2012_wide_phab_meta_08232016.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">data</td>
+<td align="left">Physical Habitat</td>
+<td align="left">nla2012_wide_phabmet_10202016.csv</td>
+<td align="left">nla2012_wide_phabmet_10202016.csv</td>
+</tr>
+<tr class="even">
+<td align="left">metadata</td>
+<td align="left">Physical Habitat</td>
+<td align="left">nla2012_wide_phabmet_meta_08232016.csv</td>
+<td align="left">nla2012_wide_phabmet_meta_08232016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Water Chemistry</td>
 <td align="left">nla2012_wide_profile_08232016.csv</td>
+<td align="left">nla2012_wide_profile_08232016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Water Chemistry</td>
+<td align="left">nla2012_wide_profile_meta_08232016.csv</td>
 <td align="left">nla2012_wide_profile_meta_08232016.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">data</td>
+<td align="left">Site Information</td>
+<td align="left">nla2012_wide_siteinfo_08232016.csv</td>
+<td align="left">nla2012_wide_siteinfo_08232016.csv</td>
+</tr>
+<tr class="even">
+<td align="left">metadata</td>
+<td align="left">Site Information</td>
+<td align="left">nla2012_wide_siteinfo_meta_08232016.csv</td>
+<td align="left">nla2012_wide_siteinfo_meta_08232016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Zooplankton</td>
 <td align="left">nla2012_zoopcond_08192016.csv</td>
+<td align="left">nla2012_zoopcond_08192016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Zooplankton</td>
+<td align="left">nla2012_zoopcond_meta_08192016.csv</td>
 <td align="left">nla2012_zoopcond_meta_08192016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Zooplankton</td>
 <td align="left">nla2012_zoopmets_08192016.csv</td>
+<td align="left">nla2012_zoopmets_08192016.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Zooplankton</td>
+<td align="left">nla2012_zoopmets_meta_08192016.csv</td>
 <td align="left">nla2012_zoopmets_meta_08192016.txt</td>
 </tr>
 <tr class="odd">
 <td align="left">data</td>
 <td align="left">Zooplankton</td>
 <td align="left">nla2012_zooptaxa_wide_10272015.csv</td>
+<td align="left">nla2012_zooptaxa_wide_10272015.csv</td>
 </tr>
 <tr class="even">
 <td align="left">metadata</td>
 <td align="left">Zooplankton</td>
+<td align="left">nla2012_zooptaxa_wide_meta_10272015.csv</td>
 <td align="left">nla2012_zooptaxa_wide_meta_10272015.txt</td>
 </tr>
 </tbody>
 </table>
+<div id="make-a-master-file-of-the-data-definitions" class="section level3">
+<h3>Make a master file of the data definitions</h3>
+<p>The NLA data are in 20 flat files. Each flat file has many repeated fields for location and logistics. We need to figure out which fields are unique to each dataset. A good start will be to bring all the metadata together in a single file. The steps include:</p>
+<ul>
+<li>look at the datasets and give each file a short name to use in the master metadata file.
+<ul>
+<li>the filename already has a unique shortname. It just need to be extracted.</li>
+<li>convert the dataset values to snake case (e.g., Algal Toxin = algal_toxin)</li>
+<li>NOTE: the metadata for “phytocnt” are in the metadata document for “phytotaxa”</li>
+</ul></li>
+<li><p>First problem, column_names are not the same for all metadata. To fix this:</p>
+<ul>
+<li>Rename name=“PARAMETER” and name=“VARIABLE” to name=“DATA_COLUMN”</li>
+<li>Rename name=“LABEL” to name=“DESCRIPTION”</li>
+<li>delete column TABLE_NAME when it occurs</li>
+</ul></li>
+</ul>
+</div>
 </div>
 
 

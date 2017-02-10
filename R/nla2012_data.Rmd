@@ -1,40 +1,115 @@
 ---
-title: "nla2012_data"
-author: "Bryan"
-date: "February 7, 2017"
+title: nla2012_data
+author: Bryan
+date: February 7, 2017
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-options("stringsAsFactors" = FALSE) 
+options(stringsAsFactors = FALSE) 
 library(knitr)
 library(tidyverse)
 
+
+#location of data files
+kali<-'Y:/data/NLA2012/raw_data/'
+
 ```
+## To Do
+* Check that the metadata for "phytocnt" are in the metadata document for "phytotaxa"
+* convert all variable names in the metadata and field to snake_case
+* no description for "SAM_CODE" in the metadata record for waterchem
+
+## Naming Conventions
+* All variable names in lowercase
+* use snake case for compound names (e.g., big_data)
+
 
 ## Introduction
 
-The National Lake Assessment data are available online at: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  The data include 20 data files and 19 metadata files (according to the website two of the datasets share metadata).  All files were downloaded to our server Kali.  This server is not public facing so if you want the data you use the following script to download and save the data: 
-
-'Y:/data/NLA2012/raw_data/'  #location of data files
+The National Lake Assessment data are available online at: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  The data include 20 data files and 19 metadata files (according to the website two of the datasets share metadata).  All files were downloaded to our server Kali.  This server limited access so if you want the data you use the following script to download and save the data: https://github.com/willbmisled/lakes_database/blob/master/R/download_data_from_nla.Rmd.  NOTE: some of the original metadata files are in tab delimited format.  This script changes them to csv format.  The downloaded files will include:
 
 ```{r kable, include=TRUE, echo=FALSE}
-datasets<-read.csv('./data/NLA2012_data_sources.csv',sep=',')
+#the following read.csv command depends on the directory.  When working from the command line the need to use the working directory
+#when using knitR it depends on the directory where the .rmd file is found.
+#the following code can be used to look in two different directories for the same file.
+datasets<-tryCatch(read.csv('../data/NLA2012_data_sources.csv',sep=','),warning = function(e) read.csv('data/NLA2012_data_sources.csv',sep=','))
 
-kable(datasets[,2:4])
+tryErr<-function(x){    #simple tryCatch function returns NA for errors
+    tryCatch(log(x),error = function(e) NA)
+}
+
+tryErr(10)
+
+kable(datasets[,2:5])
 ```
 
-* Make a master file of the data definitions
+###Make a master file of the data definitions
+The NLA data are in 20 flat files.  Each flat file has many repeated fields for location and logistics.  We need to figure out which fields are unique to each dataset.  A good start will be to bring all the metadata together in a single file.  The steps include:
 
-```{r meta, include=TRUE, echo=FALSE}
-#metadata files
+* look at the datasets and give each file a short name to use in the master metadata file.
+    - the filename already has a unique shortname.  It just need to be extracted.
+    - convert the dataset values to snake case (e.g., Algal Toxin = algal_toxin)
+    - NOTE: the metadata for "phytocnt" are in the metadata document for "phytotaxa"
+
+```{r shortname, include=TRUE, echo=FALSE}
+#add a shorTname to a subset of the datasets file.
 m<-filter(datasets,type=='metadata')[-8,] %>%
     select(dataset,filename)
 m$filename_short<-as.vector(sapply(m$filename,function(x) unlist(strsplit(x,"_"))[2]))
-m$filename_short[grep('nla2012_wide',m$filename)]<-as.vector(sapply(m$filename[grep('nla2012_wide',m$filename)],function(x) unlist(strsplit(x,"_"))[3]))
-
-
-
+m$filename_short[grep('nla2012_wide',m$filename)]<-as.vector(sapply(m$filename[grep('nla2012_wide',m$filename)],function(x)
+    unlist(strsplit(x,"_"))[3]))
+m$filename_short[grep('nla_2012',m$filename)]<-"condition"
+m$dataset<-gsub(" ","_",tolower(m$dataset))
 ```
+
+* First problem, column_names are not the same for all metadata.  To fix this:
+    - The variable name is called "PARAMETER", "VARIABLE", or "DATA_COLUMN" depending on the metadata file
+      - For all files this was changed to "DATA_COLUMN"
+    - Most metadata files have a column called "LABEL" that defines the "DATA_COLUMN" but some have this information in two columns; one called "LABEL" and the other "DESCRIPTION".  Fortunately for each line only one or the other is used.
+      - The data from both columns are combined and named "DESCRIPTION"
+    - A few metadata records have an extra column "TABLE_NAME" this seems to be a shorthand for the datasource; it was deleted.
+
+    - Rename name="PARAMETER" and name="VARIABLE" to name="DATA_COLUMN"
+    - Rename name="LABEL" to name="DESCRIPTION"
+    - delete column TABLE_NAME when it occurs
+    
+* Wait; some metadata have both LABEL and DESCRIPTION columns but only one has information
+* no description for "SAM_CODE" in table waterchem
+    
+
+```{r harvest, include=TRUE, echo=FALSE}
+meta<-c() #empty space to hold the data
+for(i in c(1:nrow(m))){
+#for(i in c(1:4)){
+#read the data
+  a<-read.csv(paste(kali,m$filename[i],sep=''),sep=',',na.strings = c(""," "))
+#rename some column_names (if they exist) and delete one column (if it exists)
+  names(a)[names(a)%in%c("PARAMETER","VARIABLE")]<-"DATA_COLUMN" 
+  #names(a)[names(a)%in%c("LABEL")]<-"DESCRIPTION" #this doesn't work; see below
+  a<-select(a, -matches("TABLE_NAME"))
+#add filename
+  #a$dataset<-m$dataset[i]
+  #a$filename<-m$filename[i]
+  a$filename_short<-m$filename_short[i]
+  a$order=i
+#add to meta
+  meta<-bind_rows(meta,a)
+}
+
+#combine DESCRIPTION and LABEL then drop LABEL
+meta$DESCRIPTION<-ifelse(is.na(meta$LABEL),meta$DESCRIPTION,meta$LABEL)
+meta<-select(meta, -matches("LABEL"))
+
+#write the table
+write.table(meta, file='data/meta.csv',row.names=F,sep=',')
+```
+
+
+length(meta$DATA_COLUMN) #1926
+length(unique(meta$DATA_COLUMN)) #1716
+length(unique(meta$DESCRIPTION)) #1656
+
+
