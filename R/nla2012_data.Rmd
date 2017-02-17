@@ -112,4 +112,32 @@ length(meta$DATA_COLUMN) #1926
 length(unique(meta$DATA_COLUMN)) #1716
 length(unique(meta$DESCRIPTION)) #1656
 
+chk<-distinct(select(meta, DATA_COLUMN, DESCRIPTION)) 
+nrow(chk) #1727
+
+des<-as.data.frame(table(chk$DESCRIPTION))
+rep<-filter(des,Freq>1)[,1]
+temp<-arrange(filter(chk,DESCRIPTION%in%rep),DESCRIPTION)
+write.table(temp, file='data/temp.csv',row.names=F,sep=',')
+
+col<-as.data.frame(table(chk$DATA_COLUMN))
+rep1<-filter(col,Freq>1)[,1]
+temp1<-arrange(filter(chk,DATA_COLUMN%in%rep1),DATA_COLUMN)
+write.table(temp1, file='data/temp1.csv',row.names=F,sep=',')
+
+
+* descriptions are fine-some redundancy but basically okay
+* missing description for
+* ycoord description wrong
+* check col_names with multiple description and choose one for all.
+
+* after changes check that length(unique(meta$DATA_COLUMN)) = length(unique(meta) without DESCRIPTION & filename)
+* crosstab of meta by filenames
+* 
+
+
+
+
+
+
 
