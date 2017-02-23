@@ -1,0 +1,234 @@
+"SAMPLE_TYPE","DATA_COLUMN","LABEL","LEGAL_VALUES","RANGE_HIGH","RANGE_LOW","UNITS"
+"CHEM","ANC_DATE_ANALYZED","Date of sample analysis for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_HOLDING_TIME","Sample holding time for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_QA_FLAG","QA flag associated with sample for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_RESULT","Analyte value for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_BATCH_ID","Batch ID from lab for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_FLAG","Flag for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_UNITS","Units for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_LAB_SAMPLE_ID","Laboratory Sample ID for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","ANC_LAB_FLAG","Flag from laboratory for Acid Neutralizing Capacity",NA,NA,NA,NA
+"CHEM","COND_DATE_ANALYZED","Date of sample analysis for Conductivity",NA,NA,NA,NA
+"CHEM","COND_HOLDING_TIME","Sample holding time for Conductivity",NA,NA,NA,NA
+"CHEM","COND_MDL","Minimum detection limit of analyte for Conductivity",NA,NA,NA,NA
+"CHEM","COND_QA_FLAG","QA flag associated with sample for Conductivity",NA,NA,NA,NA
+"CHEM","COND_RESULT","Analyte value for Conductivity",NA,NA,NA,NA
+"CHEM","COND_RL","Reporting limit for Conductivity",NA,NA,NA,NA
+"CHEM","COND_BATCH_ID","Batch ID from lab for Conductivity",NA,NA,NA,NA
+"CHEM","COND_FLAG","Flag for Conductivity",NA,NA,NA,NA
+"CHEM","COND_UNITS","Units for Conductivity",NA,NA,NA,NA
+"CHEM","COND_LAB_SAMPLE_ID","Laboratory Sample ID for Conductivity",NA,NA,NA,NA
+"CHEM","COND_LAB_FLAG","Flag from laboratory for Conductivity",NA,NA,NA,NA
+"CHEM","PH_DATE_ANALYZED","Date of sample analysis for pH",NA,NA,NA,NA
+"CHEM","PH_HOLDING_TIME","Sample holding time for pH",NA,NA,NA,NA
+"CHEM","PH_QA_FLAG","QA flag associated with sample for pH",NA,NA,NA,NA
+"CHEM","PH_RESULT","Analyte value for pH",NA,NA,NA,NA
+"CHEM","PH_BATCH_ID","Batch ID from lab for pH",NA,NA,NA,NA
+"CHEM","PH_FLAG","Flag for pH",NA,NA,NA,NA
+"CHEM","PH_UNITS","Units for pH",NA,NA,NA,NA
+"CHEM","PH_LAB_SAMPLE_ID","Laboratory Sample ID for pH",NA,NA,NA,NA
+"CHEM","PH_LAB_FLAG","Flag from laboratory for pH",NA,NA,NA,NA
+"CHEM","TURB_DATE_ANALYZED","Date of sample analysis for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_HOLDING_TIME","Sample holding time for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_MDL","Minimum detection limit of analyte for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_QA_FLAG","QA flag associated with sample for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_RESULT","Analyte value for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_RL","Reporting limit for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_BATCH_ID","Batch ID from lab for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_FLAG","Flag for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_UNITS","Units for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_LAB_SAMPLE_ID","Laboratory Sample ID for Turbidity",NA,NA,NA,NA
+"CHEM","TURB_LAB_FLAG","Flag from laboratory for Turbidity",NA,NA,NA,NA
+"CHEM","COLOR_DATE_ANALYZED","Date of sample analysis for Color",NA,NA,NA,NA
+"CHEM","COLOR_HOLDING_TIME","Sample holding time for Color",NA,NA,NA,NA
+"CHEM","COLOR_MDL","Minimum detection limit of analyte for Color",NA,NA,NA,NA
+"CHEM","COLOR_QA_FLAG","QA flag associated with sample for Color",NA,NA,NA,NA
+"CHEM","COLOR_RESULT","Analyte value for Color",NA,NA,NA,NA
+"CHEM","COLOR_RL","Reporting limit for Color",NA,NA,NA,NA
+"CHEM","COLOR_BATCH_ID","Batch ID from lab for Color",NA,NA,NA,NA
+"CHEM","COLOR_FLAG","Flag for Color",NA,NA,NA,NA
+"CHEM","COLOR_UNITS","Units for Color",NA,NA,NA,NA
+"CHEM","COLOR_LAB_SAMPLE_ID","Laboratory Sample ID for Color",NA,NA,NA,NA
+"CHEM","COLOR_LAB_FLAG","Flag from laboratory for Color",NA,NA,NA,NA
+"CHEM","CHLORIDE_DATE_ANALYZED","Date of sample analysis for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_HOLDING_TIME","Sample holding time for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_MDL","Minimum detection limit of analyte for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_QA_FLAG","QA flag associated with sample for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_RESULT","Analyte value for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_RL","Reporting limit for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_BATCH_ID","Batch ID from lab for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_FLAG","Flag for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_UNITS","Units for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_LAB_SAMPLE_ID","Laboratory Sample ID for Chloride ion",NA,NA,NA,NA
+"CHEM","CHLORIDE_LAB_FLAG","Flag from laboratory for Chloride ion",NA,NA,NA,NA
+"CHEM","NITRATE_N_DATE_ANALYZED","Date of sample analysis for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_HOLDING_TIME","Sample holding time for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_MDL","Minimum detection limit of analyte for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_QA_FLAG","QA flag associated with sample for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_RESULT","Analyte value for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_RL","Reporting limit for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_BATCH_ID","Batch ID from lab for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_FLAG","Flag for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_UNITS","Units for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_LAB_SAMPLE_ID","Laboratory Sample ID for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_N_LAB_FLAG","Flag from laboratory for Nitrate as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_DATE_ANALYZED","Date of sample analysis for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_HOLDING_TIME","Sample holding time for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_MDL","Minimum detection limit of analyte for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_QA_FLAG","QA flag associated with sample for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_RESULT","Analyte value for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_RL","Reporting limit for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_BATCH_ID","Batch ID from lab for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_FLAG","Flag for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_UNITS","Units for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_LAB_SAMPLE_ID","Laboratory Sample ID for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRATE_NITRITE_N_LAB_FLAG","Flag from laboratory for Nitrate + Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_DATE_ANALYZED","Date of sample analysis for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_HOLDING_TIME","Sample holding time for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_MDL","Minimum detection limit of analyte for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_QA_FLAG","QA flag associated with sample for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_RESULT","Analyte value for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_RL","Reporting limit for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_BATCH_ID","Batch ID from lab for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_UNITS","Units for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_LAB_SAMPLE_ID","Laboratory Sample ID for Nitrite as N",NA,NA,NA,NA
+"CHEM","NITRITE_N_LAB_FLAG","Flag from laboratory for Nitrite as N",NA,NA,NA,NA
+"CHEM","SILICA_DATE_ANALYZED","Date of sample analysis for Silica",NA,NA,NA,NA
+"CHEM","SILICA_HOLDING_TIME","Sample holding time for Silica",NA,NA,NA,NA
+"CHEM","SILICA_MDL","Minimum detection limit of analyte for Silica",NA,NA,NA,NA
+"CHEM","SILICA_QA_FLAG","QA flag associated with sample for Silica",NA,NA,NA,NA
+"CHEM","SILICA_RESULT","Analyte value for Silica",NA,NA,NA,NA
+"CHEM","SILICA_RL","Reporting limit for Silica",NA,NA,NA,NA
+"CHEM","SILICA_BATCH_ID","Batch ID from lab for Silica",NA,NA,NA,NA
+"CHEM","SILICA_FLAG","Flag for Silica",NA,NA,NA,NA
+"CHEM","SILICA_UNITS","Units for Silica",NA,NA,NA,NA
+"CHEM","SILICA_LAB_SAMPLE_ID","Laboratory Sample ID for Silica",NA,NA,NA,NA
+"CHEM","SILICA_LAB_FLAG","Flag from laboratory for Silica",NA,NA,NA,NA
+"CHEM","SULFATE_DATE_ANALYZED","Date of sample analysis for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_HOLDING_TIME","Sample holding time for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_MDL","Minimum detection limit of analyte for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_QA_FLAG","QA flag associated with sample for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_RESULT","Analyte value for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_RL","Reporting limit for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_BATCH_ID","Batch ID from lab for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_FLAG","Flag for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_UNITS","Units for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_LAB_SAMPLE_ID","Laboratory Sample ID for Sulfate",NA,NA,NA,NA
+"CHEM","SULFATE_LAB_FLAG","Flag from laboratory for Sulfate",NA,NA,NA,NA
+"CHEM","ALUMINUM_DATE_ANALYZED","Date of sample analysis for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_HOLDING_TIME","Sample holding time for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_MDL","Minimum detection limit of analyte for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_QA_FLAG","QA flag associated with sample for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_RESULT","Analyte value for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_RL","Reporting limit for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_BATCH_ID","Batch ID from lab for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_UNITS","Units for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_LAB_SAMPLE_ID","Laboratory Sample ID for Aluminum",NA,NA,NA,NA
+"CHEM","ALUMINUM_LAB_FLAG","Flag from laboratory for Aluminum",NA,NA,NA,NA
+"CHEM","CALCIUM_DATE_ANALYZED","Date of sample analysis for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_HOLDING_TIME","Sample holding time for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_MDL","Minimum detection limit of analyte for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_QA_FLAG","QA flag associated with sample for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_RESULT","Analyte value for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_RL","Reporting limit for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_BATCH_ID","Batch ID from lab for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_FLAG","Flag for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_UNITS","Units for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_LAB_SAMPLE_ID","Laboratory Sample ID for Calcium",NA,NA,NA,NA
+"CHEM","CALCIUM_LAB_FLAG","Flag from laboratory for Calcium",NA,NA,NA,NA
+"CHEM","AMMONIA_N_DATE_ANALYZED","Date of sample analysis for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_HOLDING_TIME","Sample holding time for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_MDL","Minimum detection limit of analyte for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_QA_FLAG","QA flag associated with sample for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_RESULT","Analyte value for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_RL","Reporting limit for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_BATCH_ID","Batch ID from lab for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_UNITS","Units for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_LAB_SAMPLE_ID","Laboratory Sample ID for Ammonia as N",NA,NA,NA,NA
+"CHEM","AMMONIA_N_LAB_FLAG","Flag from laboratory for Ammonia as N",NA,NA,NA,NA
+"CHEM","DOC_DATE_ANALYZED","Date of sample analysis for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_HOLDING_TIME","Sample holding time for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_MDL","Minimum detection limit of analyte for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_QA_FLAG","QA flag associated with sample for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_RESULT","Analyte value for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_RL","Reporting limit for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_BATCH_ID","Batch ID from lab for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_FLAG","Flag for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_UNITS","Units for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_LAB_SAMPLE_ID","Laboratory Sample ID for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","DOC_LAB_FLAG","Flag from laboratory for Dissolved Organic Carbon",NA,NA,NA,NA
+"CHEM","SODIUM_DATE_ANALYZED","Date of sample analysis for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_HOLDING_TIME","Sample holding time for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_MDL","Minimum detection limit of analyte for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_QA_FLAG","QA flag associated with sample for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_RESULT","Analyte value for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_RL","Reporting limit for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_BATCH_ID","Batch ID from lab for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_FLAG","Flag for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_UNITS","Units for Sodium",NA,NA,NA,NA
+"CHEM","SODIUM_LAB_SAMPLE_ID","Laboratory Sample ID for Sodium",NA,NA,NA,NA
+"CHEM","TSS_DATE_ANALYZED","Date of sample analysis for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_HOLDING_TIME","Sample holding time for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_MDL","Minimum detection limit of analyte for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_QA_FLAG","QA flag associated with sample for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_RESULT","Analyte value for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_RL","Reporting limit for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_BATCH_ID","Batch ID from lab for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_FLAG","Flag for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_UNITS","Units for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","TSS_LAB_SAMPLE_ID","Laboratory Sample ID for Total Suspended Solids",NA,NA,NA,NA
+"CHEM","MAGNESIUM_DATE_ANALYZED","Date of sample analysis for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_HOLDING_TIME","Sample holding time for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_MDL","Minimum detection limit of analyte for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_QA_FLAG","QA flag associated with sample for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_RESULT","Analyte value for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_RL","Reporting limit for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_BATCH_ID","Batch ID from lab for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_FLAG","Flag for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_UNITS","Units for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_LAB_SAMPLE_ID","Laboratory Sample ID for Magnesium",NA,NA,NA,NA
+"CHEM","MAGNESIUM_LAB_FLAG","Flag from laboratory for Magnesium",NA,NA,NA,NA
+"CHEM","POTASSIUM_DATE_ANALYZED","Date of sample analysis for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_HOLDING_TIME","Sample holding time for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_MDL","Minimum detection limit of analyte for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_QA_FLAG","QA flag associated with sample for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_RESULT","Analyte value for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_RL","Reporting limit for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_BATCH_ID","Batch ID from lab for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_FLAG","Flag for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_UNITS","Units for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_LAB_SAMPLE_ID","Laboratory Sample ID for Potassium",NA,NA,NA,NA
+"CHEM","POTASSIUM_LAB_FLAG","Flag from laboratory for Potassium",NA,NA,NA,NA
+"CHEM","TOC_HOLDING_TIME","Sample holding time for Total Organic Carbon",NA,NA,NA,NA
+"CHEM","TOC_RESULT","Analyte value for Total Organic Carbon",NA,NA,NA,NA
+"CHEM","TOC_BATCH_ID","Batch ID from lab for Total Organic Carbon",NA,NA,NA,NA
+"CHEM","TOC_UNITS","Units for Total Organic Carbon",NA,NA,NA,NA
+"NUTS","NTL_QA_FLAG","QA flag associated with sample for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_MDL","Minimum detection limit of analyte for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_LAB_SAMPLE_ID","Laboratory Sample ID for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_DATE_ANALYZED","Date of sample analysis for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_HOLDING_TIME","Sample holding time for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_LAB_FLAG","Flag from laboratory for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_UNITS","Units for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_BATCH_ID","Batch ID from lab for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_FLAG","Flag for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_RESULT","Analyte value for Total Nitrogen",NA,NA,NA,NA
+"NUTS","NTL_RL","Reporting limit for Total Nitrogen",NA,NA,NA,NA
+"NUTS","PTL_QA_FLAG","QA flag associated with sample for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_MDL","Minimum detection limit of analyte for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_LAB_SAMPLE_ID","Laboratory Sample ID for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_DATE_ANALYZED","Date of sample analysis for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_HOLDING_TIME","Sample holding time for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_LAB_FLAG","Flag from laboratory for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_UNITS","Units for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_BATCH_ID","Batch ID from lab for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_FLAG","Flag for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_RESULT","Analyte value for Total Phosphorus",NA,NA,NA,NA
+"NUTS","PTL_RL","Reporting limit for Total Phosphorus",NA,NA,NA,NA
+"","CHEM_SAMPLE_ID","Chemistry Sample ID",NA,NA,NA,NA
+"","CHEM_SHIP_FLAG","Chemistry Shipping Flag",NA,NA,NA,NA
+"","LAB","Lab name",NA,NA,NA,NA
+"","NUTS_SAMPLE_ID","Nutrients Sample ID",NA,NA,NA,NA
+"","NUTS_SHIP_FLAG","Nutrients Shipping Flag",NA,NA,NA,NA
+"","SAM_CODE","",NA,NA,NA,NA
+"","UID","Unique site visit ID",NA,NA,NA,NA
