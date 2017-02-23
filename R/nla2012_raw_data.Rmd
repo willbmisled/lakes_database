@@ -8,65 +8,112 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-options("stringsAsFactors" = FALSE) 
+options(stringsAsFactors = FALSE) 
+library(knitr)
 
 ```
 
 ## Introduction
+* This document describes the process of downloading and storing the raw data for the 2012 National Lakes Assessment.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/tree/master/data/nla2012_master).
 
-* This script downloads the 20 data files and 19 metadata files for the 2012 National Lake assessment from: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
-* All files were saved to: 'Y:/data/NLA2012/raw_data/' on Kali
-    - if you re-run the script you have the option to change the save location
-    - also to re-run the script change eval=FALSE to eval=TRUE
-* Some of the metadata files were in tab delimited format.  These were all converted to csv on save.
+* The NLA2012 data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
+
+* The NLA2012 data comprise 20 data and 19 metadata files (according to the website two of the datasets share metadata).  
+
+* Some of the original metadata files are in tab delimited format. These were resaved as CSV files to match the other data and metadata files.
+
+* Information on the raw data including the file type (data or metadata), the indicator (shortname for the dataset from the NARS website), dataset (our shorter name for the dataset), the final filename, the original filename (filename_old), and the URL is contained in the csv file (/data/raw_data/nla2012_raw_data_sources).
+
+* The indicator, dataset, filename, and filename_old information for the data are shown below.
+
+
+```{r kable, include=TRUE, echo=FALSE}
+raw<-read.csv('../data/raw_data/nla2012_raw_data_sources.csv',sep=',')
+kable(raw[,c(2:5)])
+```
+
+* The code used to download are in the two chunks below.
 
 ```{r get_data, include=TRUE, eval=FALSE}
-#set the location to store the files
-kali<-'Y:/data/NLA2012/raw_data/'  #location of data files
+a1<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_algaltoxins_08192016.csv')
+a2<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_algaltoxins_meta_08192016.txt',sep='\t', header=TRUE)
+a3<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_atrazine_08192016.csv')
+a4<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_atrazine_meta_08192016.txt',sep='\t', header=TRUE)
+a5<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentcond_08232016.csv')
+a6<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentcond_meta_08232016.txt',sep='\t', header=TRUE)
+a7<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentmet.csv')
+a8<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentmet_meta.txt',sep='\t', header=TRUE)
+a9<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_benttaxa_wide_10272015.csv')
+a10<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_benttaxa_wide_meta_10272015.txt',sep='\t', header=TRUE)
+a11<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_chla_wide.csv')
+a12<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_chla_wide_meta.txt',sep='\t', header=TRUE)
+a13<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla_2012_condition_categories.csv')
+a14<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla_2012_condition_categories_meta.csv')
+a15<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytocnt_02122014.csv')
+a17<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytotaxa_wide_10272015.csv')
+a18<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytotaxa_wide_meta_10272015.txt',sep='\t', header=TRUE)
+a19<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_secchi_08232016.csv')
+a20<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_secchi_meta_08232016.txt',sep='\t', header=TRUE)
+a21<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_topsedhg_08192016.csv')
+a22<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_topsedhg_meta_08192016.txt',sep='\t', header=TRUE)
+a23<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_waterchem_wide.csv')
+a24<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_waterchem_meta.txt',sep='\t', header=TRUE)
+a25<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_wide_benthic_08232016.csv')
+a26<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_wide_benthic_meta_08232016.txt',sep='\t', header=TRUE)
+a27<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phab_08232016_0.csv')
+a28<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phab_meta_08232016.txt',sep='\t', header=TRUE)
+a29<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_10202016.csv')
+a30<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_meta_08232016.txt',sep='\t', header=TRUE)
+a31<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_08232016.csv')
+a32<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_meta_08232016.txt',sep='\t', header=TRUE)
+a33<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_08232016.csv')
+a34<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_meta_08232016.txt',sep='\t', header=TRUE)
+a35<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopcond_08192016.csv')
+a36<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopcond_meta_08192016.txt',sep='\t', header=TRUE)
+a37<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopmets_08192016.csv')
+a38<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopmets_meta_08192016.txt',sep='\t', header=TRUE)
+a39<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zooptaxa_wide_10272015.csv')
+a40<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zooptaxa_wide_meta_10272015.txt',sep='\t', header=TRUE)
+```
 
-#code to download the 20 files and their metadata
-
-a1<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_algaltoxins_08192016.csv');write.table(a1,paste(kali,'nla2012_algaltoxins_08192016.csv',sep=''),row.names=F,sep=',')
-a2<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_algaltoxins_meta_08192016.txt',sep='\t', header=TRUE);write.table(a2,paste(kali,'nla2012_algaltoxins_meta_08192016.csv',sep=''),row.names=F,sep=',')
-a3<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_atrazine_08192016.csv');write.table(a3,paste(kali,'nla2012_atrazine_08192016.csv',sep=''),row.names=F,sep=',')
-a4<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_atrazine_meta_08192016.txt',sep='\t', header=TRUE);write.table(a4,paste(kali,'nla2012_atrazine_meta_08192016.csv',sep=''),row.names=F,sep=',')
-a5<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentcond_08232016.csv');write.table(a5,paste(kali,'nla2012_bentcond_08232016.csv',sep=''),row.names=F,sep=',')
-a6<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentcond_meta_08232016.txt',sep='\t', header=TRUE);write.table(a6,paste(kali,'nla2012_bentcond_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a7<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentmet.csv');write.table(a7,paste(kali,'nla2012_bentmet.csv',sep=''),row.names=F,sep=',')
-a8<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_bentmet_meta.txt',sep='\t', header=TRUE);write.table(a8,paste(kali,'nla2012_bentmet_meta.csv',sep=''),row.names=F,sep=',')
-a9<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_benttaxa_wide_10272015.csv');write.table(a9,paste(kali,'nla2012_benttaxa_wide_10272015.csv',sep=''),row.names=F,sep=',')
-a10<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_benttaxa_wide_meta_10272015.txt',sep='\t', header=TRUE);write.table(a10,paste(kali,'nla2012_benttaxa_wide_meta_10272015.csv',sep=''),row.names=F,sep=',')
-a11<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_chla_wide.csv');write.table(a11,paste(kali,'nla2012_chla_wide.csv',sep=''),row.names=F,sep=',')
-a12<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_chla_wide_meta.txt',sep='\t', header=TRUE);write.table(a12,paste(kali,'nla2012_chla_wide_meta.csv',sep=''),row.names=F,sep=',')
-a13<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla_2012_condition_categories.csv');write.table(a13,paste(kali,'nla_2012_condition_categories.csv',sep=''),row.names=F,sep=',')
-a14<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla_2012_condition_categories_meta.csv');write.table(a14,paste(kali,'nla_2012_condition_categories_meta.csv',sep=''),row.names=F,sep=',')
-a15<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytocnt_02122014.csv');write.table(a15,paste(kali,'nla2012_phytocnt_02122014.csv',sep=''),row.names=F,sep=',')
-
-a17<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytotaxa_wide_10272015.csv');write.table(a17,paste(kali,'nla2012_phytotaxa_wide_10272015.csv',sep=''),row.names=F,sep=',')
-a18<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_phytotaxa_wide_meta_10272015.txt',sep='\t', header=TRUE);write.table(a18,paste(kali,'nla2012_phytotaxa_wide_meta_10272015.csv',sep=''),row.names=F,sep=',')
-a19<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_secchi_08232016.csv');write.table(a19,paste(kali,'nla2012_secchi_08232016.csv',sep=''),row.names=F,sep=',')
-a20<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_secchi_meta_08232016.txt',sep='\t', header=TRUE);write.table(a20,paste(kali,'nla2012_secchi_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a21<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_topsedhg_08192016.csv');write.table(a21,paste(kali,'nla2012_topsedhg_08192016.csv',sep=''),row.names=F,sep=',')
-a22<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_topsedhg_meta_08192016.txt',sep='\t', header=TRUE);write.table(a22,paste(kali,'nla2012_topsedhg_meta_08192016.csv',sep=''),row.names=F,sep=',')
-a23<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_waterchem_wide.csv');write.table(a23,paste(kali,'nla2012_waterchem_wide.csv',sep=''),row.names=F,sep=',')
-a24<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_waterchem_meta.txt',sep='\t', header=TRUE);write.table(a24,paste(kali,'nla2012_waterchem_meta.csv',sep=''),row.names=F,sep=',')
-a25<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_wide_benthic_08232016.csv');write.table(a25,paste(kali,'nla2012_wide_benthic_08232016.csv',sep=''),row.names=F,sep=',')
-a26<-read.table('https://www.epa.gov/sites/production/files/2016-11/nla2012_wide_benthic_meta_08232016.txt',sep='\t', header=TRUE);write.table(a26,paste(kali,'nla2012_wide_benthic_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a27<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phab_08232016_0.csv');write.table(a27,paste(kali,'nla2012_wide_phab_08232016_0.csv',sep=''),row.names=F,sep=',')
-a28<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phab_meta_08232016.txt',sep='\t', header=TRUE);write.table(a28,paste(kali,'nla2012_wide_phab_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a29<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_10202016.csv');write.table(a29,paste(kali,'nla2012_wide_phabmet_10202016.csv',sep=''),row.names=F,sep=',')
-a30<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_meta_08232016.txt',sep='\t', header=TRUE);write.table(a30,paste(kali,'nla2012_wide_phabmet_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a31<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_08232016.csv');write.table(a31,paste(kali,'nla2012_wide_profile_08232016.csv',sep=''),row.names=F,sep=',')
-a32<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_meta_08232016.txt',sep='\t', header=TRUE);write.table(a32,paste(kali,'nla2012_wide_profile_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a33<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_08232016.csv');write.table(a33,paste(kali,'nla2012_wide_siteinfo_08232016.csv',sep=''),row.names=F,sep=',')
-a34<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_meta_08232016.txt',sep='\t', header=TRUE);write.table(a34,paste(kali,'nla2012_wide_siteinfo_meta_08232016.csv',sep=''),row.names=F,sep=',')
-a35<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopcond_08192016.csv');write.table(a35,paste(kali,'nla2012_zoopcond_08192016.csv',sep=''),row.names=F,sep=',')
-a36<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopcond_meta_08192016.txt',sep='\t', header=TRUE);write.table(a36,paste(kali,'nla2012_zoopcond_meta_08192016.csv',sep=''),row.names=F,sep=',')
-a37<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopmets_08192016.csv');write.table(a37,paste(kali,'nla2012_zoopmets_08192016.csv',sep=''),row.names=F,sep=',')
-a38<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zoopmets_meta_08192016.txt',sep='\t', header=TRUE);write.table(a38,paste(kali,'nla2012_zoopmets_meta_08192016.csv',sep=''),row.names=F,sep=',')
-a39<-read.csv('https://www.epa.gov/sites/production/files/2016-12/nla2012_zooptaxa_wide_10272015.csv');write.table(a39,paste(kali,'nla2012_zooptaxa_wide_10272015.csv',sep=''),row.names=F,sep=',')
-a40<-read.table('https://www.epa.gov/sites/production/files/2016-12/nla2012_zooptaxa_wide_meta_10272015.txt',sep='\t', header=TRUE);write.table(a40,paste(kali,'nla2012_zooptaxa_wide_meta_10272015.csv',sep=''),row.names=F,sep=',')
-
-
-
+```{r save_data, include=TRUE, eval=FALSE}
+write.table(a1,'../data/raw_data/nla2012_algaltoxins_08192016.csv',row.names=F,sep=',')
+write.table(a2,'../data/raw_data/nla2012_algaltoxins_meta_08192016.csv',row.names=F,sep=',')
+write.table(a3,'../data/raw_data/nla2012_atrazine_08192016.csv',row.names=F,sep=',')
+write.table(a4,'../data/raw_data/nla2012_atrazine_meta_08192016.csv',row.names=F,sep=',')
+write.table(a5,'../data/raw_data/nla2012_bentcond_08232016.csv',row.names=F,sep=',')
+write.table(a6,'../data/raw_data/nla2012_bentcond_meta_08232016.csv',row.names=F,sep=',')
+write.table(a7,'../data/raw_data/nla2012_bentmet.csv',row.names=F,sep=',')
+write.table(a8,'../data/raw_data/nla2012_bentmet_meta.csv',row.names=F,sep=',')
+write.table(a9,'../data/raw_data/nla2012_benttaxa_wide_10272015.csv',row.names=F,sep=',')
+write.table(a10,'../data/raw_data/nla2012_benttaxa_wide_meta_10272015.csv',row.names=F,sep=',')
+write.table(a11,'../data/raw_data/nla2012_chla_wide.csv',row.names=F,sep=',')
+write.table(a12,'../data/raw_data/nla2012_chla_wide_meta.csv',row.names=F,sep=',')
+write.table(a13,'../data/raw_data/nla_2012_condition_categories.csv',row.names=F,sep=',')
+write.table(a14,'../data/raw_data/nla_2012_condition_categories_meta.csv',row.names=F,sep=',')
+write.table(a15,'../data/raw_data/nla2012_phytocnt_02122014.csv',row.names=F,sep=',')
+write.table(a17,'../data/raw_data/nla2012_phytotaxa_wide_10272015.csv',row.names=F,sep=',')
+write.table(a18,'../data/raw_data/nla2012_phytotaxa_wide_meta_10272015.csv',row.names=F,sep=',')
+write.table(a19,'../data/raw_data/nla2012_secchi_08232016.csv',row.names=F,sep=',')
+write.table(a20,'../data/raw_data/nla2012_secchi_meta_08232016.csv',row.names=F,sep=',')
+write.table(a21,'../data/raw_data/nla2012_topsedhg_08192016.csv',row.names=F,sep=',')
+write.table(a22,'../data/raw_data/nla2012_topsedhg_meta_08192016.csv',row.names=F,sep=',')
+write.table(a23,'../data/raw_data/nla2012_waterchem_wide.csv',row.names=F,sep=',')
+write.table(a24,'../data/raw_data/nla2012_waterchem_meta.csv',row.names=F,sep=',')
+write.table(a25,'../data/raw_data/nla2012_wide_benthic_08232016.csv',row.names=F,sep=',')
+write.table(a26,'../data/raw_data/nla2012_wide_benthic_meta_08232016.csv',row.names=F,sep=',')
+write.table(a27,'../data/raw_data/nla2012_wide_phab_08232016_0.csv',row.names=F,sep=',')
+write.table(a28,'../data/raw_data/nla2012_wide_phab_meta_08232016.csv',row.names=F,sep=',')
+write.table(a29,'../data/raw_data/nla2012_wide_phabmet_10202016.csv',row.names=F,sep=',')
+write.table(a30,'../data/raw_data/nla2012_wide_phabmet_meta_08232016.csv',row.names=F,sep=',')
+write.table(a31,'../data/raw_data/nla2012_wide_profile_08232016.csv',row.names=F,sep=',')
+write.table(a32,'../data/raw_data/nla2012_wide_profile_meta_08232016.csv',row.names=F,sep=',')
+write.table(a33,'../data/raw_data/nla2012_wide_siteinfo_08232016.csv',row.names=F,sep=',')
+write.table(a34,'../data/raw_data/nla2012_wide_siteinfo_meta_08232016.csv',row.names=F,sep=',')
+write.table(a35,'../data/raw_data/nla2012_zoopcond_08192016.csv',row.names=F,sep=',')
+write.table(a36,'../data/raw_data/nla2012_zoopcond_meta_08192016.csv',row.names=F,sep=',')
+write.table(a37,'../data/raw_data/nla2012_zoopmets_08192016.csv',row.names=F,sep=',')
+write.table(a38,'../data/raw_data/nla2012_zoopmets_meta_08192016.csv',row.names=F,sep=',')
+write.table(a39,'../data/raw_data/nla2012_zooptaxa_wide_10272015.csv',row.names=F,sep=',')
+write.table(a40,'../data/raw_data/nla2012_zooptaxa_wide_meta_10272015.csv',row.names=F,sep=',')
 ```

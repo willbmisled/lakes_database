@@ -1,7 +1,7 @@
 ---
-title: nla2012_data
+title: nla2012_metadata
 author: Bryan
-date: February 21, 2017
+date: February 23, 2017
 output: html_document
 ---
 
@@ -47,6 +47,10 @@ datasets$dataset[grep('nla2012_wide',datasets$filename)]<-as.vector(sapply(datas
 datasets$dataset[grep('nla_2012',datasets$filename)]<-"condition"
 datasets$dataset[grep('bentmet.csv',datasets$filename)]<-"bentmet"
 datasets$indicator<-gsub(" ","_",tolower(datasets$indicator))
+
+#change order
+raw<-datasets[,c(1:3,8,4:6)]
+write.table(raw,'../data/raw_data/nla2012_raw_data_sources.csv',row.names=F,sep=',')
 
 kable(datasets[,c(4,5,8)])
 ```

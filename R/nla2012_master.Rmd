@@ -7,3 +7,25 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## To Do
+* Create data dictionary files (nla2012_meta) for all files
+* 
+
+## Introduction
+* The National Lake Assessment (NLA) is part of the EPA National Aquatic Resource Surveys (NARS).  NARS data are collected every five years on a rotating basis for lakes (NLA), wetlands, coastal areas, and rivers and streams (see: https://www.epa.gov/national-aquatic-resource-surveys).  The first lake assessment was completed in 2007 and the second in 2012. The NARS data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  
+
+* As part of the EPA Safe and Sustainable Waters (SSWR) research program "Reducing the Impacts of Harmful Algal Blooms" (SSWR4.01c) we are compiling data on all lakes in the USA.  The NLA 2012 data are important part of this.  This document explains the process we are using to complile the NLA2012 data.
+
+### Raw Data
+
+* The NLA2012 data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
+
+* The NLA2012 data comprise 20 data and 19 metadata files (according to the website two of the datasets share metadata).
+
+* All files were downloaded to the directory ['data/raw_data'](https://github.com/willbmisled/lakes_database/tree/master/data/raw_data)
+
+* Information on the download  and saving process are in [nla2012_raw_data.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_raw_data.Rmd)
+
+### Metadata
+
+* The metadata supplied for the NLA2012 raw data includes the data dictionaries only.
