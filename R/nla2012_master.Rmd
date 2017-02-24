@@ -8,13 +8,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## To Do
-* Create data dictionary files (nla2012_meta) for all files
-* 
+* Create real metadata for the database.
 
 ## Introduction
-* The National Lake Assessment (NLA) is part of the EPA National Aquatic Resource Surveys (NARS).  NARS data are collected every five years on a rotating basis for lakes (NLA), wetlands, coastal areas, and rivers and streams (see: https://www.epa.gov/national-aquatic-resource-surveys).  The first lake assessment was completed in 2007 and the second in 2012. The NARS data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  
-
+* The National Lake Assessment (NLA) is part of the EPA National Aquatic Resource Surveys (NARS).  NARS data are collected every five years on a rotating basis for lakes (NLA), wetlands, coastal areas, and rivers and streams (see: https://www.epa.gov/national-aquatic-resource-surveys).  The first lake assessment was completed in 2007 and the second in 2012. 
 * As part of the EPA Safe and Sustainable Waters (SSWR) research program "Reducing the Impacts of Harmful Algal Blooms" (SSWR4.01c) we are compiling data on all lakes in the USA.  The NLA 2012 data are important part of this.  This document explains the process we are using to complile the NLA2012 data.
+
+* This document [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd) gives an overview of the process of downloading and assembling all the NLA2012 data into a single database for analysis.
 
 ### Raw Data
 
@@ -28,4 +28,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Metadata
 
-* The metadata supplied for the NLA2012 raw data includes the data dictionaries only.
+* The metadata supplied for the NLA2012 raw data includes the data dictionaries only.  For now we'll use this as the metadata for the database.
+
+* Information on the metadata (data dictionary) creating and the files that are available to access it can found in [nla2012_metadata.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_metadata.Rmd)
+
+
+
+
+
+### The data

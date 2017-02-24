@@ -14,7 +14,7 @@ library(knitr)
 ```
 
 ## Introduction
-* This document describes the process of downloading and storing the raw data for the 2012 National Lakes Assessment.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/tree/master/data/nla2012_master).
+* This document ([nla2012_raw_data.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_raw_data.Rmd) describes the process of downloading and storing the raw data for the 2012 National Lakes Assessment.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
 
 * The NLA2012 data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
 
@@ -22,7 +22,7 @@ library(knitr)
 
 * Some of the original metadata files are in tab delimited format. These were resaved as CSV files to match the other data and metadata files.
 
-* Information on the raw data including the file type (data or metadata), the indicator (shortname for the dataset from the NARS website), dataset (our shorter name for the dataset), the final filename, the original filename (filename_old), and the URL is contained in the csv file (/data/raw_data/nla2012_raw_data_sources).
+* Information on the raw data including the file type (data or metadata), the indicator (shortname for the dataset from the NARS website), dataset (our shorter name for the dataset), the final filename, the original filename (filename_old), and the URL is contained in the csv file [nla2012_raw_data_sources.csv](https://github.com/willbmisled/lakes_database/blob/master/data/NLA2012_data_sources.csv).
 
 * The indicator, dataset, filename, and filename_old information for the data are shown below.
 
@@ -32,7 +32,8 @@ raw<-read.csv('../data/raw_data/nla2012_raw_data_sources.csv',sep=',')
 kable(raw[,c(2:5)])
 ```
 
-* The code used to download are in the two chunks below.
+* All files were downloaded to the directory ['data/raw_data'](https://github.com/willbmisled/lakes_database/tree/master/data/raw_data)
+* The code used to download and save the data are in the two chunks below.
 
 ```{r get_data, include=TRUE, eval=FALSE}
 a1<-read.csv('https://www.epa.gov/sites/production/files/2016-11/nla2012_algaltoxins_08192016.csv')

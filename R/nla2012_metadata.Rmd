@@ -11,11 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 options(stringsAsFactors = FALSE) 
 library(knitr)
 library(tidyverse)
-
-
-#location of data files
-kali<-'Y:/data/NLA2012/raw_data/'
-
 ```
 ## To Do
 * Check that the metadata for "phytocnt" are in the metadata document for "phytotaxa"
@@ -26,80 +21,60 @@ kali<-'Y:/data/NLA2012/raw_data/'
 * All variable names in lowercase
 * use snake case for compound names (e.g., big_data)
 
-
 ## Introduction
 
-The National Lake Assessment data are available online at: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys.  The data include 20 data files and 19 metadata files (according to the website two of the datasets share metadata).  All files were downloaded to our server Kali.  This server has limited access so if you want the data you use the following script to download and save the data: https://github.com/willbmisled/lakes_database/blob/master/R/download_data_from_nla.Rmd.  
+* This document ([nla2012_metadata.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_metadata.Rmd)) describes the process of downloading and compiling the metadata for the 2012 National Lakes Assessment.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
 
-NOTE: some of the original metadata files are in tab delimited format.  This script changes them to csv format.  So some of the names (the extensions) will change. A field called dataset with an abbreviated name based on the filename was added to more easily track the datasets.  Both the data and the metadata for a sampling effort will have the same dataset but different filenames.
+* The NLA2012 data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
 
+* The NLA2012 data comprise 20 data and 19 metadata files (according to the website two of the datasets share metadata).
 
-The downloaded files with their original, new names, and shortnames are shown below:
+* All files were downloaded to the directory ['data/raw_data'](https://github.com/willbmisled/lakes_database/tree/master/data/raw_data)
 
+* Information on the download  and saving process are in [nla2012_raw_data.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_raw_data.Rmd)
 
-```{r kable, include=TRUE, echo=FALSE}
-datasets<-read.csv('../data/NLA2012_data_sources.csv',sep=',')
+* The metadata for the 2012 NLA only includes the data dictionaries for the 20 data files.  At some point we will need to generate complete metadata records.
 
-#add a shorTname to a subset of the datasets file.
-datasets$dataset<-as.vector(sapply(datasets$filename,function(x) unlist(strsplit(x,"_"))[2]))
-datasets$dataset[grep('nla2012_wide',datasets$filename)]<-as.vector(sapply(datasets$filename[grep('nla2012_wide',datasets$filename)],function(x)
-    unlist(strsplit(x,"_"))[3]))
-datasets$dataset[grep('nla_2012',datasets$filename)]<-"condition"
-datasets$dataset[grep('bentmet.csv',datasets$filename)]<-"bentmet"
-datasets$indicator<-gsub(" ","_",tolower(datasets$indicator))
+* Each dataset is a flat file that contains the data collected for each indicator group and some general information on the sampling and each site.  The indicator data should be unique but the general information is repeated in every dataset.
 
-#change order
-raw<-datasets[,c(1:3,8,4:6)]
-write.table(raw,'../data/raw_data/nla2012_raw_data_sources.csv',row.names=F,sep=',')
+* For our database we will combine all of the metadata into a single file and then generate two csv file to store it.  The two files are:
+    - [nla2012_metadat_long.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_long.csv): a file with all of the metadata records for each dataset together in long format (see below).  This will be useful for extracting the data definitions for each dataset.  It includes repeats of some data definitions.
+    - [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv): this file has the data definitions in wide format; the rows are the unique data definitions and the columns indicate which datasets they belong to.
+ 
+### Data steps   
 
-kable(datasets[,c(4,5,8)])
-```
-
-###Make a master file of the data definitions
-
-* The NLA data are in 20 flat files
-* Each flat file has a combination of unique fields and some fields having to do with sampling, location or logistics.
-* The sampling, location, and logistics fields are repeated across datasets.
 * GOAL: to combine all the metadata files into a single file and to remove redundancies.
+
+* Read and combine the raw metadata records
+
 * First problem, column_names are not the same for all metadata files.  
-    - The variable name is called "PARAMETER", "VARIABLE", or "DATA_COLUMN" depending on the metadata file
-      - For all files this was changed to "field"
-    - Most metadata files have a column called "LABEL" that defines the "field" but some have this information in two columns; one called "LABEL" and the other "DESCRIPTION".  Fortunately for each line only one or the other is used.
-      - The data from both columns are combined and named "description"
+    - Each record has a column with the variable name; The name of this column is not standardized.  Three names are used: "PARAMETER", "VARIABLE", or "DATA_COLUMN".  For all files the column name was changed to "field"
+    - Most metadata files have a column called "LABEL" for each variable's data definition.  In some files, however, this information is in two columns; one called "LABEL" and the other "DESCRIPTION".  Fortunately for each line only one or the other is used. The data from both columns (LABEL and DESCRIPTION) were combined and named "description"
+
 * Decide which field to keep. The fields to delete are:
-    - "TABLE_NAME": Not in all meta data records; this seems to be a shorthand for the datasource
+    - "TABLE_NAME": Not included in all meta data records; this seems to be a shorthand for the datasource
     - "SAMPLE_TYPE": This seems to be a shorthand for the datasource; may relate to table name in the original database used to derive the flat files.
     - "LEGAL_VALUES": for categorical data these are the acceptable values.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
     - "RANGE_HIGH": probably for QA. Appears to be the highest acceptable values for the field.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
     - "RANGE_LOW": probably for QA. Appears to be the lowest acceptable values for the field.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
-* Field to keep:
-    
-   
-   
-   
-    - Rename name="PARAMETER", name="VARIABLE" or name="DATA_COLUMN" to name="field"
-    - Rename name="LABEL" to name="DESCRIPTION"
-    - delete column TABLE_NAME when it occurs
-
 
 ```{r harvest, include=TRUE, echo=FALSE}
-m<-filter(datasets,type=='metadata')[-8,] %>%
-    select(dataset,filename,dataset)
+#get a list of the metadata files
+m<-read.csv('../data/raw_data/nla2012_raw_data_sources.csv',sep=',')
+
+m<-filter(m,type=='metadata')[-8,] %>%
+    select(dataset,filename)
 
 meta<-c() #empty space to hold the data
 for(i in c(1:nrow(m))){
-#for(i in c(1:4)){
 #read the data
-  a<-read.csv(paste(kali,m$filename[i],sep=''),sep=',',na.strings = c(""," "))
+  a<-read.csv(paste('../data/raw_data/',m$filename[i],sep=''),sep=',',na.strings = c(""," "))
 #rename some column_names (if they exist) 
   names(a)[names(a)%in%c("PARAMETER","VARIABLE")]<-"DATA_COLUMN" 
 #delete field "TABLE_NAME"  
   a<-select(a, -matches("TABLE_NAME"))
 #add filename
-  #a$dataset<-m$dataset[i]
-  #a$filename<-m$filename[i]
   a$dataset<-m$dataset[i]
-  #a$order=i
 #add to meta
   meta<-bind_rows(meta,a)
 }
@@ -109,9 +84,8 @@ meta$DESCRIPTION<-ifelse(is.na(meta$LABEL),meta$DESCRIPTION,meta$LABEL)
 meta<-select(meta, -matches("LABEL"))
 
 #rename 'DATA_COLUMN' to 'field'
-#meta<-rename(meta,field=DATA_COLUMN)
 #rename 'DESCRIPTION' to 'description'
-#meta<-rename(meta,description=DESCRIPTION)
+#keep columns dataset, field, units, and description
 
 meta<-select(meta,dataset,field=DATA_COLUMN,units=UNITS,description=DESCRIPTION)
 ```
@@ -120,11 +94,10 @@ meta<-select(meta,dataset,field=DATA_COLUMN,units=UNITS,description=DESCRIPTION)
     - many of the description fields are used for multiple column_names; mostly in the phab data; fine as is.
     - some of the DATA_COLUMN have slight variations in the descriptions.  We will choose one description for each DATA_COLUMN value.
     - YCOORD has the wrong information.  We can recover the correct description from "XCOORD"
-* Check the units fields for inconsistencies and redundancy
+
+* Check the units field for inconsistencies and redundancy
     - Change "M" to "m"
     - Change "NA", "None", "NONE" to NA
-
-
 
 ```{r newDesc, include=FALSE, echo=FALSE}
 #remove leading and trailing spaces in the DESCRIPTION
@@ -179,9 +152,14 @@ des<-as.data.frame(table(chk$field))
 rep<-filter(des,Freq>1)[,1]  #none
 ```
 
+* 
 * Create the meta_wide field-a crosstab showing the fields(rows) and the datasets (columns)
+* Create the final output files in csv format
+    - nla2012_metadat_long.csv
+    - nla2012_metadat_wide.csv
+* Write CSV files to the ['data'](https://github.com/willbmisled/lakes_database/tree/master/data/raw_data) directory
 
-```{r spread, include=FALSE, echo=FALSE}
+```{r spread, include=FALSE, echo=FALSE, warning=FALSE}
 #create pivot table of field(rows) by dataset(columns)
 a<-spread(as.data.frame(table(meta$field,meta$dataset)),Var2,Freq)%>%
     rename(field=Var1)
@@ -192,12 +170,20 @@ b<-distinct(select(meta, field, units,description))
 #join to pivot
 meta_wide<-left_join(b,a)
 
-#data dictionaries
-
 #write the final files
-#write.table(meta_long, file='../data/meta_long.csv',row.names=F,sep=',')
-#write.table(meta_wide, file='../data/meta_wide.csv',row.names=F,sep=',')
-#write.table(datasets, file='../data/datasets.csv',row.names=F,sep=',')
-#save(meta_long,meta_wide,datasets,file='../data/meta2012.rda')
+write.table(meta, file='../data/nla2012_metadat_long.csv',row.names=F,sep=',')
+write.table(meta_wide, file='../data/nla2012_metadat_wide.csv',row.names=F,sep=',')
 ```
 
+### Data definitions for the metadata files
+
+* [nla2012_metadat_long.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_long.csv) has `r nrow(meta)` rows and `r ncol(meta)` columns. The data definitions for the column names (fields) are: 
+
+field  | description
+------------- | -------------
+dataset  | shorthand name of original file.  See: 
+
+
+
+: a file with all of the metadata records for each dataset together in long format (see below).  This will be useful for extracting the data definitions for each dataset.  It includes repeats of some data definitions.
+    - [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)
