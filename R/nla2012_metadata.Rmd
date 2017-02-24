@@ -57,10 +57,13 @@ library(tidyverse)
     - "LEGAL_VALUES": for categorical data these are the acceptable values.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
     - "RANGE_HIGH": probably for QA. Appears to be the highest acceptable values for the field.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
     - "RANGE_LOW": probably for QA. Appears to be the lowest acceptable values for the field.  Not consistent across datasets so it will be eliminated.  Refer to the original metadata if this is of interest.
+    
+* Fields to keep are  "dataset", "field", "units", and "description".
+* There is some redundancy in the data.frame so select the unique values
 
-```{r harvest, include=TRUE, echo=FALSE}
+```{r harvest, include=FALSE, echo=FALSE}
 #get a list of the metadata files
-m<-read.csv('../data/raw_data/nla2012_raw_data_sources.csv',sep=',')
+m<-read.csv('../data/nla2012_raw_data_sources.csv',sep=',')
 
 m<-filter(m,type=='metadata')[-8,] %>%
     select(dataset,filename)
@@ -79,15 +82,29 @@ for(i in c(1:nrow(m))){
   meta<-bind_rows(meta,a)
 }
 
+
 #combine DESCRIPTION and LABEL then drop LABEL
 meta$DESCRIPTION<-ifelse(is.na(meta$LABEL),meta$DESCRIPTION,meta$LABEL)
 meta<-select(meta, -matches("LABEL"))
+
+#remove leading and trailing spaces from all fields
+  meta$description<-trimws(meta$DESCRIPTION)
+  meta$description<-trimws(meta$DATA_COLUMN)
+  meta$description<-trimws(meta$UNITS)
+  meta$description<-trimws(meta$dataset)
 
 #rename 'DATA_COLUMN' to 'field'
 #rename 'DESCRIPTION' to 'description'
 #keep columns dataset, field, units, and description
 
-meta<-select(meta,dataset,field=DATA_COLUMN,units=UNITS,description=DESCRIPTION)
+#get unique values for all fields
+
+nrow(meta) #1926
+
+meta<-select(meta,dataset,field=DATA_COLUMN,units=UNITS,description=DESCRIPTION)%>%
+  distinct()
+
+nrow(meta) #1893
 ```
 
 * Check the field and DESCRIPTION fields for redundancy
@@ -100,11 +117,8 @@ meta<-select(meta,dataset,field=DATA_COLUMN,units=UNITS,description=DESCRIPTION)
     - Change "NA", "None", "NONE" to NA
 
 ```{r newDesc, include=FALSE, echo=FALSE}
-#remove leading and trailing spaces in the DESCRIPTION
-  meta$description<-trimws(meta$description)
-
 #check lengths and look for redundancy in the column names and descriptions
-length(meta$field) #1926
+length(meta$field) #1893
 length(unique(meta$field)) #1716
 length(unique(meta$description)) #1655
 
@@ -129,14 +143,13 @@ a$description[!is.na(a$new)]<-a$new[!is.na(a$new)]
 meta<-select(a,-new)
 
 #check lengths and look for redundancy in the column names and descriptions
-length(meta$field) #1926 unchanged
+length(meta$field) #1893 unchanged
 length(unique(meta$field)) #1716 unchanged
 length(unique(meta$description)) #1655 change to 1646
 
 nrow(distinct(select(meta, field, description))) #1726 change to 1716
 
 #check for inconsistencies in the field "units"
-meta$units<-trimws(meta$units)
 arrange(distinct(select(meta, units)),units)
 
 #make some changes for consistency
@@ -154,6 +167,7 @@ rep<-filter(des,Freq>1)[,1]  #none
 
 * 
 * Create the meta_wide field-a crosstab showing the fields(rows) and the datasets (columns)
+    - still some redundancy in the long form.  Change all crosstab values > 1 to 1
 * Create the final output files in csv format
     - nla2012_metadat_long.csv
     - nla2012_metadat_wide.csv
@@ -170,6 +184,14 @@ b<-distinct(select(meta, field, units,description))
 #join to pivot
 meta_wide<-left_join(b,a)
 
+#change values >1 to 1
+meta_wide[,4:22][meta_wide[,4:22]>1]<-1
+
+
+#sort the data.frames
+meta<-arrange(meta,field)
+meta_wide<-arrange(meta_wide,field)
+
 #write the final files
 write.table(meta, file='../data/nla2012_metadat_long.csv',row.names=F,sep=',')
 write.table(meta_wide, file='../data/nla2012_metadat_wide.csv',row.names=F,sep=',')
@@ -180,10 +202,36 @@ write.table(meta_wide, file='../data/nla2012_metadat_wide.csv',row.names=F,sep='
 * [nla2012_metadat_long.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_long.csv) has `r nrow(meta)` rows and `r ncol(meta)` columns. The data definitions for the column names (fields) are: 
 
 field  | description
-------------- | -------------
-dataset  | shorthand name of original file.  See: 
+------------- | -------------------------------------------------------------------------
+dataset  | shorthand name of original file.  See: [nla2012_raw_data_sources.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_raw_data_sources.csv)
+field | the variable name
+units | if applicable, the units for the variable
+description | a description of the variable
 
+* [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv) has `r nrow(meta_wide)` rows and `r ncol(meta_wide)` columns. The data definitions for the column names (fields) are: 
 
+field  | description
+------------- | -------------------------------------------------------------------------
+field | the variable name
+units | if applicable, the units for the variable
+description | a description of the variable
+algaltoxins | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included. 
+atrazine | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+bentcond | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+benthic  | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+bentmet  | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.    
+benttaxa | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+chla | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.         
+condition | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.    
+phab | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.         
+phabmet | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.      
+phytotaxa | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.    
+profile | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.      
+secchi | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.      
+siteinfo | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+topsedhg | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+waterchem | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.    
+zoopcond | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+zoopmets | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.     
+zooptaxa | Reference to dataset in [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)); 1 = this variable included in the dataset; 0 = not included.   
 
-: a file with all of the metadata records for each dataset together in long format (see below).  This will be useful for extracting the data definitions for each dataset.  It includes repeats of some data definitions.
-    - [nla2012_metadat_wide.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv)

@@ -22,13 +22,13 @@ library(knitr)
 
 * Some of the original metadata files are in tab delimited format. These were resaved as CSV files to match the other data and metadata files.
 
-* Information on the raw data including the file type (data or metadata), the indicator (shortname for the dataset from the NARS website), dataset (our shorter name for the dataset), the final filename, the original filename (filename_old), and the URL is contained in the csv file [nla2012_raw_data_sources.csv](https://github.com/willbmisled/lakes_database/blob/master/data/NLA2012_data_sources.csv).
+* Information on the raw data including the file type (data or metadata), the indicator (shortname for the dataset from the NARS website), dataset (our shorter name for the dataset), the final filename, the original filename (filename_old), and the URL is contained in the csv file [nla2012_raw_data_sources.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_raw_data_sources.csv).
 
 * The indicator, dataset, filename, and filename_old information for the data are shown below.
 
 
 ```{r kable, include=TRUE, echo=FALSE}
-raw<-read.csv('../data/raw_data/nla2012_raw_data_sources.csv',sep=',')
+raw<-read.csv('../data/nla2012_raw_data_sources.csv',sep=',')
 kable(raw[,c(2:5)])
 ```
 

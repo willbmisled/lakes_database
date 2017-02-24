@@ -173,6 +173,8 @@ $(document).ready(function () {
 <li>“RANGE_HIGH”: probably for QA. Appears to be the highest acceptable values for the field. Not consistent across datasets so it will be eliminated. Refer to the original metadata if this is of interest.</li>
 <li>“RANGE_LOW”: probably for QA. Appears to be the lowest acceptable values for the field. Not consistent across datasets so it will be eliminated. Refer to the original metadata if this is of interest.</li>
 </ul></li>
+<li>Fields to keep are “dataset”, “field”, “units”, and “description”.</li>
+<li><p>There is some redundancy in the data.frame so select the unique values</p></li>
 <li>Check the field and DESCRIPTION fields for redundancy
 <ul>
 <li>many of the description fields are used for multiple column_names; mostly in the phab data; fine as is.</li>
@@ -185,7 +187,10 @@ $(document).ready(function () {
 <li>Change “NA”, “None”, “NONE” to NA</li>
 </ul></li>
 <li></li>
-<li>Create the meta_wide field-a crosstab showing the fields(rows) and the datasets (columns)</li>
+<li>Create the meta_wide field-a crosstab showing the fields(rows) and the datasets (columns)
+<ul>
+<li>still some redundancy in the long form. Change all crosstab values &gt; 1 to 1</li>
+</ul></li>
 <li>Create the final output files in csv format
 <ul>
 <li>nla2012_metadat_long.csv</li>
@@ -197,10 +202,13 @@ $(document).ready(function () {
 <div id="data-definitions-for-the-metadata-files" class="section level3">
 <h3>Data definitions for the metadata files</h3>
 <ul>
-<li><a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_long.csv">nla2012_metadat_long.csv</a> has 1926 rows and 4 columns. The data definitions for the column names (fields) are:</li>
+<li><a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_long.csv">nla2012_metadat_long.csv</a> has 1893 rows and 4 columns. The data definitions for the column names (fields) are:</li>
 </ul>
 <table>
-<caption>a file with all of the metadata records for each dataset together in long format (see below). This will be useful for extracting the data definitions for each dataset. It includes repeats of some data definitions. - <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a></caption>
+<colgroup>
+<col width="15%"></col>
+<col width="84%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th>field</th>
@@ -210,7 +218,124 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td>dataset</td>
-<td>shorthand name of original file. See:</td>
+<td>shorthand name of original file. See: <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_raw_data_sources.csv">nla2012_raw_data_sources.csv</a></td>
+</tr>
+<tr class="even">
+<td>field</td>
+<td>the variable name</td>
+</tr>
+<tr class="odd">
+<td>units</td>
+<td>if applicable, the units for the variable</td>
+</tr>
+<tr class="even">
+<td>description</td>
+<td>a description of the variable</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a> has 1716 rows and 22 columns. The data definitions for the column names (fields) are:</li>
+</ul>
+<table>
+<colgroup>
+<col width="15%"></col>
+<col width="84%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>field</td>
+<td>the variable name</td>
+</tr>
+<tr class="even">
+<td>units</td>
+<td>if applicable, the units for the variable</td>
+</tr>
+<tr class="odd">
+<td>description</td>
+<td>a description of the variable</td>
+</tr>
+<tr class="even">
+<td>algaltoxins</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>atrazine</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>bentcond</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>benthic</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>bentmet</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>benttaxa</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>chla</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>condition</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>phab</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>phabmet</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>phytotaxa</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>profile</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>secchi</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>siteinfo</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>topsedhg</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>waterchem</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>zoopcond</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="odd">
+<td>zoopmets</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
+</tr>
+<tr class="even">
+<td>zooptaxa</td>
+<td>Reference to dataset in <a href="https://github.com/willbmisled/lakes_database/blob/master/data/nla2012_metadat_wide.csv">nla2012_metadat_wide.csv</a>); 1 = this variable included in the dataset; 0 = not included.</td>
 </tr>
 </tbody>
 </table>
