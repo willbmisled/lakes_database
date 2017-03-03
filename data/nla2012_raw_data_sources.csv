@@ -29,7 +29,7 @@ data,physical_habitat,phab,nla2012_wide_phab_08232016_0.csv,nla2012_wide_phab_08
 metadata,physical_habitat,phab,nla2012_wide_phab_meta_08232016.csv,nla2012_wide_phab_meta_08232016.txt,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phab_meta_08232016.txt
 data,physical_habitat,phabmet,nla2012_wide_phabmet_10202016.csv,nla2012_wide_phabmet_10202016.csv,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_10202016.csv
 metadata,physical_habitat,phabmet,nla2012_wide_phabmet_meta_08232016.csv,nla2012_wide_phabmet_meta_08232016.txt,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_phabmet_meta_08232016.txt
-data,water_chemistry,profile,nla2012_wide_profile_08232016.csv,nla2012_wide_profile_08232016.csv,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_08232016.csv
+data,profile,profile,nla2012_wide_profile_08232016.csv,nla2012_wide_profile_08232016.csv,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_08232016.csv
 metadata,water_chemistry,profile,nla2012_wide_profile_meta_08232016.csv,nla2012_wide_profile_meta_08232016.txt,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_profile_meta_08232016.txt
 data,site_information,siteinfo,nla2012_wide_siteinfo_08232016.csv,nla2012_wide_siteinfo_08232016.csv,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_08232016.csv
 metadata,site_information,siteinfo,nla2012_wide_siteinfo_meta_08232016.csv,nla2012_wide_siteinfo_meta_08232016.txt,https://www.epa.gov/sites/production/files/2016-12/nla2012_wide_siteinfo_meta_08232016.txt

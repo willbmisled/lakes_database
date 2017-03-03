@@ -1,5 +1,7 @@
 ---
 title: "nla2012_master"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 output: html_document
 ---
 
@@ -16,6 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * This document [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd) gives an overview of the process of downloading and assembling all the NLA2012 data into a single database for analysis.
 
+## The data
+
 ### Raw Data
 
 * The NLA2012 data are available online: https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys
@@ -26,7 +30,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Information on the download  and saving process are in [nla2012_raw_data.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_raw_data.Rmd)
 
-### Metadata
+### Individual datasets
+#### Waterchem
+* This dataset need to be converted from the wide format to a long format.
+* Process documented here: [nla2012_waterchem.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.rmd)
+
+#### Chla
+* This dataset need to be converted from the wide format to a long format.
+* Process documented here: [nla2012_chla.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_chla.rmd)
+
+
+
+
+## Metadata
 
 * The metadata supplied for the NLA2012 raw data includes the data dictionaries only.  For now we'll use this as the metadata for the database.
 
@@ -36,4 +52,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-### The data
+

@@ -1,0 +1,318 @@
+---
+title: "nla2012_chal"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+library(readxl)
+
+read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
+  a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+  return(a)
+}    
+
+```
+
+```{r formatData_function, include=FALSE}
+#function to reformat the raw NLA data based on a modified data structure file
+formatData<-function(x='nla2012_waterchem_wide.csv',y='waterchem.csv'){
+#read the raw data; trycatch will look for the data in two directories
+a<-tryCatch(read.csv(paste('data/raw_data/',x,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),
+            warning = function(e) read.csv(paste('../data/raw_data/',x,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+
+#get the modified data structure
+struc<-tryCatch(read.csv(paste('data/workfiles/',y,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),
+            warning = function(e) read.csv(paste('../data/workfiles/',y,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+
+#choose columns to keep, gather, or delete
+keeps<-filter(struc,parameter=='column_name')%>%select(DATA_COLUMN)%>% unlist(use.names = FALSE)
+gathers<-filter(struc,parameter!='column_name',column_name!='delete')%>%select(DATA_COLUMN)%>%distinct()%>% unlist(use.names = FALSE)
+deletes<-filter(struc,parameter=='delete')%>%select(DATA_COLUMN)%>% unlist(use.names = FALSE)
+
+#gather 
+wc<-gather(a,DATA_COLUMN,value,one_of(gathers))
+
+#deconstruct the COLUMN_NAME (parameter)
+  #df "struc" has the new row and column names
+    #delete unwanted columns
+a<-left_join(wc,struc)%>%select(-one_of(deletes))
+
+#create new df based on descontructed column_name
+v<-distinct(a,column_name)%>% unlist(use.names = FALSE)
+ch<-select(wc,one_of(keeps)) %>% distinct()
+
+for(i in c(1:length(v))){
+  w<-filter(a,column_name==v[i])%>%
+    select(UID,parameter,value)
+  names(w)[3]<-v[i]
+  ch<-left_join(ch,w)
+}
+
+#output
+return(list(ch,struc))
+}
+```
+
+
+## To Do
+* change character to numeric for result, mdl, rl ???
+* change col_names and character data to snake case
+* use a direct URL link to the raw data?
+
+## Naming Conventions
+* All variable names in lowercase
+* use snake case for compound names (e.g., big_data)
+* use parameter for the variable (e.g., NTL)
+* use value for the measured value of the parameter
+
+## Introduction
+
+* This document ([nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/waterchem.Rmd)) describes  converting the water chemistry data for the 2012 National Lakes Assessment from the wide format of the raw data files to a long format for database development.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
+
+* The output includes the following NLA 2012 datasets
+    - waterchem
+    - chla
+    - algal toxins
+    - atrazine
+    - secchi
+    - profile (partial: only the DO2_2M data are included)
+    
+* Four of these datasets (waterchem, chla, algal toxins, and atrazine) were processed in the same way:
+    
+    -  The original raw data files are in a wide format with two types of column names:
+        - sample specific data: this includes things such as the UID (unique identifier for the sample), the LAB where the data were processed, and sample_ID.
+        - parameter specific data: the names are complex variables indicating the a chemical parameter (e.g. COND=conductivity) and what is reported (e.g RESULT, UNITS, BATCH_ID, etc.).  
+        
+    - Not all of these data are useful to us but we will keep most of them just in case.  The final product may be pruned.
+    
+    - To support the conversion to a long format data structure files were created manually as csv files.  The structure files define which columns are "sample specic", which are "parameter specific" and which should be deleted.  They will be used to convert the paramater specific data to a long format while the sample specific data are kept in the wide format.  Confusing?
+
+* The final two datasets secchi and profile deal with single parameters (secchi and DO2_2M). See details below
+ 
+
+## Data Steps
+
+* a function "formatData" was written to:
+    - import the data and the structure file
+    - reformat the data to a long format
+* each dataset is reformatted and the general structure is defined
+* combine........
+* rearrange
+* rename
+* snake_case
+    
+### waterchem data
+
+```{r waterchem, include=FALSE, echo=FALSE}
+q<-formatData('nla2012_waterchem_wide.csv','waterchem.csv')
+waterchem<-q[[1]]
+struc_waterchem<-q[[2]]
+```
+
+* The following table shows how the raw data will be deconstructed:
+    - DATA_COLUMN: represents the original columns in the raw data
+    - parameter:  in most cases this will be the parameter name in the new dataset except:
+        - parameter=="column_name" indicates this column is sample specific so all unique observations will be kept
+        - parameter=="delete" indicates this column will be deleted from the final data
+
+```{r k_waterchem, include=TRUE, echo=FALSE}
+kable(struc_waterchem)
+```
+
+* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+
+```{r c_waterchem, include=TRUE, echo=FALSE}   
+colnames(waterchem)
+```
+
+* The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
+    
+```{r p_waterchem, include=TRUE, echo=FALSE}   
+unique(waterchem$parameter)
+```
+    
+### chla
+
+* Chlorophyll was measured in the littoral zone (CHLL) and the deep spot (CHLX) these parameters were renamed:
+    - CHLL = 'chla_littoral'
+    - CHLX = 'chla_deep'
+    
+```{r chla, include=FALSE, echo=FALSE}
+q<-formatData('nla2012_chla_wide.csv','chla.csv')
+chla<-q[[1]]
+struc_chla<-q[[2]]
+```
+
+* The following table shows how the raw data will be deconstructed:
+    - DATA_COLUMN: represents the original columns in the raw data
+    - parameter:  in most cases this will be the parameter name in the new dataset except:
+        - parameter=="column_name" indicates this column is sample specific so all unique observations will be kept
+        - parameter=="delete" indicates this column will be deleted from the final data
+
+```{r k_chla, include=TRUE, echo=FALSE}
+kable(struc_chla)
+```
+
+* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+
+```{r c_chla, include=TRUE, echo=FALSE}   
+colnames(chla)
+```
+
+* The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
+    
+```{r p_chla, include=TRUE, echo=FALSE}   
+unique(chla$parameter)
+```
+
+### microcystin
+
+* Microcystin was measured in the littoral zone (MICL) and the deep spot (MICX) these parameters will be renamed:
+    - MICL = 'mic_littoral'
+    - MICX = 'mic_deep'
+    
+```{r mcl, include=FALSE, echo=FALSE}
+q<-formatData('nla2012_algaltoxins_08192016.csv','mcl.csv')
+mcl<-q[[1]]
+struc_mcl<-q[[2]]
+```
+
+* The following table shows how the raw data will be deconstructed:
+    - DATA_COLUMN: represents the original columns in the raw data
+    - parameter:  in most cases this will be the parameter name in the new dataset except:
+        - parameter=="column_name" indicates this column is sample specific so all unique observations will be kept
+        - parameter=="delete" indicates this column will be deleted from the final data
+
+```{r k_mcl, include=TRUE, echo=FALSE}
+kable(struc_mcl)
+```
+
+* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+
+```{r c_mcl, include=TRUE, echo=FALSE}   
+colnames(mcl)
+```
+
+* The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
+    
+```{r p_mcl, include=TRUE, echo=FALSE}   
+unique(mcl$parameter)
+```
+
+### atrazine
+
+```{r atrazine, include=FALSE, echo=FALSE}
+q<-formatData('nla2012_atrazine_08192016.csv','atrazine.csv')
+atrazine<-q[[1]]
+struc_atrazine<-q[[2]]
+```
+
+* The following table shows how the raw data will be deconstructed:
+    - DATA_COLUMN: represents the original columns in the raw data
+    - parameter:  in most cases this will be the parameter name in the new dataset except:
+        - parameter=="column_name" indicates this column is sample specific so all unique observations will be kept
+        - parameter=="delete" indicates this column will be deleted from the final data
+
+```{r k_atrazine, include=TRUE, echo=FALSE}
+kable(struc_atrazine)
+```
+
+* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+
+```{r c_atrazine, include=TRUE, echo=FALSE}   
+colnames(atrazine)
+```
+
+* The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
+    
+```{r p_atrazine, include=TRUE, echo=FALSE}   
+unique(atrazine$parameter)
+```
+
+### secchi
+
+```{r secchi, include=FALSE, echo=FALSE, eval=FALSE}
+#read the raw data; trycatch will look for the data in two directories
+secchi<-tryCatch(read.csv('data/raw_data/nla2012_secchi_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")),
+            warning = function(e) read.csv('data/raw_data/nla2012_secchi_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+
+#add parameter and UNITS
+secchi$parameter<-'secchi'
+secchi$UNITS<-'m'
+
+#rename and reorder
+secchi<-select(secchi,UID,parameter,RESULT=SECCHI,UNITS,secchi_clear_to_bottom=CLEAR_TO_BOTTOM,secchi_disappears=DISAPPEARS,secchi_reappears=REAPPEARS)
+
+#clear to bottom
+secchi$RESULT[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$secchi_clear_to_bottom)]<-NA
+```
+
+* This dataset is mostly in the correct format.
+* NOTE: changed all values for secchi to NA if CLEAR_TO_BOTTOM=='Y'
+* Added: UNITS='m'
+* The table below shows the columns that were added, deleted, or renamed.
+
+```{r k_secchi, include=TRUE, echo=FALSE}
+#get the modified data structure
+struc_secchi<-tryCatch(read.csv('data/workfiles/secchi.csv',sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv('../data/workfiles/secchi.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+kable(struc_secchi)
+```
+
+### do2
+
+```{r do2, include=FALSE, echo=FALSE, eval=FALSE}
+#read the raw data; trycatch will look for the data in two directories
+do2<-tryCatch(read.csv('data/raw_data/nla2012_wide_profile_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv('data/raw_data/nla2012_wide_profile_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+
+#harvest the UID and DO2_2M fields
+do2<-select(do2,UID,DO2_2M)%>%filter(!is.na(DO2_2M))
+
+#add UNITS='mg/l'
+do2$UNITS<-'mg/l'
+
+#add parameter
+do2$parameter<-'do2_2m'
+
+#rename and reorder
+do2<-select(do2,UID,parameter,RESULT=DO2_2M,UNITS)
+
+#
+
+
+```
+
+* Only the UID and DO2_2M columns are harvested from the profile dataset.
+* DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake.  It is based on the profile data.
+* UNITS='mg/l' was added 
+
+
+### join the datasets
+
+* convert (if exist) fields RESULT, MDL, RL, and LOQ to numeric
+* all files joined
+* as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.
+
+
+```{r join, include=FALSE, echo=FALSE,eval=FALSE}
+waterchem<-mutate(waterchem,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
+chla<-mutate(chla,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
+atrazine<-mutate(atrazine,RESULT=as.numeric(RESULT),LOQ=as.numeric(LOQ),MDL=as.numeric(MDL))
+mcl<-mutate(mcl,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
+
+chem<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2)
+
+test<-group_by(chem, parameter) %>%
+      summarize(sum=sum(RESULT, na.rm = TRUE))
+```
+
+
+
+
+

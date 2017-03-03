@@ -71,7 +71,7 @@ m<-filter(m,type=='metadata')[-8,] %>%
 meta<-c() #empty space to hold the data
 for(i in c(1:nrow(m))){
 #read the data
-  a<-read.csv(paste('../data/raw_data/',m$filename[i],sep=''),sep=',',na.strings = c(""," "))
+  a<-read.csv(paste('../data/raw_data/',m$filename[i],sep=''),sep=',',na.strings = c(""," ","NA","N/A"))
 #rename some column_names (if they exist) 
   names(a)[names(a)%in%c("PARAMETER","VARIABLE")]<-"DATA_COLUMN" 
 #delete field "TABLE_NAME"  

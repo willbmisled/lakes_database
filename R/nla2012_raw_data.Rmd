@@ -1,7 +1,7 @@
 ---
 title: "nla2012_raw_data"
-author: "Bryan"
-date: "February 23, 2017"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 output: html_document
 ---
 

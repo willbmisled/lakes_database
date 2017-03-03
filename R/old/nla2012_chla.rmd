@@ -1,0 +1,91 @@
+---
+title: "nla2012_chla"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+library(readxl)
+```
+## To Do
+* 
+
+## Naming Conventions
+* All variable names in lowercase
+* use snake case for compound names (e.g., big_data)
+* use parameter for the variable (e.g., NTL)
+* use value for the measured value of the parameter
+
+## Introduction
+
+* This document ([nla2012_chla](https://github.com/willbmisled/lakes_database/blob/master/R/chla.Rmd)) describes the converting the chla data for the 2012 National Lakes Assessment from the wide format of the raw data files to a long format for database development.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
+* Chlorophyll a was measured in two spots and each has a different parameter name
+    - CHLL
+    - CHLX
+
+## Data Steps
+
+* Read in the data
+
+* Gather the data in into key value field.
+    - The following fields will not be gathered as they provide general info on the waterchem data for each sample event:
+        - UID: the unique identifier for the sample event
+        - LAB: the lab where the samples were analyzed
+
+* Deconstruct the field names: each DATA_COLUMN entry is a complex variable.  It has the variable that includes the field (waterchem parameter measured) and the type of measurement these need to be deconstructed into the parameter name and the measurement type. The measurement types will be broken out as columns. The measurement types include:
+    - BATCH_ID
+    - DATE_ANALYZED
+    - DATE_FILTERED
+    - HOLDING_TIME
+    - LAB_FLAG
+    - LAB_SAMPLE_ID
+    - MDL
+    - QA_FLAG
+    - RESULT
+    - RL
+    - UNITS
+    - DILUTION_FACTOR	
+    - EXTRACT		
+    - LAB_COMMENT				
+    - SAMPLEVOL	
+    - VOLUME_ADJUST
+
+
+
+```{r getData, include=TRUE, echo=FALSE}
+#read the dat
+a<-read.csv('../data/raw_data/nla2012_chla_wide.csv',sep=',',na.strings = c(""," ","NA","N/A")) #1230 rows
+
+#gather  
+wc<-gather(a,DATA_COLUMN,value,-c(UID,LAB))
+
+#deconstruct the COLUMN_NAME (parameter)
+  #bring in a file with the new row and column names
+x<-read_excel('../data/table_structure/chla.xls', sheet ='long')
+  #join to wc
+a<-left_join(wc,x)
+
+#create new df based on descontructed column_name
+v<-c('BATCH_ID','DATE_ANALYZED','DATE_FILTERED','HOLDING_TIME','LAB_FLAG','LAB_SAMPLE_ID','MDL','QA_FLAG','RESULT','RL','UNITS','DILUTION_FACTOR','EXTRACT','LAB_COMMENT','SAMPLEVOL','VOLUME_ADJUST')
+chl<-select(wc,UID,LAB) %>% distinct()
+
+
+for(i in c(1:length(v))){
+w<-filter(a,column_name==v[i])%>%
+    select(UID,parameter,value)
+      names(w)[3]<-v[i]
+        chl<-left_join(chl,w)
+}
+
+# rearrange the columns
+chl<-select(chl,UID,parameter,value=RESULT,UNITS,MDL,RL,LAB,DATE_FILTERED,DATE_ANALYZED,LAB_SAMPLE_ID,LAB_FLAG,LAB_COMMENT,QA_FLAG,HOLDING_TIME,BATCH_ID,DILUTION_FACTOR,EXTRACT,SAMPLEVOL,VOLUME_ADJUST)%>%
+  arrange(UID,parameter)
+
+
+```
