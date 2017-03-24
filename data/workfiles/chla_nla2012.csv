@@ -1,0 +1,35 @@
+DATA_COLUMN,parameter,column_name,LABEL
+UID,column_name,uid,Unique site visit ID
+LAB,column_name,lab,Lab name
+CHLL_BATCH_ID,chla_littoral,batch_id,Batch ID from lab for Littoral chlorophyll a
+CHLL_DATE_ANALYZED,chla_littoral,date_analyzed,Date of sample analysis for Littoral chlorophyll a
+CHLL_DATE_FILTERED,chla_littoral,date_filtered,Date sample filtered for Littoral chlorophyll a
+CHLL_DILUTION_FACTOR,chla_littoral,dilution_factor,Dilution factor used in chlorophyll calculation for Littoral chlorophyll a
+CHLL_EXTRACT,chla_littoral,extract,Chlorophyll a in laboratory extract (raw) for Littoral chlorophyll a
+CHLL_HOLDING_TIME,chla_littoral,holding_time,Sample holding time for Littoral chlorophyll a
+CHLL_LAB_COMMENT,chla_littoral,lab_comment,Laboratory comment for Littoral chlorophyll a
+CHLL_LAB_FLAG,chla_littoral,lab_flag,Flag from laboratory for Littoral chlorophyll a
+CHLL_LAB_SAMPLE_ID,chla_littoral,lab_sample_id,Laboratory Sample ID for Littoral chlorophyll a
+CHLL_MDL,chla_littoral,mdl,Minimum detection limit of analyte for Littoral chlorophyll a
+CHLL_QA_FLAG,chla_littoral,qa_flag,QA flag associated with sample for Littoral chlorophyll a
+CHLL_RESULT,chla_littoral,result,Analyte value for Littoral chlorophyll a
+CHLL_RL,chla_littoral,rl,Reporting limit for Littoral chlorophyll a
+CHLL_SAMPLEVOL,chla_littoral,samplevol,Volume of sample from field for Littoral chlorophyll a
+CHLL_UNITS,chla_littoral,units,Units for Littoral chlorophyll a
+CHLL_VOLUME_ADJUST,chla_littoral,volume_adjust,Sample volume adjustment (for calculation) for Littoral chlorophyll a
+CHLX_BATCH_ID,chla_deep,batch_id,Batch ID from lab for X-site chlorophyll a
+CHLX_DATE_ANALYZED,chla_deep,date_analyzed,Date of sample analysis for X-site chlorophyll a
+CHLX_DATE_FILTERED,chla_deep,date_filtered,Date sample filtered for X-site chlorophyll a
+CHLX_DILUTION_FACTOR,chla_deep,dilution_factor,Dilution factor used in chlorophyll calculation for X-site chlorophyll a
+CHLX_EXTRACT,chla_deep,extract,Chlorophyll a in laboratory extract (raw) for X-site chlorophyll a
+CHLX_HOLDING_TIME,chla_deep,holding_time,Sample holding time for X-site chlorophyll a
+CHLX_LAB_COMMENT,chla_deep,lab_comment,Laboratory comment for X-site chlorophyll a
+CHLX_LAB_FLAG,chla_deep,lab_flag,Flag from laboratory for X-site chlorophyll a
+CHLX_LAB_SAMPLE_ID,chla_deep,lab_sample_id,Laboratory Sample ID for X-site chlorophyll a
+CHLX_MDL,chla_deep,mdl,Minimum detection limit of analyte for X-site chlorophyll a
+CHLX_QA_FLAG,chla_deep,qa_flag,QA flag associated with sample for X-site chlorophyll a
+CHLX_RESULT,chla_deep,result,Analyte value for X-site chlorophyll a
+CHLX_RL,chla_deep,rl,Reporting limit for X-site chlorophyll a
+CHLX_SAMPLEVOL,chla_deep,samplevol,Volume of sample from field for X-site chlorophyll a
+CHLX_UNITS,chla_deep,units,Units for X-site chlorophyll a
+CHLX_VOLUME_ADJUST,chla_deep,volume_adjust,Sample volume adjustment (for calculation) for X-site chlorophyll a

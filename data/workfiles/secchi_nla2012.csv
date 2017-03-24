@@ -1,0 +1,17 @@
+DATA_COLUMN,parameter,column_name,LABEL
+UID,column_name,uid,Unique site visit ID
+SECCHI,secchi,result,Secchi depth (m)
+CLEAR_TO_BOTTOM,secchi,secchi_clear_to_bottom,Lake clear to the bottom
+DISAPPEARS,secchi,secchi_disappears,Depth at which secchi disk disappears
+REAPPEARS,secchi,secchi_reappears,Depth at which secchi disk reappears
+,secchi,units,Not included in original data; added for consistency; all values=='m'
+SAMPLE_DEPTH,delete,,Depth of integrated sample
+AGGR_ECO3_2015,delete,,"NARS 3-level reporting region (2015), based on aggregating AGGR_ECO9_2015 reporting regions"
+AGGR_ECO9_2015,delete,,"NARS 9-level reporting region (2015), based on aggregated Omernik Level III ecoregions"
+STATE,delete,,State lake is assigned to for sampling in NLA 2012
+DATE_COL,delete,,Date of sample collection
+SITE_ID,delete,,Identification code for site
+VISIT_NO,delete,,Sequential number of visit to site
+ECO_BIO,delete,,Bioregions
+PUBLICATION_DATE,delete,,Publication Date
+YEAR,delete,,Year

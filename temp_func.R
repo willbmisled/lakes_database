@@ -45,6 +45,6 @@ struc_waterchem<-q[[2]]
 
 
 q<-formatData('nla2012_chla_wide.csv','chla.csv')
-chla<-q[[1]]
+chla_new<-q[[1]]
 struc_chla<-q[[2]]
 

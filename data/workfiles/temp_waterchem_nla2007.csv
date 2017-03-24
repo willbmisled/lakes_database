@@ -1,0 +1,159 @@
+DATA_COLUMN,parameter,column_name,LABEL
+SITE_ID,column_name,SITE_ID,ID assigned to each site
+VISIT_NO,column_name,VISIT_NO,Sequential visit number within year
+VISIT_ID,column_name,UID,ID of site visit
+COMMENT_FLD_CHEM,column_name,COMMENT_FLD_CHEM,Field Sampling Comments
+COMMENT_FLD_CHLA,column_name,COMMENT_FLD_CHLA,CHLA comments recorded by field crew
+COMMENT_IM_CHEM,column_name,COMMENT_IM_CHEM,IM Data Validation Comments
+COMMENT_LAB_CHEM,column_name,COMMENT_LAB_CHEM,Laboratory Analysis Comments
+COMMENT_LAB_CHLA,column_name,COMMENT_LAB_CHLA,CHLA comments recorded by lab personnel
+COMMENT_SECCHI,column_name,COMMENT_SECCHI,Comments and flag explanations for Secchi determination
+DATE_FILTERED,column_name,DATE_FILTERED,Date Sample was Filtered at Lab
+DATE_RECEIVED,column_name,DATE_RECEIVED,Date Sample was Received by Lab (from tracking data or WRS lab file '2007 Plan 0331081.xls')
+DATECHLA,column_name,DATECHLA,Date chlorophyll a sample collected
+DATEFILT_ALERT,column_name,DATEFILT_ALERT,Sample Filtered at Lab Date (DATE_FILTERED) is AFTER Sample Received by Lab Date (DATE_RECEIVED) (Y/N)
+DAY_SHIP,column_name,DAY_SHIP,Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED)
+DAYSHIP_ALERT,column_name,DAYSHIP_ALERT,Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED) Exceeded 2 Days (Y/N)
+FLAG_FLD_CHLA,column_name,FLAG_FLD_CHLA,Data qualifier (Field Crew) (K=Value could not be determined U=nonstandard measurement Fn=other comment
+FLAG_LAB_CHLA,column_name,FLAG_LAB_CHLA,Data qualifier (laboratory) (K=Value could not be determined S=value changed [orig. value in parentheses] B=below reporting level [3 æg/L])
+FLAG_SECCHI,column_name,FLAG_SECCHI,Data Qualifier flag for Secchi determination
+INDXSAMP_CHEM,column_name,INDXSAMP_CHEM,Index chhemistry sample for site (YES/NO)-typically the Visit 1 Primary sample
+LAB_ID_CHEM,column_name,LAB_SAMPLE_ID,Laboratory Sample Identification Number
+LAB_ID_CHLA,column_name,LAB_ID_CHLA,Laboratory sample ID
+PH_FIELD_DEPTH,column_name,PH_FIELD_DEPTH,Depth at which Field pH was Measured (m)
+SAMPLE_CATEGORY,column_name,SAMPLE_CATEGORY,(P)rimary or Field (D)uplicate
+SAMPLE_DEPTH,column_name,SAMPLE_DEPTH,Depth of integrated sample (typically 2 m)
+SAMPLE_ID_CHEM,column_name,CHEM_SAMPLE_ID,Sample ID number
+SAMPLE_ID_CHLA,column_name,SAMPLE_ID_CHLA,Sample ID number
+CLEAR_TO_BOTTOM,column_name,secchi_clear_to_bottom,Clear all the way to the bottom (Y/blank)
+YEAR,delete,,Sample Year
+SITE_TYPE,delete,,PROB_Samp: Lake is from probability sample and can be used for population estimation.  REF_Lake: Lake is not from probability sample and was selected as a candidate reference lake
+LAKE_SAMP,delete,,Evaluation status
+SAMPLED,delete,,Was lake sampled? (Yes/No) drop no3_diff
+DATE_COL,delete,,Date of site visit
+DATECHEM,delete,,Date water chemistry sample collected (B_note: same as DATE_COL in the site info file
+SAMPLED_CHEM,delete,,Site Sampled Code for Water Chemistry Data
+INDXSAMP_CHLA,delete,,"Index chlorophyll sample for site (YES/NO)-typically the Visit 1 Primary sample;B_note-same as ""INDXSAMP_CHEM"""
+SAMPLED_CHLA,delete,,CHLA SAMPLE COLLECTED/ANALYZED?
+DATESECCHI,delete,,Date of Secchi transparency determination; Bnote: delete-same as DATE_COL
+SAMPLED_SECCHI,delete,,Secchi transparency determined?
+ANC_FLAG,ANC,FLAG,Flag for ANC
+ANC_HT,ANC,HT,Number of Days between Sample Collection and Lab Analysis for ANC
+ANC_HT_ALERT,ANC,HT_ALERT,ANC Holding Time Exceeded Limit of 7 Days (Y/N)
+ANC,ANC,RESULT,Gran ANC (ueq/L)
+ANDEF2,ANDEF2,RESULT,Anion Deficit using ANC [C-A] (ueq/L)
+ANSUM2,ANSUM2,RESULT,Sum of Anions using ANC (ueq/L)
+BALANCE2,BALANCE2,RESULT,Ion Balance using ANC (%)
+CA_FLAG,CA,FLAG,Flag for CA
+CA_HT,CA,HT,Number of Days between Sample Collection and Lab Analysis for CA
+CA_HT_ALERT,CA,HT_ALERT,CA Holding Time Exceeded Limit of 180 Days (Y/N)
+CA,CA,RESULT,Calcium (ueq/L)
+CA_RL_ALERT,CA,RL_ALERT,CA Value Below Reporting Limit of 4.99 ueq/L (Y/N)
+CA_PPM,CA_PPM,RESULT,Calcium (mg/L)
+CATSUM,CATSUM,RESULT,Sum of Cations (ueq/L)
+CHLA_HT,CHLA,HT,CHLA HOLDING TIME (days)
+CHLA_HT_ALERT,CHLA,HT_ALERT,CHLA HOLDING TIME (> 28 days) ALERT (Y/N)
+CHLA,CHLA,RESULT,Chlorophyll a concentration (æg/L).  Calculated as CHLA_ADJ*(40/VOL_FILTERED)
+CHLA_RL_ALERT,CHLA,RL_ALERT,CHLA REPORTING LIMIT (< 0.1 ug/L) ALERT (Y/N)
+CL_FLAG,CL,FLAG,Flag for CL
+CL_HT,CL,HT,Number of Days between Sample Collection and Lab Analysis for CL
+CL_HT_ALERT,CL,HT_ALERT,CL Holding Time Exceeded Limit of 7 Days (Y/N)
+CL,CL,RESULT,Chloride (ueq/L)
+CL_RL_ALERT,CL,RL_ALERT,CL Value Below Reporting Limit of 5.64 ueq/L (Y/N)
+CL_PPM,CL_PPM,RESULT,Chloride (mg/L)
+COLOR_FLAG,COLOR,FLAG,Flag for COLOR
+COLOR_HT,COLOR,HT,Number of Days between Sample Collection and Lab Analysis for COLOR
+COLOR_HT_ALERT,COLOR,HT_ALERT,COLOR Holding Time Exceeded Limit of 3 Days (Y/N)
+COLOR,COLOR,RESULT,Color (PCU)
+COLOR_RL_ALERT,COLOR,RL_ALERT,COLOR Value Below Reporting Limit of 5.0 PCU (Y/N)
+CONCAL2,CONCAL2,RESULT,Calculated Conductivity w/ANC (uS/cm)
+COND_FLAG,COND,FLAG,Flag for COND
+COND_HT,COND,HT,Number of Days between Sample Collection and Lab Analysis for COND
+COND_HT_ALERT,COND,HT_ALERT,COND Holding Time Exceeded Limit of 7 Days (Y/N)
+COND,COND,RESULT,Conductivity (uS/cm @ 25 C)
+COND_RL_ALERT,COND,RL_ALERT,COND Value Below Reporting Limit of 2.0 uS/cm @ 25 C (Y/N)
+CONDHO2,CONDHO2,RESULT,D-H-O Calc. Cond. w/ANC (uS/cm)
+DOC_FLAG,DOC,FLAG,Flag for DOC
+DOC_HT,DOC,HT,Number of Days between Sample Collection and Lab Analysis for DOC
+DOC_HT_ALERT,DOC,HT_ALERT,DOC Holding Time Exceeded Limit of 14 Days (Y/N)
+DOC,DOC,RESULT,Dissolved Organic Carbon (mg/L)
+DOC_RL_ALERT,DOC,RL_ALERT,DOC Value Below Reporting Limit of 0.20 mg/L (Y/N)
+H,H,RESULT,H+ from PH_LAB (ueq/L)
+K_FLAG,K,FLAG,Flag for K
+K_HT,K,HT,Number of Days between Sample Collection and Lab Analysis for K
+K_HT_ALERT,K,HT_ALERT,K Holding Time Exceeded Limit of 180 Days (Y/N)
+K,K,RESULT,Potassium (ueq/L)
+K_RL_ALERT,K,RL_ALERT,K Value Below Reporting Limit of 2.56 ueq/L (Y/N)
+K_PPM,K_PPM,RESULT,Potassium (mg/L)
+MG_FLAG,MG,FLAG,Flag for MG
+MG_HT,MG,HT,Number of Days between Sample Collection and Lab Analysis for MG
+MG_HT_ALERT,MG,HT_ALERT,MG Holding Time Exceeded Limit of 180 Days (Y/N)
+MG,MG,RESULT,Magnesium (ueq/L)
+MG_RL_ALERT,MG,RL_ALERT,MG Value Below Reporting Limit of 8.23 ueq/L (Y/N)
+MG_PPM,MG_PPM,RESULT,Magnesium (mg/L)
+SODIUM_FLAG,SODIUM,FLAG,Flag for SODIUM (NA)
+SODIUM_HT,SODIUM,HT,Number of Days between Sample Collection and Lab ASODIUMlysis for SODIUM (NA)
+SODIUM_HT_ALERT,SODIUM,HT_ALERT,SODIUM (NA) Holding Time Exceeded Limit of 180 Days (Y/N)
+SODIUM,SODIUM,RESULT,Sodium (NA) (ueq/L)
+SODIUM_RL_ALERT,SODIUM,RL_ALERT,SODIUM (NA) Value Below Reporting Limit of 4.35 ueq/L (Y/N)
+SODIUM_PPM,SODIUM_PPM,RESULT,Sodium (NA) (mg/L)
+NH4_FLAG,NH4,FLAG,Flag for NH4
+NH4_HT,NH4,HT,Number of Days between Sample Collection and Lab Analysis for NH4
+NH4_HT_ALERT,NH4,HT_ALERT,NH4 Holding Time Exceeded Limit of 28 Days (Y/N)
+NH4,NH4,RESULT,Ammonium (ueq/L)
+NH4_RL_ALERT,NH4,RL_ALERT,NH4 Value Below Reporting Limit of 1.43 ueq/L (Y/N)
+NH4ION,NH4ION,RESULT,Calculated NH4+ protolyte (ueq/L)
+NH4N_PPM,NH4N_PPM,RESULT,Ammonium (mg/L)
+NO3_FLAG,NO3,FLAG,Flag for NO3
+NO3_HT,NO3,HT,Number of Days between Sample Collection and Lab Analysis for NO3
+NO3_HT_ALERT,NO3,HT_ALERT,NO3 Holding Time Exceeded Limit of 7 Days (Y/N)
+NO3_NO2,NO3NO2,RESULT,Nitrate + Nitrite by Flow Injection Analysis (mg N/L)
+NO3,NO3,RESULT,Nitrate (ueq/L)
+NO3_RL_ALERT,NO3,RL_ALERT,NO3 Value Below Reporting Limit of 1.43 ueq/L (Y/N)
+NO3N_PPM,NO3N_PPM,RESULT,Nitrate (mg/L)
+NO3NO2_FLAG,NO3NO2,FLAG,Flag for NO3_NO2
+NO3NO2_HT,NO3NO2,HT,Number of Days between Sample Collection and Lab Analysis for NO3NO2
+NO3NO2_HT_ALERT,NO3NO2,HT_ALERT,NO3NO2 Holding Time Exceeded Limit of 7 Days (Y/N)
+NO3NO2_RL_ALERT,NO3NO2,RL_ALERT,NO3NO2 Value Below Reporting Limit of 0.02 mg N/L (Y/N)
+NTL_FLAG,NTL,FLAG,Flag for NTL
+NTL_HT,NTL,HT,Number of Days between Sample Collection and Lab Analysis for NTL
+NTL_HT_ALERT,NTL,HT_ALERT,NTL Holding Time Exceeded Limit of 28 Days (Y/N)
+NTL,NTL,RESULT,Total Nitrogen (ug/L)
+NTL_RL_ALERT,NTL,RL_ALERT,NTL Value Below Reporting Limit of 20.00 ug/L (Y/N)
+NTL_PPM,NTL_PPM,RESULT,Total Nitrogen (mg/L)
+OH,OH,RESULT,Hydroxide from PH_LAB (ueq/L)
+ORGION,ORGION,RESULT,Est. Organic Anion (ueq/L)
+COM_FIELD_PH,PH_FIELD,COMMENT,Field pH comment from Profile_do_com data
+PH_FIELD,PH_FIELD,RESULT,Field pH from Profile DO data (pH measured at first non-zero depth unless only depth was zero)
+PHLAB_FLAG,PH_LAB,FLAG,Flag for PH_LAB
+PHLAB_HT,PH_LAB,HT,Number of Days between Sample Collection and Lab Analysis for PH_LAB
+PHLAB_HT_ALERT,PH_LAB,HT_ALERT,PH_LAB Holding Time Exceeded Limit of 3 Days (Y/N)
+PH_LAB,PH_LAB,RESULT,pH measured at laboratory
+PTL_FLAG,PTL,FLAG,Flag for PTL
+PTL_HT,PTL,HT,Number of Days between Sample Collection and Lab Analysis for PTL
+PTL_HT_ALERT,PTL,HT_ALERT,PTL Holding Time Exceeded Limit of 28 Days (Y/N)
+PTL,PTL,RESULT,Total Phosphorus (ug/L)
+PTL_RL_ALERT,PTL,RL_ALERT,PTL Value Below Reporting Limit of 4.00 ug/L (Y/N)
+SECMEAN,secchi,RESULT,Secchi transparency (m)(=avg. of disk disappearance and reappearance depths)
+SIO2_FLAG,SIO2,FLAG,Flag for SIO2
+SIO2_HT,SIO2,HT,Number of Days between Sample Collection and Lab Analysis for SIO2
+SIO2_HT_ALERT,SIO2,HT_ALERT,SIO2 Holding Time Exceeded Limit of 7 Days (Y/N)
+SIO2,SIO2,RESULT,Silica (mg/L SiO2)
+SIO2_RL_ALERT,SIO2,RL_ALERT,SIO2 Value Below Reporting Limit of 0.10 mg/L SiO2 (Y/N)
+SO4_FLAG,SO4,FLAG,Flag for SO4
+SO4_HT,SO4,HT,Number of Days between Sample Collection and Lab Analysis for SO4
+SO4_HT_ALERT,SO4,HT_ALERT,SO4 Holding Time Exceeded Limit of 7 Days (Y/N)
+SO4,SO4,RESULT,Sulfate (ueq/L)
+SO4_RL_ALERT,SO4,RL_ALERT,SO4 Value Below Reporting Limit of 10.41 ueq/L (Y/N)
+SO4_PPM,SO4_PPM,RESULT,Sulfate (mg/L)
+SOBC,SOBC,RESULT,Sum of Base Cations (ueq/L)
+TOC_FLAG,TOC,FLAG,Flag for TOC
+TOC_HT,TOC,HT,Number of Days between Sample Collection and Lab Analysis for TOC
+TOC_HT_ALERT,TOC,HT_ALERT,TOC Holding Time Exceeded Limit of 14 Days (Y/N)
+TOC,TOC,RESULT,Total Organic Carbon (mg/L)
+TOC_RL_ALERT,TOC,RL_ALERT,TOC Value Below Reporting Limit of 0.20 mg/L (Y/N)
+TURB_FLAG,TURB,FLAG,Flag for TURB
+TURB_HT,TURB,HT,Number of Days between Sample Collection and Lab Analysis for TURB
+TURB_HT_ALERT,TURB,HT_ALERT,TURB Holding Time Exceeded Limit of 3 Days (Y/N)
+TURB,TURB,RESULT,Turbidity (NTU)
+TURB_RL_ALERT,TURB,RL_ALERT,TURB Value Below Reporting Limit of 2.0 NTU (Y/N)

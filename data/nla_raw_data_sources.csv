@@ -1,0 +1,49 @@
+survey,indicator,dataset,data,metadata,csv_data,csv_meta
+nla2007,Landuse,buffer_landuse,"NLA 2007 Buffer Landuse Metrics - Data 20091022 (CSV)(1 pg, 273 K)","NLA 2007 Buffer Landuse Metrics - Metadata 20091022 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Water Chemistry,condition_chem,"NLA 2007 Chemical Condition Estimates - Data 20091123 (CSV)(1 pg, 537 K)","NLA 2007 Chemical Condition Estimates - Metadata 20091123 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Dissolved Oxygen,condition_do,"NLA 2007 Mean DO Condition Estimate - Data 20091123 (CSV)(1 pg, 366 K)","NLA 2007 Mean DO Condition Estimate - Metadata 20091123 (TXT)(1 pg, 3 K)",TRUE,FALSE
+nla2007,Benthic Macroinvertebrates,condition_macroinvert,"NLA 2007 Benthic Condition - Data (CSV)(1 pg, 119 K)","NLA 2007 Benthic Condition - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2007,Physical Habitat,condition_phab,"NLA 2007 PHab Condition Estimates - Data 20091130 (CSV)(1 pg, 519 K)","NLA 2007 PHab Condition Estimates - Metadata 20091130 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Plankton,condition_plank_oe_model,"NLA 2007 Plankton O/E Model Condition Estimates 20091125 (CSV)(1 pg, 442 K)","NLA 2007 Plankton O/E Model Condition Estimates - Metadata 20091125 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Recreation,condition_recreation,"NLA 2007 Recreational Condition Estimates 20091123 (CSV)(1 pg, 517 K)","NLA 2007 Recreational Condition Estimates - Metadata 20091123 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Trophic Status,condition_trophic,"NLA 2007 Trophic Condition Estimate - Data 20091123 (CSV)(1 pg, 522 K)","NLA 2007 Trophic Condition Estimate - Metadata 20091123 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Dissolved Oxygen,do_2m,"NLA 2007 Mean DO - Data 20091007 (CSV)(1 pg, 31 K)","NLA 2007 Mean DO - Metadata 20091007 (RXT)(1 pg, 198 B)",TRUE,FALSE
+nla2007,Landuse,landuse,"NLA 2007 Basin Landuse Metrics - Data 20061022 (CSV)(1 pg, 307 K)","NLA 2007 Basin Landuse Metrics - Metadata 20091022 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Benthic Macroinvertebrates,macroinvert_count,"NLA 2007 Benthic Count - Data (CSV)(1 pg, 7 MB)","NLA 2007 Benthic Count - Metadata (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2007,Benthic Macroinvertebrates,macroinvert_metrics,"NLA 2007 Benthic Metrics - Data (CSV)(1 pg, 749 K)","NLA 2007 Benthic Metrics - Metadata (TXT)(1 pg, 13 K)",TRUE,FALSE
+nla2007,Physical Habitat,phab_index,"NLA 2007 PHab Index Values - Data (CSV)(1 pg, 722 K)","NLA 2007 PHab Index Values - Metadata 20091120 (TXT)(1 pg, 6 K)",TRUE,FALSE
+nla2007,Physical Habitat,phab_metrics_a,"NLA 2007 PHab Metrics A - Data (CSV)(1 pg, 1 MB)","NLA 2007 PHab Metrics - Metadata 20091120 (TXT)(1 pg, 38 K)",TRUE,FALSE
+nla2007,Physical Habitat,phab_metrics_b,"NLA 2007 Phab Metrics B - Data (CSV)(1 pg, 2 MB)","NLA 2007 PHab Metrics - Metadata 20091120 (TXT)(1 pg, 38 K)",TRUE,FALSE
+nla2007,Phytoplankton,phyto_count,"NLA 2007 Phytoplankton Soft Algae Count - Data 20091023 (CSV)(1 pg, 12 MB)","NLA 2007 Phytoplankton Soft Algae Count - Metadata 20091023 (TXT)(1 pg, 3 K)",TRUE,FALSE
+nla2007,Phytoplankton,phyto_diatom,"NLA 2007 _Phytoplankton Diatom Count - Data 20091125 (CSV)(1 pg, 4 MB)","NLA 2007 Phytoplankton Diatom Count - Metadata 20091125 (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2007,Phytoplankton,phyto_samp_info,"NLA 2007 Phytoplankton Sample Information - Data 20091023 (CSV)(1 pg, 223 K)","NLA 2007 Phytoplankton Sample Info - Metadata 20091023 (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2007,Plankton,plank_oe_model_analysis,"NLA 2007 Plankton O/E Model Analysis - Data 20091019 (CSV)(1 pg, 2 MB)","NLA 2007 Plankton O/E Model Analysis Data - Metadata 20091019 (TXT)(1 pg, 373 B)",TRUE,FALSE
+nla2007,Plankton,plank_oe_model_sites,"NLA 2007 Plankton O/E Model - Valid Sites Used 20091021 (CSV)(1 pg, 131 K)","NLA 2007 Plankton O/E Model - Valid Sites Used - Metadata 20091021 (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2007,Water Chemistry,profile,"NLA 2007 Profile - Data 20091008 (CSV)(1 pg, 888 K)","NLA 2007 Profile - Metadata 20091008 (TXT)(1 pg, 650 B)",TRUE,FALSE
+nla2007,Secchi,secchi,"NLA 2007 Secchi - Data 20091008 (CSV)(1 pg, 60 K)","NLA 2007 Secchi - Metadata 20091008 (TXT)(1 pg, 562 B)",TRUE,FALSE
+nla2007,Site Information,site_info,"NLA 2007 Site Information - Data 20091113 (CSV)(1 pg, 980 K)","NLA 2007 Site Information - Metadata 20091113 (TXT)(1 pg, 8 K)",TRUE,FALSE
+nla2007,Visual Assessment,visual_assess,"NLA 2007 Visual Assessment - Data 20091015 (CSV)(1 pg, 813 K)","NLA 2007 Visual Assessment - Metadata 10091015 (TXT)(1 pg, 7 K)",TRUE,FALSE
+nla2007,Zooplankton,zoop_count,"NLA 2007 Zooplankton Count Data - 20091022 (CSV)(1 pg, 7 MB)","NLA2007 Zooplankton Count - Metadata 20091022 (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2007,Zooplankton,zoopl_samp_info,"NLA 2007 Zooplankton Sample Information - Data 20091020 (CSV)(1 pg, 207 K)","NLA 2007 Zooplankton Sample Information - Metadata (TXT)(1 pg, 929 B)",TRUE,FALSE
+nla2012,Algal Toxin,algal_toxin,"NLA 2012 Algal Toxins - Data (CSV)(1 pg, 225 K)","NLA 2012 Algal Toxins - Metadata (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2012,Atrazine,atrazine,"NLA 2012 Atrazine - Data (CSV)(1 pg, 156 K)","NLA 2012 Atrazine - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2012,Chlorophyll-a,chla,"NLA 2012 Chlorophyll-a - Data (CSV)(1 pg, 172 K)","NLA 2012 Chlorophyll-a - Metadata (TXT)(1 pg, 3 K)",TRUE,FALSE
+nla2012,All,condition,"NLA 2012 Condition Categories - Data (CSV)(1 pg, 407 K)","NLA 2012 Condition Categories - Metadata (CSV)(1 pg, 8 K)",TRUE,TRUE
+nla2012,Benthic Macroinvertebrates,condition_macroinvert,"NLA 2012 Benthic Condition - Data (CSV)(1 pg, 115 K)","NLA 2012 Benthic Condition - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2012,Zooplankton,condition_zoop,"NLA 2012 Zooplankton Condition - Data (CSV)(1 pg, 116 K)","NLA 2012 Zooplankton Condition - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2012,All,key_variables,"NLA 2012 Key Variables - Data (CSV)(1 pg, 349 K)","NLA 2012 Key Variables - Metadata (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2012,Benthic Macroinvertebrates,macroinvert_count,"NLA 2012 Benthic Count - Data (CSV)(1 pg, 7 MB)","NLA 2012 Benthic Count - Metadata (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2012,Benthic Macroinvertebrates,macroinvert_metrics,"NLA 2012 Benthic Metrics - Data (CSV)(1 pg, 782 K)","NLA 2012 Benthic Metrics - Metadata (TXT)(1 pg, 13 K)",TRUE,FALSE
+nla2012,Benthic Macroinvertebrates,macroinvert_taxa,"NLA 2012 Benthic Taxa List - Data (CSV)(1 pg, 79 K)","NLA 2012 Benthic Taxa List - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2012,Physical Habitat,phab,"NLA 2012 Phab - Data (CSV)(1 pg, 8 MB)","NLA 2012 Phab - Metadata (TXT)(1 pg, 13 K)",TRUE,FALSE
+nla2012,Physical Habitat,phab_metrics,"NLA 2012 Phab Metrics - Data (CSV)(1 pg, 3 MB)","NLA 2012 Phab Metrics - Metadata (TXT)(1 pg, 62 K)",TRUE,FALSE
+nla2012,Phytoplankton,phyto_count,"NLA 2012 Phytoplankton Count - Data (CSV)(1 pg, 9 MB)","NLA 2012 Phytoplankton Count - Metadata (TXT)(1 pg, 3 K)",TRUE,FALSE
+nla2012,Phytoplankton,phyto_taxa,"NLA 2012 Phytoplankton Taxa List - Data (CSV)(1 pg, 126 K)","NLA 2012 Phytoplankton Taxa List - Metadata (TXT)(1 pg, 728 B)",TRUE,FALSE
+nla2012,Water Chemistry,profile,"NLA 2012 Profile - Data (CSV)(1 pg, 3 MB)","NLA 2012 Profile - Metadata (TXT)(1 pg, 4 K)",TRUE,FALSE
+nla2012,Secchi,secchi,"NLA 2012 Secchi - Data (CSV)(1 pg, 97 K)","NLA 2012 Secchi - Metadata (TXT)(1 pg, 988 B)",TRUE,FALSE
+nla2012,Sediment,sediment_hg,"NLA 2012 Sediment Mercury - Data (CSV)(1 pg, 100 K)","NLA 2012 Sediment Mercury - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE
+nla2012,Site Information,site_info,"NLA 2012 Site Information - Data (CSV)(1 pg, 2 MB)","NLA 2012 Site Information - Metadata (TXT)(1 pg, 17 K)",TRUE,FALSE
+nla2012,Water Chemistry,waterchem,"NLA 2012 Water Chemistry - Data (CSV)(1 pg, 1 MB)","NLA 2012 Water Chemistry - Metadata (TXT)(1 pg, 14 K)",TRUE,FALSE
+nla2012,Zooplankton,zoop_count,"NLA 2012 Zooplankton Count - Data (CSV)(1 pg, 7 MB)","NLA 2012 Zooplankton Count - Metadata (TXT)(1 pg, 2 K)",TRUE,FALSE
+nla2012,Zooplankton,zoop_metrics,"NLA 2012 Zooplankton Metrics - Data (CSV)(1 pg, 1 MB)","NLA 2012 Zooplankton Metrics - Metadata (TXT)(1 pg, 33 K)",TRUE,FALSE
+nla2012,Zooplankton,zoop_taxa,"NLA 2012 Zooplankton Taxa List - Data (CSV)(1 pg, 71 K)","NLA 2012 Zooplankton Taxa List - Metadata (TXT)(1 pg, 1 K)",TRUE,FALSE

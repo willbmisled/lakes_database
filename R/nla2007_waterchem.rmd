@@ -1,0 +1,299 @@
+---
+title: "nla2007_waterchem"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+library(readxl)
+
+read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
+  a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+  return(a)
+}    
+
+```
+
+## To Do
+* change character to numeric for result, mdl, rl ???
+* change col_names and character data to snake case
+* compare 2007 and 2012 adjust parameters and column names
+* add data definitions file for 2007 and 2012
+
+* Keep SAMPLE_CATEGORY="D" (Duplicate) samples?
+* choose units for NH4, NTL, CL, NO3N, SO4, CA, MG, NA, K: all are in twice
+
+## Naming Conventions
+* All variable names in lowercase
+* use snake case for compound names (e.g., big_data)
+* use parameter for the variable (e.g., NTL)
+* use value for the measured value of the parameter
+
+## Introduction
+
+* This document ([nla2007_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla_2007_waterchem.Rmd)) describes  converting the water chemistry data for the 2007 National Lakes Assessment from the wide format of the raw data files to a long format for database development.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
+
+* The output includes the following NLA 2007 datasets
+    - waterchem (with chla & secchi)
+    - algal toxins
+    - profile (partial: only the DO2_2M data are included)
+    
+* Four of these datasets (waterchem, chla, algal toxins, and atrazine) were processed in the same way:
+    
+    -  The original raw data files are in a wide format with two types of column names:
+        - sample specific data: this includes things such as the UID (unique identifier for the sample), the LAB where the data were processed, and sample_ID.
+        - parameter specific data: the names are complex variables indicating the a chemical parameter (e.g. COND=conductivity) and what is reported (e.g RESULT, UNITS, BATCH_ID, etc.).  
+        
+    - Not all of these data are useful to us but we will keep most of them just in case.  The final product may be pruned.
+    
+    - To support the conversion to a long format data structure files were created manually as csv files.  The structure files define which columns are "sample specic", which are "parameter specific" and which should be deleted.  They will be used to convert the paramater specific data to a long format while the sample specific data are kept in the wide format.  Confusing?
+
+* The final two datasets secchi and profile deal with single parameters (secchi and DO2_2M). See details below
+ 
+
+## Data Steps
+
+* a function "formatData" from nla2012_waterchem was re-written to:
+    - import the waterchem data and the structure file
+    - reformat the data to a long format
+
+* datasets were combined into a single data.frame
+* rearrange
+* rename
+* snake_case
+    
+##NLA 2007
+
+
+
+###Waterchem
+
+* Manually changed all column names in NLA2007_waterchem.csv for NA??? to SODIUM??? e.g. NA=SODIUM & NA_RL_ALERT=SODIUM_RL_ALERT
+
+
+
+* The 2012 data use "UID" as a unique identifier for each sampling event
+* For the 2007 data a unique event is defined by:
+    - SITE_ID = unique id for the site
+    - VISIT_NO = 1 or 2; all sites visited at least once (VISIT_NO == 1) but some were revisted (VISIT_NO == 2)
+    - SAMPLE_CATEGORY = "P" or "D"; a primary sample ("P") collected from all sites and a field duplicate ("D") from some
+* VISIT_ID appears to be unique to SITE_ID and VISIT_NO combinations but not to SAMPLE_CATEGORY.
+* The parameter 'NO3_NO2' renamed to NO3NO2 for consistency
+
+```{r waterchem2007, include=FALSE}
+#get the data
+a<-read1('data/raw_data/','nla2007_waterchem.csv')  
+
+#get the modified data structure
+struc<-read1('data/workfiles/','waterchem_nla2007.csv') 
+
+#choose columns to keep, gather, or delete
+keeps<-filter(struc,parameter=='column_name')%>%select(DATA_COLUMN)%>% unlist(use.names = FALSE)
+gathers<-filter(struc,parameter!='column_name',column_name!='delete')%>%select(DATA_COLUMN)%>%distinct()%>% unlist(use.names = FALSE)
+deletes<-filter(struc,parameter=='delete')%>%select(DATA_COLUMN)%>% unlist(use.names = FALSE)
+
+
+#gather 
+wc<-gather(a,DATA_COLUMN,value,one_of(gathers)) #dim 159120 40  NOTE: length(gathers)==120; nrow(a)==1326; 120*1326==159120
+
+#deconstruct the COLUMN_NAME (parameter)
+  #df "struc" has the new row and column names
+    #delete unwanted columns
+a<-left_join(wc,struc)%>%select(-one_of(deletes)) #dim(a) 159120 40
+
+#table(a$parameter,a$column_name)
+
+#create new df based on descontructed column_name
+v<-distinct(a,column_name)%>% unlist(use.names = FALSE)
+waterchem<-select(a,one_of(keeps),parameter) %>% distinct()  #dim(waterchem) 1326 27
+
+for(i in c(1:length(v))){
+  w<-filter(a,column_name==v[i])%>%
+    select(SITE_ID,VISIT_NO,SAMPLE_CATEGORY,parameter,value)
+  names(w)[5]<-v[i]
+  waterchem<-full_join(waterchem,w)
+}
+
+#dim(waterchem) #55692    34
+
+#change column names to snake case
+names(waterchem)<-tolower(names(waterchem))
+
+#add source
+waterchem$source<-'nla2007_waterchem.csv'
+```
+
+### waterchem updates
+
+* replace sample_depth with ph_field_depth for ph_field
+* replace sample_id_chem with sample_id_chla for parameter=='chla'; rename sample_id_chem to sample_id
+* replace lab_id_chem with lab_id_chla for parameter=='chla'; rename lab_id_chem to lab_id
+* replace comment_fld_chem with comment_fld_chla for parameter=='chla'; rename comment_fld_chem to comment_fld
+
+```{r wcUpdate, include=FALSE}
+# replace sample_depth with ph_field_depth for ph_field
+waterchem<-mutate(waterchem,sample_depth=ifelse(parameter=='ph_field',ph_field_depth,sample_depth))%>%
+  select(-ph_field_depth)
+
+# replace sample_id_chem with sample_id_chla for chla; rename sample_id_chem to sample_id
+waterchem<-mutate(waterchem,sample_id=ifelse(parameter=='chla',sample_id_chla,sample_id_chem))%>%
+  select(-sample_id_chla,-sample_id_chem)
+
+# replace lab_id_chem with lab_id_chla for chla; rename lab_id_chem to lab_id
+waterchem<-mutate(waterchem,lab_id=ifelse(parameter=='chla',lab_id_chla,lab_id_chem))%>%
+  select(-lab_id_chla,-lab_id_chem)
+
+# replace comment_fld_chem with comment_fld_chla for parameter=='chla'; rename comment_fld_chem to comment_fld
+waterchem<-mutate(waterchem,comment_fld=ifelse(parameter=='chla',comment_fld_chla,comment_fld_chem))%>%
+  select(-comment_fld_chla,-comment_fld_chem)
+
+# replace comment_lab_chem with comment_lab_chla for parameter=='chla'; rename comment_lab_chem to comment_lab
+waterchem<-mutate(waterchem,comment_lab=ifelse(parameter=='chla',comment_lab_chla,comment_lab_chem))%>%
+  select(-comment_lab_chla,-comment_lab_chem)
+
+```
+
+### add units and rl to waterchem
+* units harvested manually from the label field for "result" from the structure file
+* rl (reporting limit) harvested manually from the label field for "rl_alert" from the structure file
+
+```{r wcrl, include=FALSE}
+new<-filter(struc,column_name=='result')%>%select(parameter,units,rl)
+dim(waterchem) #55692    30
+
+waterchem<-full_join(waterchem,new)
+dim(waterchem) #55692    32
+
+```
+
+* The following table shows how the raw data will be deconstructed:
+    - DATA_COLUMN: represents the original columns in the raw data
+    - parameter:  in most cases this will be the parameter name in the new dataset except:
+        - parameter=="column_name" indicates this column is sample specific so all unique observations will be kept
+        - parameter=="delete" indicates this column will be deleted from the final data
+
+
+```{r k_waterchem07, include=TRUE, echo=FALSE}
+kable(struc)
+```
+
+* The waterchem dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+
+```{r c_waterchem07, include=TRUE, echo=FALSE}   
+colnames(waterchem)
+```
+
+* The following parameters are included as rows in the waterchem dataset (NOTE: some of these may be dropped or renamed in the final dataset):
+    
+```{r p_waterchem07, include=TRUE, echo=FALSE}   
+unique(waterchem$parameter)
+```
+
+###do2
+
+* do2_2m is the average do2 reading for profile samples for depths less than 2m.
+* this is included in the 2012 waterchem data
+* for the 2007 dataset we will calculate it directly from the profile data
+
+
+```{r do2, include=FALSE}
+do2<-read1('data/raw_data/','nla2007_profile.csv')
+
+aa<-select(do2,SITE_ID,VISIT_NO,DEPTH,DO_FIELD)%>%filter(DEPTH<=2)
+
+do2<-group_by(aa, SITE_ID,VISIT_NO) %>%
+      summarize(result=mean(DO_FIELD, na.rm = TRUE))
+
+#add UNITS='mg/l'
+do2$UNITS<-'mg/l'
+
+#add parameter
+do2$parameter<-'do2_2m'
+
+#add source
+do2$source<-'nla2007_profile.csv'
+
+#change column names to snake case
+names(do2)<-tolower(names(do2))
+
+```
+
+### algal toxins
+
+* the algal toxins data were received directly from Keith Loftin at the USGS as an excel file.  This is saved in the directory 'data/raw_data/' as 'nla2007_algal_toxins.xlsx'.  
+* the original file has a number of tables with ancillary data.  The algal toxins data are in a table named 'cyanotoxins ELISA'
+* the cyanotoxins table was copied to a new spreadsheet and saved as 'nla2007_algal_toxins.csv'.
+* columns with ancillary data (e.g. "State", "County", etc) were eliminated
+* column names were changed to match the NLA data
+* some data were modified
+    - the column named "US EPA visit ID" contained a mashup of nla columns "visit_no" & sample_category; these were deconstructed to their original state
+    - the column name "Total cylindrospermopsins conc ELISA         (µg/L)" was renamed "cylindrospermopsin"
+    - the column name "Total microcystin conc ELISA (µg/L)" was renamed "microcystin"
+    - the column name "Total saxitoxins conc ELISA (µg/L)" was renamed "saxitoxin"
+* from the original column names we see that all units are in "ug/l"
+* for values below the reporting limit are entered as character values (e.g. "<.05") these were all changed to zero; this also allowed us to harvest the following reporting limits:
+    - cylindrospermopsin rl==.05
+    - microcystin rl==.1
+    - saxitoxin rl==.02
+
+* here are Keith's data definitions for the algal toxin fields:
+    - cylindrospermopsin: Total sample cylindrospermopsin concentration measured by ELISA in cylindrospermopsin equivalents (ug/L, micrograms per liter). Cylindrospermopsin concentration as measured by the Abraxis cylindrospermopsin enzyme-linked immunosorbentassay (ELISA) (PN: 522011) reported to represent the sum of all cross-reactive molecules from both intracellular and dissolved phases within a sample.  Samples were lysed by three sequential freeze/thaw cycles and filtered prior to analyses.
+    - microcystin:  Total sample microcystin concentration measured by ELISA in microcystin-LR equivalents (ug/L, micrograms per liter). Microcystin/Nodularin concentration as measured by the Abraxis polyclonal "ADDA" enzyme-linked immunosorbentassay (ELISA) (PN: 520011) reported to represent the sum of all cross-reactive ADDA bearing molecules from both intracellular and dissolved phases within a sample.  Samples were lysed by three 
+sequential freeze/thaw cycles and filtered before analyses.  The assay is capable of detecting both microcystins and nodularins, however, nodularins are considered to be predominately found in brackish waters.  As a result response for these results will be discussed in terms of microcystins, but in a rare cases nodularin has been measured in inland freshwaters.
+    - saxitoxin: Total sample saxitoxin concentration measured by ELISA in saxitoxin equivalents (µg/L). Saxitoxin concentration as measured by the Abraxis saxitoxin (PSP) enzyme-linked immunosorbentassay (ELISA) (PN: 52255B) reported to represent the sum of all cross-reactive molecules from both intracellular and dissolved phases within a sample.  Samples were lysed by three sequential freeze/thaw cycles and filtered prior to analyses.
+    
+* data were read in 
+* gathered into the long format
+* units and rl added
+
+```{r algal_toxins, include=FALSE}
+at<-read1('data/raw_data/','nla2007_algal_toxins.csv')
+
+algal_toxins<-gather(at,key=parameter,value=value,cylindrospermopsin,microcystin,saxitoxin)
+
+algal_toxins$units<-'ug/l'
+algal_toxins<-mutate(algal_toxins,rl=ifelse(parameter=='cylindrospermopsin',.05,NA),
+                                  rl=ifelse(parameter=='microcystin',.1,.02))
+
+algal_toxins$source<-'nla2007_algal_toxins.csv'
+
+```
+
+
+
+### join the datasets
+
+* convert (if exist) fields result and rl to numeric
+* all files joined
+* as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.
+
+
+```{r join, include=FALSE, echo=FALSE,eval=TRUE}
+waterchem<-mutate(waterchem,result=as.numeric(result),rl=as.numeric(rl))
+
+chem2007<-bind_rows(waterchem,do2,algal_toxins)
+
+test<-group_by(chem2007, parameter) %>%
+      summarize(sum=sum(result, na.rm = TRUE))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

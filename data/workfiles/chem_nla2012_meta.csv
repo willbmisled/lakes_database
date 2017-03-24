@@ -1,0 +1,31 @@
+order,field,description
+1,uid,Unique site visit ID
+2,parameter,what was measured
+3,result,measured value
+4,units,measurement units
+5,rl,reporting limit
+6,mdl,Quality information: Method Detection Limit (MDL) associated with sample
+7,loq,Limit of Quantitation (LOQ) associated with sample for Atrazine; NOTE: how does this differ from RL or MDL?
+8,secchi_clear_to_bottom,Lake clear to the bottom; if yes the secchi result changed to NA
+9,secchi_disappears,Depth at which secchi disk disappears
+10,secchi_reappears,Depth at which secchi disk reappears
+11,flag,flag
+12,qa_flag,QA flag associated with sample 
+13,lab_flag,laboratory flag
+14,chem_ship_flag,Chemistry Shipping Flag
+15,nuts_ship_flag,Nutrients Shipping Flag
+16,lab,lab name
+17,date_received,Date sample was processed by lab
+18,date_filtered,Date sample filtered
+19,date_analyzed,Date of sample analysis
+20,holding_time,Sample holding time
+21,dilution_factor,Dilution factor used in chlorophyll calculation
+22,extract,Chlorophyll a in laboratory extract (raw)
+23,samplevol,Volume of sample for chlorophyll a
+24,volume_adjust,Sample volume adjustment (for calculation) for chlorophyll a
+25,batch_id,Batch ID from lab
+26,lab_sample_id,Laboratory Sample ID
+27,chem_sample_id,Chemistry Sample ID
+28,nuts_sample_id,Nutrients Sample ID
+29,tria_sample_id,Triazine sample ID
+30,lab_comment,Laboratory comment 

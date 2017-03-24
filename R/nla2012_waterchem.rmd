@@ -1,5 +1,5 @@
 ---
-title: "nla2012_chal"
+title: "nla2012_waterchem"
 author: "Bryan Milstead"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: html_document
@@ -16,13 +16,12 @@ library(readxl)
 read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
   a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
   return(a)
-}    
-
+}  
 ```
 
 ```{r formatData_function, include=FALSE}
 #function to reformat the raw NLA data based on a modified data structure file
-formatData<-function(x='nla2012_waterchem_wide.csv',y='waterchem.csv'){
+formatData<-function(x='nla2012_waterchem.csv',y='waterchem_nla2012.csv'){
 #read the raw data; trycatch will look for the data in two directories
 a<-tryCatch(read.csv(paste('data/raw_data/',x,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),
             warning = function(e) read.csv(paste('../data/raw_data/',x,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
@@ -46,14 +45,20 @@ a<-left_join(wc,struc)%>%select(-one_of(deletes))
 
 #create new df based on descontructed column_name
 v<-distinct(a,column_name)%>% unlist(use.names = FALSE)
-ch<-select(wc,one_of(keeps)) %>% distinct()
+ch<-select(a,one_of(keeps),parameter) %>% distinct()  #dim(waterchem) 1326 27
 
 for(i in c(1:length(v))){
   w<-filter(a,column_name==v[i])%>%
     select(UID,parameter,value)
   names(w)[3]<-v[i]
-  ch<-left_join(ch,w)
+  ch<-full_join(ch,w)
 }
+
+#change column names to snake case
+names(ch)<-tolower(names(ch))
+
+#add source
+ch$source<-x
 
 #output
 return(list(ch,struc))
@@ -64,7 +69,7 @@ return(list(ch,struc))
 ## To Do
 * change character to numeric for result, mdl, rl ???
 * change col_names and character data to snake case
-* use a direct URL link to the raw data?
+* secchi_clear_to_bottom, secchi_disappears, & secchi_reappears; change to NA for parameter NE secchi
 
 ## Naming Conventions
 * All variable names in lowercase
@@ -74,7 +79,7 @@ return(list(ch,struc))
 
 ## Introduction
 
-* This document ([nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/waterchem.Rmd)) describes  converting the water chemistry data for the 2012 National Lakes Assessment from the wide format of the raw data files to a long format for database development.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
+* This document ([nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.Rmd)) describes  converting the water chemistry data for the 2012 National Lakes Assessment from the wide format of the raw data files to a long format for database development.  For more information see [nla2012_master.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_master.Rmd).
 
 * The output includes the following NLA 2012 datasets
     - waterchem
@@ -103,7 +108,7 @@ return(list(ch,struc))
     - import the data and the structure file
     - reformat the data to a long format
 * each dataset is reformatted and the general structure is defined
-* combine........
+* datasets were combined into a single data.frame
 * rearrange
 * rename
 * snake_case
@@ -111,7 +116,7 @@ return(list(ch,struc))
 ### waterchem data
 
 ```{r waterchem, include=FALSE, echo=FALSE}
-q<-formatData('nla2012_waterchem_wide.csv','waterchem.csv')
+q<-formatData('nla2012_waterchem.csv','waterchem_nla2012.csv')
 waterchem<-q[[1]]
 struc_waterchem<-q[[2]]
 ```
@@ -126,7 +131,7 @@ struc_waterchem<-q[[2]]
 kable(struc_waterchem)
 ```
 
-* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+* The waterchm dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_waterchem, include=TRUE, echo=FALSE}   
 colnames(waterchem)
@@ -137,7 +142,7 @@ colnames(waterchem)
 ```{r p_waterchem, include=TRUE, echo=FALSE}   
 unique(waterchem$parameter)
 ```
-    
+
 ### chla
 
 * Chlorophyll was measured in the littoral zone (CHLL) and the deep spot (CHLX) these parameters were renamed:
@@ -145,7 +150,7 @@ unique(waterchem$parameter)
     - CHLX = 'chla_deep'
     
 ```{r chla, include=FALSE, echo=FALSE}
-q<-formatData('nla2012_chla_wide.csv','chla.csv')
+q<-formatData('nla2012_chla.csv','chla_nla2012.csv')
 chla<-q[[1]]
 struc_chla<-q[[2]]
 ```
@@ -160,7 +165,7 @@ struc_chla<-q[[2]]
 kable(struc_chla)
 ```
 
-* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+* The chla dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_chla, include=TRUE, echo=FALSE}   
 colnames(chla)
@@ -179,7 +184,7 @@ unique(chla$parameter)
     - MICX = 'mic_deep'
     
 ```{r mcl, include=FALSE, echo=FALSE}
-q<-formatData('nla2012_algaltoxins_08192016.csv','mcl.csv')
+q<-formatData('nla2012_algal_toxins.csv','mcl_nla2012.csv')
 mcl<-q[[1]]
 struc_mcl<-q[[2]]
 ```
@@ -194,7 +199,7 @@ struc_mcl<-q[[2]]
 kable(struc_mcl)
 ```
 
-* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+* The mcl dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_mcl, include=TRUE, echo=FALSE}   
 colnames(mcl)
@@ -209,7 +214,7 @@ unique(mcl$parameter)
 ### atrazine
 
 ```{r atrazine, include=FALSE, echo=FALSE}
-q<-formatData('nla2012_atrazine_08192016.csv','atrazine.csv')
+q<-formatData('nla2012_atrazine.csv','atrazine_nla2012.csv')
 atrazine<-q[[1]]
 struc_atrazine<-q[[2]]
 ```
@@ -224,7 +229,7 @@ struc_atrazine<-q[[2]]
 kable(struc_atrazine)
 ```
 
-* The final dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
+* The atrazine dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_atrazine, include=TRUE, echo=FALSE}   
 colnames(atrazine)
@@ -238,20 +243,22 @@ unique(atrazine$parameter)
 
 ### secchi
 
-```{r secchi, include=FALSE, echo=FALSE, eval=FALSE}
+```{r secchi, include=FALSE, echo=FALSE, eval=TRUE}
 #read the raw data; trycatch will look for the data in two directories
-secchi<-tryCatch(read.csv('data/raw_data/nla2012_secchi_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")),
-            warning = function(e) read.csv('data/raw_data/nla2012_secchi_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+secchi<-read1('data/raw_data/','nla2012_secchi.csv')
 
 #add parameter and UNITS
 secchi$parameter<-'secchi'
 secchi$UNITS<-'m'
 
 #rename and reorder
-secchi<-select(secchi,UID,parameter,RESULT=SECCHI,UNITS,secchi_clear_to_bottom=CLEAR_TO_BOTTOM,secchi_disappears=DISAPPEARS,secchi_reappears=REAPPEARS)
+secchi<-select(secchi,uid=UID,parameter,result=SECCHI,units=UNITS,secchi_clear_to_bottom=CLEAR_TO_BOTTOM,secchi_disappears=DISAPPEARS,secchi_reappears=REAPPEARS)
 
 #clear to bottom
-secchi$RESULT[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$secchi_clear_to_bottom)]<-NA
+secchi$result[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$secchi_clear_to_bottom)]<-NA
+
+#add source
+secchi$source<-'nla2012_secchi.csv'
 ```
 
 * This dataset is mostly in the correct format.
@@ -261,15 +268,15 @@ secchi$RESULT[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$secchi_clear_to
 
 ```{r k_secchi, include=TRUE, echo=FALSE}
 #get the modified data structure
-struc_secchi<-tryCatch(read.csv('data/workfiles/secchi.csv',sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv('../data/workfiles/secchi.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+struc_secchi<-tryCatch(read.csv('data/workfiles/secchi_nla2012.csv',sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv('../data/workfiles/secchi_nla2012.csv',sep=',',na.strings = c(""," ","NA","N/A")))
 kable(struc_secchi)
 ```
 
 ### do2
 
-```{r do2, include=FALSE, echo=FALSE, eval=FALSE}
+```{r do2, include=FALSE, echo=FALSE, eval=TRUE}
 #read the raw data; trycatch will look for the data in two directories
-do2<-tryCatch(read.csv('data/raw_data/nla2012_wide_profile_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv('data/raw_data/nla2012_wide_profile_08232016.csv',sep=',',na.strings = c(""," ","NA","N/A")))
+do2<-read1('data/raw_data/','nla2012_profile.csv')
 
 #harvest the UID and DO2_2M fields
 do2<-select(do2,UID,DO2_2M)%>%filter(!is.na(DO2_2M))
@@ -281,9 +288,10 @@ do2$UNITS<-'mg/l'
 do2$parameter<-'do2_2m'
 
 #rename and reorder
-do2<-select(do2,UID,parameter,RESULT=DO2_2M,UNITS)
+do2<-select(do2,uid=UID,parameter,result=DO2_2M,units=UNITS)
 
-#
+#add source
+do2$source<-'nla2012_profile.csv'
 
 
 ```
@@ -300,19 +308,17 @@ do2<-select(do2,UID,parameter,RESULT=DO2_2M,UNITS)
 * as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.
 
 
-```{r join, include=FALSE, echo=FALSE,eval=FALSE}
-waterchem<-mutate(waterchem,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
-chla<-mutate(chla,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
-atrazine<-mutate(atrazine,RESULT=as.numeric(RESULT),LOQ=as.numeric(LOQ),MDL=as.numeric(MDL))
-mcl<-mutate(mcl,RESULT=as.numeric(RESULT),MDL=as.numeric(MDL),RL=as.numeric(RL))
+```{r join, include=FALSE, echo=FALSE,eval=TRUE}
+waterchem<-mutate(waterchem,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
+chla<-mutate(chla,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
+atrazine<-mutate(atrazine,result=as.numeric(result),loq=as.numeric(loq),mdl=as.numeric(mdl))
+mcl<-mutate(mcl,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
 
-chem<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2)
+chem2012<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2)
 
-test<-group_by(chem, parameter) %>%
-      summarize(sum=sum(RESULT, na.rm = TRUE))
+test<-group_by(chem2012, parameter) %>%
+      summarize(sum=sum(result, na.rm = TRUE))
 ```
-
-
 
 
 

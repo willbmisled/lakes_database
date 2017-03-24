@@ -1,0 +1,22 @@
+oreder,DATA_COLUMN,parameter,column_name,LABEL
+1,UID,column_name,uid,Unique site visit ID
+2,LAB,column_name,lab,Lab name
+3,TRIA_SAMPLE_ID,column_name,tria_sample_id,Triazine sample ID
+4,ATRAZINE_BATCH_ID,atrazine,batch_id,Batch ID from lab for Atrazine
+4,ATRAZINE_DATE_ANALYZED,atrazine,date_analyzed,Date sample was processed by lab for Atrazine
+4,ATRAZINE_DATE_RECEIVED,atrazine,date_received,Date sample was received by lab for Atrazine
+4,ATRAZINE_FLAG,atrazine,flag,Flag for Atrazine
+4,ATRAZINE_HOLDING_TIME,atrazine,holding_time,Time between sampling and lab analysis (days) for Atrazine
+4,ATRAZINE_LOQ,atrazine,loq,Quality information: Limit of Quantitation (LOQ) associated with sample for Atrazine
+4,ATRAZINE_MDL,atrazine,mdl,Quality information: Method Detection Limit (MDL) associated with sample for Atrazine
+4,ATRAZINE_QA_FLAG,atrazine,qa_flag,QA flag for Atrazine
+4,ATRAZINE_RESULT,atrazine,result,Analyte value for Atrazine
+4,ATRAZINE_UNITS,atrazine,units,Units for Atrazine
+5,AGGR_ECO3_2015,delete,,"NARS 3-level reporting region (2015), based on aggregating AGGR_ECO9_2015 reporting regions"
+5,AGGR_ECO9_2015,delete,,"NARS 9-level reporting region (2015), based on aggregated Omernik Level III ecoregions"
+5,STATE,delete,,State lake is assigned to for sampling in NLA 2012
+5,DATE_COL,delete,,Date of sample collection
+5,SITE_ID,delete,,Identification code for site
+5,VISIT_NO,delete,,Sequential number of visit to site
+5,ECO_BIO,delete,,Bioregions
+5,PUBLICATION_DATE,delete,,Publication Date

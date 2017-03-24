@@ -1,0 +1,88 @@
+---
+title: "nla_raw_data"
+author: "Bryan Milstead"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+
+```
+
+## Introduction
+* This document ([nla_raw_data.rmd](https://github.com/willbmisled/lakes_database/blob/master/R/nla_raw_data.Rmd) describes the process of downloading and storing the raw data for the 2007 & 2012 National Lakes Assessments (NLA).  
+
+* The NLA data are available online on the NARS website: [National Aquatic Resource Surveys](https://www.epa.gov/national-aquatic-resource-surveys/data-national-aquatic-resource-surveys)
+
+* The NLA2007 data comprise 27 datasets in csv format
+
+* The NLA2012 data comprise 22 datasets in csv format
+
+* The metadata for each dataset are mostly in txt format and include data definitions and some QA/QC fields.
+
+* Information on the NLA data files is contained in the csv file [nla_data_sources.csv](https://github.com/willbmisled/lakes_database/blob/master/data/nla_data_sources.csv).  Fields include:
+    - survey: "nla2007" or "nla2012"
+    - indicator: general name for the dataset group from the NARS website
+    - dataset: a short name for the dataset
+    - data_url: the link to the data
+    - metadata_url: link to the metadata
+    - description: TBA-this will be a brief description of the dataset
+
+* The "nla_data_sources.csv" table without the URLs is shown below
+
+
+```{r kable, include=TRUE, echo=FALSE}
+raw<-datasets<-tryCatch(read.csv('../data/nla_data_sources.csv',sep=','),warning = function(e) read.csv('data/nla_data_sources.csv',sep=','))
+
+kable(raw[,c(1:3,6)])
+```
+
+## Data Steps
+
+* All files were downloaded to the directory ['data/raw_data'](https://github.com/willbmisled/lakes_database/tree/master/data/raw_data)
+
+* Data and metadata files saved as .csv files; names are a combination of the 'survey' and 'dataset' field from "nla_data_sources.csv"; metadata files end with '_meta.csv' 
+
+* NOTE: the NLA2007 waterchemistry data and metadata are not available as a single file download.  These were extracted from a zip file of the complete 2007 datasets.
+
+```{r get_data, include=FALSE}
+#which are text files and which are csv
+grep('.csv',raw$data_url)  #all
+grep('.txt',raw$data_url)  #none
+
+grep('.csv',raw$metadata_url) #30
+grep('.txt',raw$metadata_url) #all but line 30
+
+#download and save the csv files.
+
+for(i in grep('.csv',raw$data_url)){
+  write.table(read.csv(raw$data_url[i]),paste('../data/raw_data/',raw$survey[i],'_',raw$dataset[i],'.csv',sep=''),row.names=F,sep=',')
+}
+
+for(i in grep('.csv',raw$metadata_url)){
+  write.table(read.csv(raw$metadata_url[i]),paste('../data/raw_data/',raw$survey[i],'_',raw$dataset[i],'_meta.csv',sep=''),row.names=F,sep=',')}
+
+#download and save the txt files.
+for(i in c(1:nrow(raw))[-c(1,6,7,10,13,14,15,25,31)]){
+  write.table(read.table(raw$metadata_url[i],sep='\t', header=TRUE),paste('../data/raw_data/',raw$survey[i],'_',raw$dataset[i],'_meta.csv',sep=''),row.names=F,sep=',')}
+```
+
+* the following metadata records could not be read due to improper formatting
+
+* these files were downloaded manually and saved as csv
+    - "nla2007_buffer_landuse_meta.csv"
+    - "nla2007_condition_plank_oe_model_meta.csv"
+    - "nla2007_condition_recreation_meta.csv"
+    - "nla2007_landuse_meta.csv"
+    - "nla2007_phab_index_meta.csv"
+    - "nla2007_phab_metrics_a_meta.csv"
+    - "nla2007_phab_metrics_b_meta.csv"
+
+* datasets 'nla2007_landuse' & 'nla2007_buffer_landuse' have the same metadata: 'nla2007_landuse_&_buffer_landuse_meta.csv'
+* datasets 'nla2007_phab_metrics_a' & 'nla2007_phab_metrics_a' have the same metadata: 'nla2007_phab_metrics_meta.csv'
+
+
