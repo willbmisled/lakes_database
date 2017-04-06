@@ -1,0 +1,100 @@
+site,sample,name,newName,description
+1,,ADJWGT_CAT,wgt_all,Categories used to adjust initial design weight (WGT) to account for use of over sample lakes.
+1,,ALBERS_X,xcoord,x-coordinate from Albers projection (meters)
+1,,ALBERS_Y,ycoord,y-coordinate from Albers projection (meters)
+1,,AQUACULTUR,aquacultur,Lake is a a private aquaculture waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,AREA_CAT7,area_cat7,Lake area unequal probability category (7 categories)
+1,,AREA_HA,area_ha,Lake polygon area (hectares) from NHD
+1,,CNTYNAME,cntyname,County name
+1,,COM_ID,comid2007,Unique NHD 10-digit common identifier code (0=code not assigned in NHDPlus)
+1,,COMMENT_INFO,comment_info,Comments and flag explanations for lake info data
+,1,DATE_COL,date_col,Date Sample Collected
+1,,DEPTH_X,depth_x,Lake Depth (m) at Index Site
+1,,DEPTHMAX,depthmax,Maximum Observed Lake Depth (m)
+1,,DISPOSAL,disposal,"Lake is used for disposal (tailings, mine-tailings, etc.) (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP"
+1,,DSGN_CAT,dsgn_cat,Probability survey design categories used to assign unequal probability of selection
+1,,ECO_L3_NAM,eco_l3_nam,Omernik level 3 ecoregion name
+1,,ECO_LEV_3,us_l3code,Omernik level 3 ecoregion number
+1,,ECO_NUTA,eco_nuta,NLA Aggregate Nutrient Ecoregion
+1,,ECO3_X_ORIGIN,eco3_x_origin,WSA_ECO3 x LAKE_ORIGIN CLASS
+1,,ELEV_PT,elevation,Site elevation (meters) from the National Elevation Dataset
+1,,EPA_REG,epa_reg,EPA Region
+1,,EVAPORATE,evaporate,Lake is used for evaporation (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+,1,FID_1,fid_1,GIS record number for site-visit combination
+1,,FLAG_INFO,flag_info,Data qualifier flag for lake info data
+1,,FLD_FLAG,fld_flag,Not NHD Lake-reference lake not found in NHD. Not in NHD lake polygon-field location was not found in NHD lake polygon
+1,,FLD_LAT_DD,fld_lat_dd,Latitude (decimal degrees) recorded from the field form (lake verification)
+1,,FLD_LON_DD,fld_lon_dd,Longitude (decimal degrees) recorded from the field form (lake verification)
+1,,FLD_SRC,fld_src,"Field location source: Index_Site: location where index sample was taken. Launch_Site: point where boat was launched. Map_Loc: Location obtained from design file.  Priority:  lake index site; then launch site, then map location"
+1,,HUC_2,huc2,Hydrologic region (2-digit)
+1,,HUC_8,huc8,Hydrologic region (8-digit)
+1,,INDEX_SAMP,index_samp,Confirmation that lake was sampled. Secchi_Samp-Secchi depth determined
+,1,INDXSAMP_CHEM,indxsamp_chem,Index chhemistry sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_CHLA,indxsamp_chla,Index chlorophyll sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_CORE,indxsamp_core,Index sediment core sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_ENTE,indxsamp_ente,Index enterococci sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_INF,indxsamp_inf,Index sample for site (YES/NO); typically visit 1)
+,1,INDXSAMP_MICR,indxsamp_micr,Index microcystin sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_PHAB,indxsamp_phab,Index sample for physical habitat (YES/NO)?
+,1,INDXSAMP_PHYT,indxsamp_phyt,Index phytoplankton sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_SDHG,indxsamp_sdhg,Index sediment Hg sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,INDXSAMP_ZOOP,indxsamp_zoop,Index zooplankton sample for site (YES/NO)-typically the VIsit 1 Primary sample
+1,,LAKE_ORIGIN,lake_origin,"Lake origin (MAN-MADE, NATURAL [which includes natural lakes augmented by dams])"
+,1,LAKE_SAMP,status,"Eval. status. _Denied (access denied). _Inaccess (physically inaccessible). _Other. _LT_4ha (< 4ha). _Shallow (< 1m deep). _Vegetated (< 1000 m2 open H2O). _Saline (tidal). Special_Purpose (aquacult., disposal, WWT, or evap.). Not_Lake (other)"
+1,,LAKEAREA,lakearea,Lake polygon area (km^2) from NHD
+1,,LAKENAME,lakename,Lake name (from field forms)
+1,,LAKEPERIM,perim_km,Lake polygon perimeter (km) from NHD
+1,,LAT_DD,lat_dd83,Latitude (decimal degrees) obtained from NHD (NAD83)
+1,,LON_DD,lon_dd83,Longitude (decimal degrees) obtained from NHD (NAD83)
+1,,MDCATY,mdcaty,Unequal selection probability for lake
+1,,METER_DEEP,meter_deep,Lake is > 1 m deep (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,NESLAKE,neslake,NESLake-Lake was included in 1970s National Eutrophication Survey
+1,,NESLAKE_ID,neslake_id,NESLake-Lake was included in 1970s National Eutrophication Survey
+1,,NHDNAME,nhdname,Lake name (from NHD)
+1,,NON_SALINE,non_saline,Lake is non-saline waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,NUT_REG,nut_reg,"Nutrient ecoregion, based on EPA nutrient criteria documents for lakes & reservoirs)"
+1,,NUTREG_NAME,nutreg_name,Nutrient ecoregion name
+1,,OPEN_WATER,open_water,Lake has > 1000 m2 of open water (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,PANEL,panel,Panel_1-lake was included in base design. OverSamp-Lake was part of over sample of lakes used for replacing lakes in base design if they could not be sampled
+1,,PERM_WATER,perm_water,Lake is a permanent waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,PHYS_ACCES,phys_acces,Lake is physically accessible for crew and boats (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,REACHCODE,reachcode,Unique NHD 14-digit Reach Code (0=code not assigned in NHDPlus
+1,,REF_CLUSTER,ref_cluster,NLA Reference Site Cluster (A-G)
+1,,REF_NUTR,ref_nutr,Nutrient Least Disturbed Reference Site (Y/N)
+1,,REFCLUS_NAME,refclus_name,NLA Reference Cluster Description
+1,,REPEAT,repeat,Repeat visit lake (YES/blank)
+1,,RT_NLA,rt_nla,"NLA Reference Class Assignment (REF=reference, SO-SO=intermediate, TRASH=impacted)"
+1,,SAMPLED,sitesamp,Site Sampled Code
+,1,SAMPLED_ASSESS,sampled_assess,Site Sample Status - Assessment Form
+,1,SAMPLED_CHEM,sampled_chem,Index chemistry sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,SAMPLED_CHLA,sampled_chla,CHLA SAMPLE COLLECTED/ANALYZED?
+,1,SAMPLED_CORE,sampled_core,Sediment core sample collected?
+,1,SAMPLED_ENTE,sampled_ente,Enterococci sample collected?
+,1,SAMPLED_INF,sampled_inf,"Sediment core samples (Top, Bottom) used for diatom-inferred chemistry?"
+,1,SAMPLED_MICR,sampled_micr,Microcystin sample collected?
+,1,SAMPLED_PHAB,sampled_phab,Site sampled code for physical habitat characterization
+,1,SAMPLED_PHYT,sampled_phyt,Phytoplankton sample collected?
+,1,SAMPLED_PROFILE,sampled_profile,SAMPLED variable from profile data
+,1,SAMPLED_SDHG,sampled_sdhg,Sediment Hg sample collected?
+,1,SAMPLED_SECCHI,sampled_secchi,Secchi Depth Site Sample Status
+,1,SAMPLED_ZOOP,sampled_zoop,Zooplankton sample collected?
+1,,SEWAGE,sewage,Lake is sewage treatment pond (YES). Derived from Lake evaluation desktop and field forms. Used with other information to to construct LAKE_SAMP
+1,1,SITE_ID,site_id,ID Assigned to Each Site
+1,,SITE_TYPE,sitetype,PROB_Samp: Lake is from probability sample and can be used for population estimation.  REF_Lake: Lake is not from probability sample and was selected as a candidate reference lake
+1,,SIZE_CLASS,size_class,Lake area size class
+1,,SLD,sld,Shoreline development index (=LAKEPERIM/(2*sqrt(LAKEAREA*pi))
+1,,SRFC_AREA,srfc_area,Lake is > 4 ha (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP.
+1,,ST,state,State two letter code
+1,,STATE_NAME,state_name,STATE_NAME
+1,,STATUS_DSK,status_dsk,Lake evaluation status from lake evaluation desktop form.Used with other information to construct LAKE_SAMP
+1,,STATUS_FLD,status_fld,Lake evaluation status from lake evaluation field form. Used with other information to construct LAKE_SAMP
+1,,STATUS_VER,status_ver,Lake evaluation status from lake verification form. Used with other information to construct LAKE_SAMP
+1,,STRATUM,stratum,Probability survey design stratum. NLALake is single stratum
+1,,TNT,tnt,Target:Non-target evaluation status derived from LAKE_SAMP
+1,,URBAN,urban,URBAN LAKE? (YES/NO)
+,1,VISIT_ID,uid,Number assigned to each visit
+,1,VISIT_NO,visit_no,Sequential Visit Number Within Year
+1,,WGT,wgt_dsgn,Initial site weight based on base design. DO NOT USE for population estimation
+1,,WGT_NLA,wgt_all,Adjusted site weight. USE for population estimation
+1,,WSA_ECO3,fw_eco3,Wadeable Stream Assessment three aggregrated Omernik level 3 ecoregions
+1,,WSA_ECO9,fw_eco9,Wadeable Stream Assessment nine aggregrated Omernik level 3 ecoregions

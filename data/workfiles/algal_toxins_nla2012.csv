@@ -1,0 +1,33 @@
+DATA_COLUMN,parameter,column_name,LABEL
+UID,column_name,uid,Unique site visit ID
+LAB,column_name,lab,Lab name
+MICX_BATCH_ID,microcystin,batch_id,Batch ID from lab for X-site Microcystin
+MICX_DATE_ANALYZED,microcystin,date_analyzed,Date of sample analysis for X-site Microcystin
+MICX_DATE_RECEIVED,microcystin,date_received,Date sample received by laboratory for X-site Microcystin
+MICX_FLAG,microcystin,flag,Flag for X-site Microcystin
+MICX_HOLDING_TIME,microcystin,holding_time,Sample holding time for X-site Microcystin
+MICX_MDL,microcystin,mdl,Minimum detection limit of analyte for X-site Microcystin
+MICX_QA_FLAG,microcystin,qa_flag,QA flag associated with sample for X-site Microcystin
+MICX_RESULT,microcystin,result,Analyte value for X-site Microcystin
+MICX_RL,microcystin,rl,Reporting limit for X-site Microcystin
+MICX_SAMPLE_ID,microcystin,lab_sample_id,ID for sample collected for X-site Microcystin
+MICX_UNITS,microcystin,units,Units for X-site Microcystin
+MICL_BATCH_ID,microcystin_littoral,batch_id,Batch ID from lab for Littoral Microcystin
+MICL_DATE_ANALYZED,microcystin_littoral,date_analyzed,Date of sample analysis for Littoral Microcystin
+MICL_DATE_RECEIVED,microcystin_littoral,date_received,Date sample received by laboratory for Littoral Microcystin
+MICL_FLAG,microcystin_littoral,flag,Flag for Littoral Microcystin
+MICL_HOLDING_TIME,microcystin_littoral,holding_time,Sample holding time for Littoral Microcystin
+MICL_MDL,microcystin_littoral,mdl,Minimum detection limit of analyte for Littoral Microcystin
+MICL_QA_FLAG,microcystin_littoral,qa_flag,QA flag associated with sample for Littoral Microcystin
+MICL_RESULT,microcystin_littoral,result,Analyte value for Littoral Microcystin
+MICL_RL,microcystin_littoral,rl,Reporting limit for Littoral Microcystin
+MICL_SAMPLE_ID,microcystin_littoral,lab_sample_id,ID for sample collected for Littoral Microcystin
+MICL_UNITS,microcystin_littoral,units,Units for Littoral Microcystin
+AGGR_ECO3_2015,delete,,"NARS 3-level reporting region (2015), based on aggregating AGGR_ECO9_2015 reporting regions"
+AGGR_ECO9_2015,delete,,"NARS 9-level reporting region (2015), based on aggregated Omernik Level III ecoregions"
+DATE_COL,delete,,Date of sample collection
+SITE_ID,delete,,Identification code for site
+STATE,delete,,State lake is assigned to for sampling in NLA 2012
+VISIT_NO,delete,,Sequential number of visit to site
+ECO_BIO,delete,,NOTE: not in nla2012_algaltoxins_meta_08192016.csv
+PUBLICATION_DATE,delete,,NOTE: not in nla2012_algaltoxins_meta_08192016.csv

@@ -69,7 +69,7 @@ return(list(ch,struc))
 ## To Do
 * change character to numeric for result, mdl, rl ???
 * change col_names and character data to snake case
-* secchi_clear_to_bottom, secchi_disappears, & secchi_reappears; change to NA for parameter NE secchi
+* `r paste("insult of the day:",bismer::insult())`
 
 ## Naming Conventions
 * All variable names in lowercase
@@ -119,6 +119,9 @@ return(list(ch,struc))
 q<-formatData('nla2012_waterchem.csv','waterchem_nla2012.csv')
 waterchem<-q[[1]]
 struc_waterchem<-q[[2]]
+
+#change nitrate_nitrite_n' units to 'mg N/L' (mostly correct but a few observation have units=='mg/l)'
+waterchem<-mutate(waterchem,units=ifelse(parameter=='nitrate_nitrite_n',units=='mg N/L',units))
 ```
 
 * The following table shows how the raw data will be deconstructed:
@@ -129,6 +132,7 @@ struc_waterchem<-q[[2]]
 
 ```{r k_waterchem, include=TRUE, echo=FALSE}
 kable(struc_waterchem)
+
 ```
 
 * The waterchm dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
@@ -147,7 +151,7 @@ unique(waterchem$parameter)
 
 * Chlorophyll was measured in the littoral zone (CHLL) and the deep spot (CHLX) these parameters were renamed:
     - CHLL = 'chla_littoral'
-    - CHLX = 'chla_deep'
+    - CHLX = 'chla'
     
 ```{r chla, include=FALSE, echo=FALSE}
 q<-formatData('nla2012_chla.csv','chla_nla2012.csv')
@@ -180,11 +184,11 @@ unique(chla$parameter)
 ### microcystin
 
 * Microcystin was measured in the littoral zone (MICL) and the deep spot (MICX) these parameters will be renamed:
-    - MICL = 'mic_littoral'
-    - MICX = 'mic_deep'
+    - MICL = 'microcystin_littoral'
+    - MICX = 'microcystin'
     
 ```{r mcl, include=FALSE, echo=FALSE}
-q<-formatData('nla2012_algal_toxins.csv','mcl_nla2012.csv')
+q<-formatData('nla2012_algal_toxins.csv','algal_toxins_nla2012.csv')
 mcl<-q[[1]]
 struc_mcl<-q[[2]]
 ```
@@ -252,10 +256,10 @@ secchi$parameter<-'secchi'
 secchi$UNITS<-'m'
 
 #rename and reorder
-secchi<-select(secchi,uid=UID,parameter,result=SECCHI,units=UNITS,secchi_clear_to_bottom=CLEAR_TO_BOTTOM,secchi_disappears=DISAPPEARS,secchi_reappears=REAPPEARS)
+secchi<-select(secchi,uid=UID,parameter,result=SECCHI,units=UNITS,clear_to_bottom=CLEAR_TO_BOTTOM)
 
 #clear to bottom
-secchi$result[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$secchi_clear_to_bottom)]<-NA
+secchi$result[secchi$secchi_clear_to_bottom=='Y' & !is.na(secchi$clear_to_bottom)]<-NA
 
 #add source
 secchi$source<-'nla2012_secchi.csv'
@@ -278,8 +282,24 @@ kable(struc_secchi)
 #read the raw data; trycatch will look for the data in two directories
 do2<-read1('data/raw_data/','nla2012_profile.csv')
 
-#harvest the UID and DO2_2M fields
+#many observations with UIDs are missing SITE_ID
+table(is.na(do2$SITE_ID)) #F==13762 T==16955
+nrow(filter(do2,is.na(SITE_ID))) #16955
+
+#check if the UID's are in the info file
+i12<-read1('data/raw_data/','nla2012_site_info.csv')
+
+nrow(filter(do2, !UID%in%i12$UID))  #16955
+nrow(filter(do2,is.na(SITE_ID))) #16955
+
+#harvest the UID and DO2_2M fields; delete rows with is.na(do2$SITE_ID)
+do2<-filter(do2,!is.na(DO2_2M),!is.na(SITE_ID))%>%select(UID,DO2_2M)
+nrow(do2)  #1189
+nrow(filter(do2, !UID%in%i12$UID))  #0
+
+
 do2<-select(do2,UID,DO2_2M)%>%filter(!is.na(DO2_2M))
+nrow(do2)  #1189
 
 #add UNITS='mg/l'
 do2$UNITS<-'mg/l'
@@ -296,6 +316,7 @@ do2$source<-'nla2012_profile.csv'
 
 ```
 
+* There are 16955 rows in the do2 data that have UIDs but no SITE_IDs.  None of these UIDs is represented in the siteInfo so these were dropped.
 * Only the UID and DO2_2M columns are harvested from the profile dataset.
 * DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake.  It is based on the profile data.
 * UNITS='mg/l' was added 
@@ -305,7 +326,11 @@ do2$source<-'nla2012_profile.csv'
 
 * convert (if exist) fields RESULT, MDL, RL, and LOQ to numeric
 * all files joined
+* delete rows for is.na(result) 
+* add field duplicate=='P'; for the 2007 data there are primary and duplicate value; for consistency we'll add the same field to the 2012 data and set all values to P=primary.
 * as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.
+* check that all uid are in 'nla2007_site_info.csv'
+* check that all uid correspond to STATUS=="Target_Sampled"
 
 
 ```{r join, include=FALSE, echo=FALSE,eval=TRUE}
@@ -316,8 +341,106 @@ mcl<-mutate(mcl,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
 
 chem2012<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2)
 
-test<-group_by(chem2012, parameter) %>%
-      summarize(sum=sum(result, na.rm = TRUE))
+chem2012$duplicate='P'
+
+chem2012<-filter(chem2012,!is.na(result))
+
+#check that all uid are in 'nla2012_site_info.csv' and that they correspond to LAKE_SAMP=="Target_Sampled"
+i12<-select(read1('data/raw_data/','nla2012_site_info.csv'),SITE_ID,UID,STATUS) #get the siteinfo
+names(i12)<-tolower(names(i12))
+nrow(chem2012) #32810
+a<-left_join(chem2012,i12)%>%filter(status!="Target_Sampled")%>%select(uid,site_id,status)%>%distinct()
+nrow(chem2012) #32810  all uid in 'nla2012_site_info.csv'
+```
+
+###QA/QC
+
+* two qa/qc checks were run to make sure the data were assembled correctly.  
+- sums by parameter were calculated and compared for the chem2012 and 'nla2012_waterchem.csv' data; all matched
+- sums by uid were calculated and compared for the chem2012 and 'nla2012_waterchem.csv' data; all matched
+* did not check sums for other datasets but the waterchem check shows the process worked.
+
+```{r qa, include=FALSE, echo=FALSE,eval=TRUE}
+#get the raw data and change names to lowercase
+a<-read1('data/raw_data/','nla2012_waterchem.csv') 
+
+#keep results and uid
+a<-select(a,1,grep('_RESULT',names(a)))
+
+#rename to match chem2012
+names(a)<-tolower(unlist(strsplit(names(a),"_RESULT")))
+
+#read the parameters from chem2012
+param<-filter(chem2012,source=='nla2012_waterchem.csv')%>%select(parameter)%>%distinct()
+param<-param$parameter
+
+#restrict raw data to params and uid in chem2012
+table(a$uid%in%chem2012$uid) #T=1230
+table(chem2012$uid%in%a$uid) #T=32810
+
+#get sums by parameter for raw and chem2012
+rawParam<-apply(a[,-1],2,sum,na.rm=TRUE)
+rawParam<-data.frame(parameter=names(rawParam),rawSum=rawParam)
+
+chemParam<-group_by(chem2012, parameter) %>%
+  summarize(chemSum=sum(result, na.rm = TRUE))
+
+test<-inner_join(chemParam,rawParam)%>%mutate(test=chemSum==rawSum)
+all.equal(test$chemSum,test$rawSum)
+
+#compare  sums by UID
+#get sums by parameter for raw and chem2012
+names(a[,-1])
+unique(chem2012$parameter)
+
+b<-filter(chem2012,parameter%in%names(a[,-c(1:2)]))
+
+table(b$parameter%in%names(a[,-c(1:2)]))
+table(names(a[,-c(1:2)])%in%b$parameter)
+
+rawUid<-data.frame(uid=a$uid,sumRaw=apply(a[,-c(1:2)],1,sum,na.rm=TRUE))
+
+chemUid<-group_by(b, uid) %>%
+  summarize(sumChem=sum(result, na.rm = TRUE))
+
+test1<-inner_join(chemUid,rawUid)%>%mutate(test=sumChem==sumRaw)
+all.equal(test1$sumChem,test1$sumRaw)
+
+```
+
+## Data definitions for the NLA2007 and NLA2012 chemistry data
+
+* Below are the data definitions for column names of the chemistry data
+* Included are four fields
+    - **name**: is the column name (field)
+    - **2007**: 1=field included in chem2007
+    - **2012**: 1=field included in chem2012
+    - **definition**: a brief description of the field 
+
+```{r data_defintions, include=TRUE, echo=FALSE}
+dd<-read1('output/','nla2007_2012_chem_data_defintions.csv')
+kable(dd)
+```
+
+* The following table defines the parameters in the chem data
+* This table has six fields
+    - **parameter**: the name of the chemical analyte or measurement 
+    - **name07**: the original name for the parameter in the NLA2007 data (if measured)
+    - **name12**: the original name for the parameter in the NLA2012 data (if measured)
+    - **units07**: the measurement units for the parameter in the NLA2007 data 
+    - **units12**: the measurement units for the parameter in the NLA2012 data 
+    - **definition**: a brief description of the parameter 
+    
+```{r param_defintions, include=TRUE, echo=FALSE}
+pd<-read1('output/','nla2007_2012_chem_parameters.csv')
+kable(pd)
+```
+## Save the data
+
+* chem2012 saved as 'output/nla2012_chem.csv'
+
+```{r save, include=FALSE, echo=FALSE,eval=TRUE}
+tryCatch(write.table(chem2012,'output/nla2012_chem.csv',sep=',',row.names=FALSE),warning = function(e) write.table(chem2012,'../output/nla2012_chem.csv',sep=',',row.names=FALSE))
 ```
 
 

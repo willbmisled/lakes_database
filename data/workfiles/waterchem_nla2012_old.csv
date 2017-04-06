@@ -1,0 +1,234 @@
+DATA_COLUMN,parameter,column_name,description
+UID,column_name,uid,Unique site visit ID
+LAB,column_name,lab,Lab name
+CHEM_SAMPLE_ID,column_name,chem_sample_id,Chemistry Sample ID
+CHEM_SHIP_FLAG,column_name,chem_ship_flag,Chemistry Shipping Flag
+NUTS_SAMPLE_ID,column_name,nuts_sample_id,Nutrients Sample ID
+NUTS_SHIP_FLAG,column_name,nuts_ship_flag,Nutrients Shipping Flag
+SAM_CODE,delete,,"NOTE: not in nla2012_waterchem_meta.csv; only used for waterchem data; all values=""REGULAR""; delete"
+ALUMINUM_BATCH_ID,aluminum,batch_id,Batch ID from lab for Aluminum
+ALUMINUM_DATE_ANALYZED,aluminum,date_analyzed,Date of sample analysis for Aluminum
+ALUMINUM_HOLDING_TIME,aluminum,holding_time,Sample holding time for Aluminum
+ALUMINUM_LAB_FLAG,aluminum,lab_flag,Flag from laboratory for Aluminum
+ALUMINUM_LAB_SAMPLE_ID,aluminum,lab_sample_id,Laboratory Sample ID for Aluminum
+ALUMINUM_MDL,aluminum,mdl,Minimum detection limit of analyte for Aluminum
+ALUMINUM_QA_FLAG,aluminum,qa_flag,QA flag associated with sample for Aluminum
+ALUMINUM_RESULT,aluminum,result,Analyte value for Aluminum
+ALUMINUM_RL,aluminum,rl,Reporting limit for Aluminum
+ALUMINUM_UNITS,aluminum,units,Units for Aluminum
+AMMONIA_N_BATCH_ID,ammonia_n,batch_id,Batch ID from lab for Ammonia as N
+AMMONIA_N_DATE_ANALYZED,ammonia_n,date_analyzed,Date of sample analysis for Ammonia as N
+AMMONIA_N_HOLDING_TIME,ammonia_n,holding_time,Sample holding time for Ammonia as N
+AMMONIA_N_LAB_FLAG,ammonia_n,lab_flag,Flag from laboratory for Ammonia as N
+AMMONIA_N_LAB_SAMPLE_ID,ammonia_n,lab_sample_id,Laboratory Sample ID for Ammonia as N
+AMMONIA_N_MDL,ammonia_n,mdl,Minimum detection limit of analyte for Ammonia as N
+AMMONIA_N_QA_FLAG,ammonia_n,qa_flag,QA flag associated with sample for Ammonia as N
+AMMONIA_N_RESULT,ammonia_n,result,Analyte value for Ammonia as N
+AMMONIA_N_RL,ammonia_n,rl,Reporting limit for Ammonia as N
+AMMONIA_N_UNITS,ammonia_n,units,Units for Ammonia as N
+ANC_BATCH_ID,anc,batch_id,Batch ID from lab for Acid Neutralizing Capacity
+ANC_DATE_ANALYZED,anc,date_analyzed,Date of sample analysis for Acid Neutralizing Capacity
+ANC_FLAG,anc,flag,Flag for Acid Neutralizing Capacity
+ANC_HOLDING_TIME,anc,holding_time,Sample holding time for Acid Neutralizing Capacity
+ANC_LAB_FLAG,anc,lab_flag,Flag from laboratory for Acid Neutralizing Capacity
+ANC_LAB_SAMPLE_ID,anc,lab_sample_id,Laboratory Sample ID for Acid Neutralizing Capacity
+ANC_QA_FLAG,anc,qa_flag,QA flag associated with sample for Acid Neutralizing Capacity
+ANC_RESULT,anc,result,Analyte value for Acid Neutralizing Capacity
+ANC_UNITS,anc,units,Units for Acid Neutralizing Capacity
+CALCIUM_BATCH_ID,calcium,batch_id,Batch ID from lab for Calcium
+CALCIUM_DATE_ANALYZED,calcium,date_analyzed,Date of sample analysis for Calcium
+CALCIUM_FLAG,calcium,flag,Flag for Calcium
+CALCIUM_HOLDING_TIME,calcium,holding_time,Sample holding time for Calcium
+CALCIUM_LAB_FLAG,calcium,lab_flag,Flag from laboratory for Calcium
+CALCIUM_LAB_SAMPLE_ID,calcium,lab_sample_id,Laboratory Sample ID for Calcium
+CALCIUM_MDL,calcium,mdl,Minimum detection limit of analyte for Calcium
+CALCIUM_QA_FLAG,calcium,qa_flag,QA flag associated with sample for Calcium
+CALCIUM_RESULT,calcium,result,Analyte value for Calcium
+CALCIUM_RL,calcium,rl,Reporting limit for Calcium
+CALCIUM_UNITS,calcium,units,Units for Calcium
+CHLORIDE_BATCH_ID,chloride,batch_id,Batch ID from lab for Chloride ion
+CHLORIDE_DATE_ANALYZED,chloride,date_analyzed,Date of sample analysis for Chloride ion
+CHLORIDE_FLAG,chloride,flag,Flag for Chloride ion
+CHLORIDE_HOLDING_TIME,chloride,holding_time,Sample holding time for Chloride ion
+CHLORIDE_LAB_FLAG,chloride,lab_flag,Flag from laboratory for Chloride ion
+CHLORIDE_LAB_SAMPLE_ID,chloride,lab_sample_id,Laboratory Sample ID for Chloride ion
+CHLORIDE_MDL,chloride,mdl,Minimum detection limit of analyte for Chloride ion
+CHLORIDE_QA_FLAG,chloride,qa_flag,QA flag associated with sample for Chloride ion
+CHLORIDE_RESULT,chloride,result,Analyte value for Chloride ion
+CHLORIDE_RL,chloride,rl,Reporting limit for Chloride ion
+CHLORIDE_UNITS,chloride,units,Units for Chloride ion
+COLOR_BATCH_ID,color,batch_id,Batch ID from lab for Color
+COLOR_DATE_ANALYZED,color,date_analyzed,Date of sample analysis for Color
+COLOR_FLAG,color,flag,Flag for Color
+COLOR_HOLDING_TIME,color,holding_time,Sample holding time for Color
+COLOR_LAB_FLAG,color,lab_flag,Flag from laboratory for Color
+COLOR_LAB_SAMPLE_ID,color,lab_sample_id,Laboratory Sample ID for Color
+COLOR_MDL,color,mdl,Minimum detection limit of analyte for Color
+COLOR_QA_FLAG,color,qa_flag,QA flag associated with sample for Color
+COLOR_RESULT,color,result,Analyte value for Color
+COLOR_RL,color,rl,Reporting limit for Color
+COLOR_UNITS,color,units,Units for Color
+COND_BATCH_ID,cond,batch_id,Batch ID from lab for Conductivity
+COND_DATE_ANALYZED,cond,date_analyzed,Date of sample analysis for Conductivity
+COND_FLAG,cond,flag,Flag for Conductivity
+COND_HOLDING_TIME,cond,holding_time,Sample holding time for Conductivity
+COND_LAB_FLAG,cond,lab_flag,Flag from laboratory for Conductivity
+COND_LAB_SAMPLE_ID,cond,lab_sample_id,Laboratory Sample ID for Conductivity
+COND_MDL,cond,mdl,Minimum detection limit of analyte for Conductivity
+COND_QA_FLAG,cond,qa_flag,QA flag associated with sample for Conductivity
+COND_RESULT,cond,result,Analyte value for Conductivity
+COND_RL,cond,rl,Reporting limit for Conductivity
+COND_UNITS,cond,units,Units for Conductivity
+DOC_BATCH_ID,doc,batch_id,Batch ID from lab for Dissolved Organic Carbon
+DOC_DATE_ANALYZED,doc,date_analyzed,Date of sample analysis for Dissolved Organic Carbon
+DOC_FLAG,doc,flag,Flag for Dissolved Organic Carbon
+DOC_HOLDING_TIME,doc,holding_time,Sample holding time for Dissolved Organic Carbon
+DOC_LAB_FLAG,doc,lab_flag,Flag from laboratory for Dissolved Organic Carbon
+DOC_LAB_SAMPLE_ID,doc,lab_sample_id,Laboratory Sample ID for Dissolved Organic Carbon
+DOC_MDL,doc,mdl,Minimum detection limit of analyte for Dissolved Organic Carbon
+DOC_QA_FLAG,doc,qa_flag,QA flag associated with sample for Dissolved Organic Carbon
+DOC_RESULT,doc,result,Analyte value for Dissolved Organic Carbon
+DOC_RL,doc,rl,Reporting limit for Dissolved Organic Carbon
+DOC_UNITS,doc,units,Units for Dissolved Organic Carbon
+MAGNESIUM_BATCH_ID,magnesium,batch_id,Batch ID from lab for Magnesium
+MAGNESIUM_DATE_ANALYZED,magnesium,date_analyzed,Date of sample analysis for Magnesium
+MAGNESIUM_FLAG,magnesium,flag,Flag for Magnesium
+MAGNESIUM_HOLDING_TIME,magnesium,holding_time,Sample holding time for Magnesium
+MAGNESIUM_LAB_FLAG,magnesium,lab_flag,Flag from laboratory for Magnesium
+MAGNESIUM_LAB_SAMPLE_ID,magnesium,lab_sample_id,Laboratory Sample ID for Magnesium
+MAGNESIUM_MDL,magnesium,mdl,Minimum detection limit of analyte for Magnesium
+MAGNESIUM_QA_FLAG,magnesium,qa_flag,QA flag associated with sample for Magnesium
+MAGNESIUM_RESULT,magnesium,result,Analyte value for Magnesium
+MAGNESIUM_RL,magnesium,rl,Reporting limit for Magnesium
+MAGNESIUM_UNITS,magnesium,units,Units for Magnesium
+NITRATE_N_BATCH_ID,nitrate_n,batch_id,Batch ID from lab for Nitrate as N
+NITRATE_N_DATE_ANALYZED,nitrate_n,date_analyzed,Date of sample analysis for Nitrate as N
+NITRATE_N_FLAG,nitrate_n,flag,Flag for Nitrate as N
+NITRATE_N_HOLDING_TIME,nitrate_n,holding_time,Sample holding time for Nitrate as N
+NITRATE_N_LAB_FLAG,nitrate_n,lab_flag,Flag from laboratory for Nitrate as N
+NITRATE_N_LAB_SAMPLE_ID,nitrate_n,lab_sample_id,Laboratory Sample ID for Nitrate as N
+NITRATE_N_MDL,nitrate_n,mdl,Minimum detection limit of analyte for Nitrate as N
+NITRATE_N_QA_FLAG,nitrate_n,qa_flag,QA flag associated with sample for Nitrate as N
+NITRATE_N_RESULT,nitrate_n,result,Analyte value for Nitrate as N
+NITRATE_N_RL,nitrate_n,rl,Reporting limit for Nitrate as N
+NITRATE_N_UNITS,nitrate_n,units,Units for Nitrate as N
+NITRATE_NITRITE_N_BATCH_ID,nitrate_nitrite_n,batch_id,Batch ID from lab for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_DATE_ANALYZED,nitrate_nitrite_n,date_analyzed,Date of sample analysis for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_FLAG,nitrate_nitrite_n,flag,Flag for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_HOLDING_TIME,nitrate_nitrite_n,holding_time,Sample holding time for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_LAB_FLAG,nitrate_nitrite_n,lab_flag,Flag from laboratory for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_LAB_SAMPLE_ID,nitrate_nitrite_n,lab_sample_id,Laboratory Sample ID for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_MDL,nitrate_nitrite_n,mdl,Minimum detection limit of analyte for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_QA_FLAG,nitrate_nitrite_n,qa_flag,QA flag associated with sample for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_RESULT,nitrate_nitrite_n,result,Analyte value for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_RL,nitrate_nitrite_n,rl,Reporting limit for Nitrate + Nitrite as N
+NITRATE_NITRITE_N_UNITS,nitrate_nitrite_n,units,Units for Nitrate + Nitrite as N
+NITRITE_N_BATCH_ID,nitrite_n,batch_id,Batch ID from lab for Nitrite as N
+NITRITE_N_DATE_ANALYZED,nitrite_n,date_analyzed,Date of sample analysis for Nitrite as N
+NITRITE_N_HOLDING_TIME,nitrite_n,holding_time,Sample holding time for Nitrite as N
+NITRITE_N_LAB_FLAG,nitrite_n,lab_flag,Flag from laboratory for Nitrite as N
+NITRITE_N_LAB_SAMPLE_ID,nitrite_n,lab_sample_id,Laboratory Sample ID for Nitrite as N
+NITRITE_N_MDL,nitrite_n,mdl,Minimum detection limit of analyte for Nitrite as N
+NITRITE_N_QA_FLAG,nitrite_n,qa_flag,QA flag associated with sample for Nitrite as N
+NITRITE_N_RESULT,nitrite_n,result,Analyte value for Nitrite as N
+NITRITE_N_RL,nitrite_n,rl,Reporting limit for Nitrite as N
+NITRITE_N_UNITS,nitrite_n,units,Units for Nitrite as N
+NTL_BATCH_ID,ntl,batch_id,Batch ID from lab for Total Nitrogen
+NTL_DATE_ANALYZED,ntl,date_analyzed,Date of sample analysis for Total Nitrogen
+NTL_FLAG,ntl,flag,Flag for Total Nitrogen
+NTL_HOLDING_TIME,ntl,holding_time,Sample holding time for Total Nitrogen
+NTL_LAB_FLAG,ntl,lab_flag,Flag from laboratory for Total Nitrogen
+NTL_LAB_SAMPLE_ID,ntl,lab_sample_id,Laboratory Sample ID for Total Nitrogen
+NTL_MDL,ntl,mdl,Minimum detection limit of analyte for Total Nitrogen
+NTL_QA_FLAG,ntl,qa_flag,QA flag associated with sample for Total Nitrogen
+NTL_RESULT,ntl,result,Analyte value for Total Nitrogen
+NTL_RL,ntl,rl,Reporting limit for Total Nitrogen
+NTL_UNITS,ntl,units,Units for Total Nitrogen
+PH_BATCH_ID,ph,batch_id,Batch ID from lab for pH
+PH_DATE_ANALYZED,ph,date_analyzed,Date of sample analysis for pH
+PH_FLAG,ph,flag,Flag for pH
+PH_HOLDING_TIME,ph,holding_time,Sample holding time for pH
+PH_LAB_FLAG,ph,lab_flag,Flag from laboratory for pH
+PH_LAB_SAMPLE_ID,ph,lab_sample_id,Laboratory Sample ID for pH
+PH_QA_FLAG,ph,qa_flag,QA flag associated with sample for pH
+PH_RESULT,ph,result,Analyte value for pH
+PH_UNITS,ph,units,Units for pH
+POTASSIUM_BATCH_ID,potassium,batch_id,Batch ID from lab for Potassium
+POTASSIUM_DATE_ANALYZED,potassium,date_analyzed,Date of sample analysis for Potassium
+POTASSIUM_FLAG,potassium,flag,Flag for Potassium
+POTASSIUM_HOLDING_TIME,potassium,holding_time,Sample holding time for Potassium
+POTASSIUM_LAB_FLAG,potassium,lab_flag,Flag from laboratory for Potassium
+POTASSIUM_LAB_SAMPLE_ID,potassium,lab_sample_id,Laboratory Sample ID for Potassium
+POTASSIUM_MDL,potassium,mdl,Minimum detection limit of analyte for Potassium
+POTASSIUM_QA_FLAG,potassium,qa_flag,QA flag associated with sample for Potassium
+POTASSIUM_RESULT,potassium,result,Analyte value for Potassium
+POTASSIUM_RL,potassium,rl,Reporting limit for Potassium
+POTASSIUM_UNITS,potassium,units,Units for Potassium
+PTL_BATCH_ID,ptl,batch_id,Batch ID from lab for Total Phosphorus
+PTL_DATE_ANALYZED,ptl,date_analyzed,Date of sample analysis for Total Phosphorus
+PTL_FLAG,ptl,flag,Flag for Total Phosphorus
+PTL_HOLDING_TIME,ptl,holding_time,Sample holding time for Total Phosphorus
+PTL_LAB_FLAG,ptl,lab_flag,Flag from laboratory for Total Phosphorus
+PTL_LAB_SAMPLE_ID,ptl,lab_sample_id,Laboratory Sample ID for Total Phosphorus
+PTL_MDL,ptl,mdl,Minimum detection limit of analyte for Total Phosphorus
+PTL_QA_FLAG,ptl,qa_flag,QA flag associated with sample for Total Phosphorus
+PTL_RESULT,ptl,result,Analyte value for Total Phosphorus
+PTL_RL,ptl,rl,Reporting limit for Total Phosphorus
+PTL_UNITS,ptl,units,Units for Total Phosphorus
+SILICA_BATCH_ID,silica,batch_id,Batch ID from lab for Silica
+SILICA_DATE_ANALYZED,silica,date_analyzed,Date of sample analysis for Silica
+SILICA_FLAG,silica,flag,Flag for Silica
+SILICA_HOLDING_TIME,silica,holding_time,Sample holding time for Silica
+SILICA_LAB_FLAG,silica,lab_flag,Flag from laboratory for Silica
+SILICA_LAB_SAMPLE_ID,silica,lab_sample_id,Laboratory Sample ID for Silica
+SILICA_MDL,silica,mdl,Minimum detection limit of analyte for Silica
+SILICA_QA_FLAG,silica,qa_flag,QA flag associated with sample for Silica
+SILICA_RESULT,silica,result,Analyte value for Silica
+SILICA_RL,silica,rl,Reporting limit for Silica
+SILICA_UNITS,silica,units,Units for Silica
+SODIUM_BATCH_ID,sodium,batch_id,Batch ID from lab for Sodium
+SODIUM_DATE_ANALYZED,sodium,date_analyzed,Date of sample analysis for Sodium
+SODIUM_FLAG,sodium,flag,Flag for Sodium
+SODIUM_HOLDING_TIME,sodium,holding_time,Sample holding time for Sodium
+SODIUM_LAB_SAMPLE_ID,sodium,lab_sample_id,Laboratory Sample ID for Sodium
+SODIUM_MDL,sodium,mdl,Minimum detection limit of analyte for Sodium
+SODIUM_QA_FLAG,sodium,qa_flag,QA flag associated with sample for Sodium
+SODIUM_RESULT,sodium,result,Analyte value for Sodium
+SODIUM_RL,sodium,rl,Reporting limit for Sodium
+SODIUM_UNITS,sodium,units,Units for Sodium
+SULFATE_BATCH_ID,sulfate,batch_id,Batch ID from lab for Sulfate
+SULFATE_DATE_ANALYZED,sulfate,date_analyzed,Date of sample analysis for Sulfate
+SULFATE_FLAG,sulfate,flag,Flag for Sulfate
+SULFATE_HOLDING_TIME,sulfate,holding_time,Sample holding time for Sulfate
+SULFATE_LAB_FLAG,sulfate,lab_flag,Flag from laboratory for Sulfate
+SULFATE_LAB_SAMPLE_ID,sulfate,lab_sample_id,Laboratory Sample ID for Sulfate
+SULFATE_MDL,sulfate,mdl,Minimum detection limit of analyte for Sulfate
+SULFATE_QA_FLAG,sulfate,qa_flag,QA flag associated with sample for Sulfate
+SULFATE_RESULT,sulfate,result,Analyte value for Sulfate
+SULFATE_RL,sulfate,rl,Reporting limit for Sulfate
+SULFATE_UNITS,sulfate,units,Units for Sulfate
+TOC_BATCH_ID,toc,batch_id,Batch ID from lab for Total Organic Carbon
+TOC_HOLDING_TIME,toc,holding_time,Sample holding time for Total Organic Carbon
+TOC_RESULT,toc,result,Analyte value for Total Organic Carbon
+TOC_UNITS,toc,units,Units for Total Organic Carbon
+TSS_BATCH_ID,tss,batch_id,Batch ID from lab for Total Suspended Solids
+TSS_DATE_ANALYZED,tss,date_analyzed,Date of sample analysis for Total Suspended Solids
+TSS_FLAG,tss,flag,Flag for Total Suspended Solids
+TSS_HOLDING_TIME,tss,holding_time,Sample holding time for Total Suspended Solids
+TSS_LAB_SAMPLE_ID,tss,lab_sample_id,Laboratory Sample ID for Total Suspended Solids
+TSS_MDL,tss,mdl,Minimum detection limit of analyte for Total Suspended Solids
+TSS_QA_FLAG,tss,qa_flag,QA flag associated with sample for Total Suspended Solids
+TSS_RESULT,tss,result,Analyte value for Total Suspended Solids
+TSS_RL,tss,rl,Reporting limit for Total Suspended Solids
+TSS_UNITS,tss,units,Units for Total Suspended Solids
+TURB_BATCH_ID,turb,batch_id,Batch ID from lab for Turbidity
+TURB_DATE_ANALYZED,turb,date_analyzed,Date of sample analysis for Turbidity
+TURB_FLAG,turb,flag,Flag for Turbidity
+TURB_HOLDING_TIME,turb,holding_time,Sample holding time for Turbidity
+TURB_LAB_FLAG,turb,lab_flag,Flag from laboratory for Turbidity
+TURB_LAB_SAMPLE_ID,turb,lab_sample_id,Laboratory Sample ID for Turbidity
+TURB_MDL,turb,mdl,Minimum detection limit of analyte for Turbidity
+TURB_QA_FLAG,turb,qa_flag,QA flag associated with sample for Turbidity
+TURB_RESULT,turb,result,Analyte value for Turbidity
+TURB_RL,turb,rl,Reporting limit for Turbidity
+TURB_UNITS,turb,units,Units for Turbidity

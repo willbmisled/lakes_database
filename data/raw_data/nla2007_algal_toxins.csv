@@ -1,4 +1,4 @@
-usgs_id,site_ID,sample_id,visit_id,visit_no,sample_category,cylindrospermopsin,microcystin,saxitoxin
+usgs_id,site_id,sample_id,visit_id,visit_no,sample_category,cylindrospermopsin,microcystin,saxitoxin
 MM-09934A,NLA06608-0203,513393,7660,1,P,0,0,0
 MM-09302A,NLA06608-0283,505873,7716,1,P,0,0,0
 MM-09178A,NLA06608-0395,505993,7779,1,P,0,0,0
