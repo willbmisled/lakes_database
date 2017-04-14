@@ -1,0 +1,317 @@
+---
+title: "phytoTaxonomy"
+author: "B"
+date: "April 7, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+library(readxl)
+library(R.utils)  #function "capitalize"
+library(taxize)
+
+read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
+  a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+  return(a)
+}  
+```
+
+## Introduction
+
+* The goal is to get a harmonized list of phytoplankton taxa for the 2007 and 2012 National Lakes Assessments.
+
+## Data Steps
+
+###phtyoSp2007
+* read the data
+* change all occurences of '(Undetermined)' to NA
+* change all SPECIES=="sp." to NA
+* delete observations where GENUS==NA or odd values (e.g,"Encapsulating Chrysophyte" )
+* combine species names into a single field "sp2007"
+* In the past we deleted the following taxa; keep them?????
+    - *Chamaesiphon*
+    - *Cuspidothrix issatschenkoi* NOTE: Homotypic Synonyms are: *Anabaena issatschenkoi* and *Aphanizomenon issatschenkoi*
+    - *Eucocconeis*
+    - *Psammothidium*
+    - *Stigeoclonium*
+* change all names to lowercase
+* chg(2007) 'taxatype' to 'algal_group'
+* chg(2007) 'division' to 'phylum'
+* write table 'output/phytoSp2007.csv'
+
+```{r phyto2007, include=FALSE, echo=FALSE}
+p2007<-read1('data/raw_data/','nla2007_phyto_count.csv')
+
+#change all occurences of '(Undetermined)' to NA
+p2007[p2007=='(Undetermined)']<-NA
+p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Encapsulating Chrysophyte",NA,GENUS))
+p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Dinobryon (empty lorica)",NA,GENUS))
+
+phytoSp2007<-filter(p2007,!is.na(GENUS))%>%
+            mutate(SPECIES=ifelse(SPECIES=="sp.",NA,SPECIES),
+              species=trimws(ifelse(is.na(SPECIES),GENUS,ifelse(is.na(VARIETY),paste(GENUS,SPECIES),paste(GENUS,SPECIES,VARIETY)))))%>%
+              select(TAXATYPE,DIVISION,ORDER,FAMILY,GENUS,species)%>%
+              distinct()%>%arrange(DIVISION,GENUS)%>%
+                group_by(GENUS) %>%
+                mutate(rank=row_number(species))%>%
+                spread(rank,species)%>%
+                  mutate(species=ifelse(is.na(`1`),NA,paste(`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`10`,sep='; ')))%>%
+                    mutate(species=gsub('NA; ','',species))%>%
+                      mutate(species=gsub('; NA','',species))%>%
+                        select(TAXATYPE,DIVISION,ORDER,FAMILY,GENUS,sp2007=species)%>%ungroup()
+
+names(phytoSp2007)<-tolower(names(phytoSp2007))
+phytoSp2007<-rename(phytoSp2007,phylum=division,algal_group=taxatype)
+
+#View(phytoSp2007)
+                        
+#write.table(phytoSp2007,'output/phytoSp2007.csv',sep=',',row.names=FALSE)
+
+```
+
+###phtyoSp2012
+* read the data
+* delete observations where GENUS==NA
+* combine species names into a single field "sp2012"
+* change all taxa names to first letter capitalized to match 2007
+* change all names to lowercase
+* change SPECIES==*"EUASTRUM BIDNETATUM"* to SPECIES==*EUASTRUM BIDENTATUM*
+* change SPECIES==*"PSEUDOKEPHYRION PSUEDOSPIRALE"* to SPECIES==*PSEUDOKEPHYRION PSEUDOSPIRALE*
+
+toupper('Pseudokephyrion psuedospirale')
+
+```{r phyto2012, include=FALSE, echo=FALSE}
+p2012<-read1('data/raw_data/','nla2012_phyto_taxa.csv')
+
+#spelling corrections
+  p2012<-mutate(p2012,SPECIES=ifelse(SPECIES=='EUASTRUM BIDNETATUM','EUASTRUM BIDENTATUM',SPECIES))
+  p2012<-mutate(p2012,SPECIES=ifelse(SPECIES=='PSEUDOKEPHYRION PSUEDOSPIRALE','PSEUDOKEPHYRION PSEUDOSPIRALE',SPECIES))
+
+nrow(p2012)  #885
+nrow(select(p2012,TAXA_ID)%>%distinct()) #885
+
+phytoSp2012<-filter(p2012,!is.na(GENUS))%>%
+          mutate(species=ifelse(is.na(SPECIES),GENUS,SPECIES))%>%
+              select(ALGAL_GROUP,PHYLUM,CLASS,ORDER,FAMILY,GENUS,species)%>%
+              distinct()%>%arrange(PHYLUM,GENUS)%>%
+                mutate_each(funs(tolower))%>%mutate_each(funs(capitalize))%>%
+                group_by(GENUS) %>%
+                mutate(rank=row_number(species))%>%
+                spread(rank,species)%>%
+                  mutate(species=ifelse(is.na(`1`),NA,paste(`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,
+                          `10`,`11`,`12`,`13`,`14`,`15`,`16`,`17`,`18`,`19`,`20`,`21`,`22`,`23`,`24`,sep='; ')))%>%
+                    mutate(species=gsub('NA; ','',species))%>%
+                      mutate(species=gsub('; NA','',species))%>%
+                        select(ALGAL_GROUP,PHYLUM,CLASS,ORDER,FAMILY,GENUS,sp2012=species)%>%ungroup()
+                          
+names(phytoSp2012)<-tolower(names(phytoSp2012))
+
+#View(phytoSp2012)
+```
+
+* create a master taxa list to compare
+* get higher level classification from www.itis.gov
+* join phytoSp2007, phytoSp2012 and itis to create phytoSp
+* add genus_id as rownumber
+* save itis file as 'phytoItis.csv'
+* save phytoSp as 'phytoSp.csv'
+
+```{r master, include=FALSE, echo=FALSE}
+#join the 2007 and 2012 taxa lists
+p07<-phytoSp2007
+p07<-rename(p07,phylum07=phylum,algal_group07=algal_group,order07=order,family07=family)
+
+phytoSp<-full_join(phytoSp2012,p07)
+
+phytoSp<-select(phytoSp,algal_group12=algal_group,algal_group07,phylum12=phylum,phylum07,class12=class,order12=order,order07,family12=family,family07,genus,sp12=sp2012,sp07=sp2007)
+
+#get higher classification from itis for each genus
+# tsn<-classification(phytoSp$genus, db = 'itis',row=1)
+# 
+# itis<-c()
+# for(i in c(1:length(tsn))){
+#   if(is.na(tsn[[i]])==TRUE) {
+#     itis<-bind_rows(itis,data.frame(genus=phytoSp$genus[i]))
+#   } else {
+#     x<-spread(tsn[[i]][-3],rank,name)
+#     y<-spread(tsn[[i]][-1],rank,id)
+#     names(x)<-paste(names(x),'itis',sep="_")
+#     names(y)<-paste(names(y),'tsn',sep="_")
+#     z<-data.frame(genus=phytoSp$genus[i])
+#     itis<-bind_rows(itis,cbind(z,x,y))
+#   }}
+# 
+# save(itis,file='data/workfiles/itis.rda')
+
+#phytoSp<-select(phytoSp,algal_group12,algal_group07,phylum12,phylum07,phylum_itis,division_itis,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,genus_itis,sp12,sp07)
+
+#join the itis data
+phytoSp<-full_join(phytoSp,itis)
+phytoSp$genus_id<-as.numeric(row.names(phytoSp))
+
+
+#write.csv(itis,'output/phytoItis.csv',row.names=FALSE)
+#write.csv(phytoSp,'output/phytoSp.csv',row.names=FALSE)
+#itis<-read.csv('output/phytoItis.csv')
+
+
+#phylum
+phytoSp$phylum<-as.character(NA)
+table(is.na(phytoSp$phylum))  #TRUE==363
+#if phylum07,phylum12 and division_itis match then phylum=phylum12
+
+table(phytoSp$phylum07==phytoSp$phylum12 & phytoSp$phylum12==phytoSp$division_itis)
+phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum07==phylum12 & phylum07==division_itis,phylum12,phylum))  #39 324
+phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & is.na(phylum07) & phylum12==division_itis,division_itis,phylum))  #60 303
+phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & is.na(phylum12) & phylum07==division_itis,division_itis,phylum))  #82   281
+
+#Cyanobacteria: for phylum07 or phylum12=='Cyanophyta' phylum='Cyanobacteria'
+phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & (phylum07=='Cyanophyta' | phylum12=='Cyanophyta'),'Cyanobacteria',phylum)) #152   211  
+
+#Chlorophyta:
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum_itis=='Cyanobacteria' & phylum07=='Chlorophyta','Chlorophyta',phylum)) #155   208 
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & is.na(division_itis) & (phylum07=='Chlorophyta' | phylum12=='Chlorophyta' ),'Chlorophyta',phylum)) #188   175 
+  
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Volvox' | genus=='Schizochlamys','Chlorophyta',phylum)) #190   173
+  
+  
+
+#Charophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & division_itis=='Charophyta','Charophyta',phylum)) #209   154  
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Closterium' | genus=='Tetraedron' | genus=='Hyalotheca','Charophyta',phylum)) #212   151
+  
+#Ochrophyta 
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum12=='Heterokontophyta','Ochrophyta',phylum)) #235   128
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & genus%in%c('Vacuolaria', 'Botrydiopsis', 'Peroniella', 'Peroniella', 'Stipitococcus', 'Polykyrtos', 'Chrysidiastrum'),'Ochrophyta',phylum)) #241   122
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Pseudostaurastrum','Ochrophyta',phylum)) #242   121
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Pleurogaster','Ochrophyta',phylum)) #243   120
+
+
+
+#Bacillariophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & class12=='Bacillariophyceae','Bacillariophyta',phylum)) #311    52 
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & class_itis=='Bacillariophyceae','Bacillariophyta',phylum)) #325    38 
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum07=='Chrysophyta (Bacillariophyceae)','Bacillariophyta',phylum)) #327    36
+  
+#Haptophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Chrysochromulina','Haptophyta',phylum)) #328    35
+  
+#Euglenophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum12=='Euglenophycota','Euglenophyta',phylum)) #335    28
+  
+#Miozoa
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & division_itis=='Pyrrophycophyta','Miozoa',phylum)) #348    15
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum12=='Myzozoa','Miozoa',phylum)) #352    11
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum07=='Pyrrhophyta','Miozoa',phylum)) #354     9
+  
+#Rhodophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(genus=='Asterocystis','Rhodophyta',phylum)) #355     8
+  
+#Cryptophyta
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum12=='Cryptophyta','Cryptophyta',phylum)) #360     3
+  phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum07=='Cryptophyta','Cryptophyta',phylum)) #fALSE==363
+  
+  
+ table(is.na(phytoSp$phylum))  
+  
+View(filter(phytoSp,is.na(phylum))%>% select(genus_id,phylum,phylum07,phylum12,phylum_itis,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
+
+View(filter(phytoSp,is.na(phylum))%>%select(phylum,phylum07,phylum12,division_itis)%>%distinct()%>%arrange(phylum12,phylum07))
+
+View(filter(phytoSp,is.na(phylum) & (phylum12=='Chrysophyta' | phylum07=='Chrysophyta' | phylum07=='Chrysophyta (Bacillariophyceae)'))%>% select(genus_id,phylum,phylum07,phylum12,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
+
+View(filter(phytoSp,division_itis=='Chlorophyta')%>% select(genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07))
+
+View(filter(phytoSp,is.na(phylum) & is.na(phylum07) & phylum12==division_itis))%>% select(phylum, genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07)
+
+
+
+```
+
+
+* harmonize taxonomy: note for taxonomy we will follow algaebase if 2007 and 2012 disagree
+    - algal_group
+      - chg(2007 & 2012) algal_group 'Blue-Green Algae' to 'Cyanobacteria'
+      - chg(2007) algal_group 'Cryptomonads' to 'Cryptophytes'
+      - chg(2007) algal_group 'Dinoflagellate' to 'Dinoflagellates'
+      - chg(2012) algal_group 'Diatom' to 'Diatoms'
+      - chg(2007) algal_group 'Euglenoid' to 'Euglenoids'
+      - chg(2007) algal_group 'Yello-Green Algae' to 'Yellow-Green Algae'
+      - chg(2012) algal_group 'Yellow-green algae' to 'Yellow-Green Algae'
+      - chg(2012) algal_group 'Golden algae' to 'Golden Algae'
+      - chg(2012) algal_group 'Green algae' to 'Green Algae'
+      - chg(2012) algal_group 'Green algae' to 'Green Algae'
+      - chg(2007) algal_group 'Isthmochoron' to 'Eustigmatophytes'
+    - phylum
+      - chg(2007) phylum 'Chrysophyta (Bacillariophyceae)' to 'Chrysophyta'
+      - chg(2007 & 2012) phylum to 'Miozoa' for algal_group='Dinoflagellates'
+      - chg(2012) phylum 'Euglenophycota' to 'Euglenophyta'
+      - chg(2007) phylum 'Isthmochoron' to 'Ochrophyta'
+      
+      
+      
+```{r harmony, include=FALSE, echo=FALSE} 
+#algal_group & phylum
+phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Blue-green algae','Cyanobacteria',algal_group))
+phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Diatom','Diatoms',algal_group))
+phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Yellow-green algae','Yellow-Green Algae',algal_group))
+phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Golden algae','Golden Algae',algal_group))
+phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Green algae','Green Algae',algal_group))
+
+phytoSp2012<-mutate(phytoSp2012,phylum=ifelse(phylum=='Myzozoa','Miozoa',phylum))
+phytoSp2012<-mutate(phytoSp2012,phylum=ifelse(phylum=='Euglenophycota','Euglenophyta',phylum))
+
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Blue-Green Algae','Cyanobacteria',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Cryptomonads','Cryptophytes',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Dinoflagellate','Dinoflagellates',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Euglenoid','Euglenoids',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Yello-Green Algae','Yellow-Green Algae',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(algal_group=='Euglenoid','Euglenoids',algal_group))
+phytoSp2007<-mutate(phytoSp2007,algal_group=ifelse(phylum=='Isthmochoron','Eustigmatophytes',algal_group))
+
+phytoSp2007<-mutate(phytoSp2007,phylum=ifelse(phylum=='Chrysophyta (Bacillariophyceae)','Chrysophyta',phylum))
+phytoSp2007<-mutate(phytoSp2007,phylum=ifelse(phylum=='Pyrrhophyta','Miozoa',phylum))
+phytoSp2007<-mutate(phytoSp2007,phylum=ifelse(phylum=='Isthmochoron','Ochrophyta',phylum))
+
+
+a<-select(phytoSp2007,algal_group,phylum)%>%distinct();a$a<-2007
+b<-select(phytoSp2012,algal_group,phylum)%>%distinct();b$b<-2012
+full_join(a,b)
+
+
+h07<-filter(phytoSp2007,algal_group=='Yellow-Green Algae');h07$a<-2007
+h12<-filter(phytoSp2012,phylum=='Heterokontophyta');h12$b<-2012
+
+full_join(select(h07,order,a)%>%distinct(),select(h12,order,b)%>%distinct())
+
+nrow(h07)
+q<-left_join(h07,h12)
+View(q)
+
+table(h07$genus%in%h12$genus)
+
+
+Pseudostaurastrum
+
+View(filter(phytoSp2012,genus=='Pseudostaurastrum'))
+View(filter(phytoSp2007,genus=='Pseudostaurastrum'))
+
+write.csv(full_join(phytoSp2007,phytoSp2012)%>%arrange(genus),'temp.csv')
+
+Isthmochoron
+
+table(phytoSp2007$genus%in%phytoSp2012$genus)
+
+
+genus<-full_join(select(phytoSp2007,genus),select(phytoSp2012,genus))
+    
+    
+```    
+    
+    
+    
