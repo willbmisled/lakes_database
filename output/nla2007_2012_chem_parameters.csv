@@ -16,7 +16,7 @@ concal2,CONCAL2,,uS/cm,,Calculated Conductivity w/ANC (uS/cm)
 cond,COND,COND_RESULT,uS/cm,uS/cm @ 25C,Analyte value for Conductivity
 condho2,CONDHO2,,uS/cm,,D-H-O Calc. Cond. w/ANC (uS/cm)
 cylindrospermopsin,Total cylindrospermopsin conc ELISA (µg/L),,ug/l,,"Total sample cylindrospermopsin concentration measured by ELISA in cylindrospermopsin equivalents (ug/L, micrograms per liter). Cylindrospermopsin concentration as measured by the Abraxis cylindrospermopsin enzyme-linked immunosorbentassay (ELISA) (PN: 522011) reported to represent the sum of all cross-reactive molecules from both intracellular and dissolved phases within a sample.  Samples were lysed by three sequential freeze/thaw cycles and filtered prior to analyses."
-do2_2m,,DO2_2M,mg/l,mg/l,Dissolved oxygen averaged over the top 2 m of water
+do2_2m,do2_2m,DO2_2M,mg/l,mg/l,Dissolved oxygen averaged over the top 2 m of water
 doc,DOC,DOC_RESULT,mg/L,mg/L,Analyte value for Dissolved Organic Carbon
 h,H,,ueq/L,,H+ from PH_LAB (ueq/L)
 magnesium,MG_PPM,MAGNESIUM_RESULT,mg/L,mg/L,Analyte value for Magnesium

@@ -151,6 +151,7 @@ phytoSp<-select(phytoSp,algal_group12=algal_group,algal_group07,phylum12=phylum,
 #phytoSp<-select(phytoSp,algal_group12,algal_group07,phylum12,phylum07,phylum_itis,division_itis,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,genus_itis,sp12,sp07)
 
 #join the itis data
+load(file='data/workfiles/itis.rda')
 phytoSp<-full_join(phytoSp,itis)
 phytoSp$genus_id<-as.numeric(row.names(phytoSp))
 
@@ -158,7 +159,13 @@ phytoSp$genus_id<-as.numeric(row.names(phytoSp))
 #write.csv(itis,'output/phytoItis.csv',row.names=FALSE)
 #write.csv(phytoSp,'output/phytoSp.csv',row.names=FALSE)
 #itis<-read.csv('output/phytoItis.csv')
+```
 
+### harmonize taxonomy: note for taxonomy we will follow algaebase if 2007 and 2012 disagree
+
+* harmonize the phylum names
+
+```{r phylum, include=FALSE, echo=FALSE}
 
 #phylum
 phytoSp$phylum<-as.character(NA)
@@ -217,22 +224,44 @@ phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & (phylum07=='Cyanophyta' | 
   phytoSp<-mutate(phytoSp,phylum=ifelse(is.na(phylum) & phylum07=='Cryptophyta','Cryptophyta',phylum)) #fALSE==363
   
   
- table(is.na(phytoSp$phylum))  
-  
-View(filter(phytoSp,is.na(phylum))%>% select(genus_id,phylum,phylum07,phylum12,phylum_itis,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
-
-View(filter(phytoSp,is.na(phylum))%>%select(phylum,phylum07,phylum12,division_itis)%>%distinct()%>%arrange(phylum12,phylum07))
-
-View(filter(phytoSp,is.na(phylum) & (phylum12=='Chrysophyta' | phylum07=='Chrysophyta' | phylum07=='Chrysophyta (Bacillariophyceae)'))%>% select(genus_id,phylum,phylum07,phylum12,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
-
-View(filter(phytoSp,division_itis=='Chlorophyta')%>% select(genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07))
-
-View(filter(phytoSp,is.na(phylum) & is.na(phylum07) & phylum12==division_itis))%>% select(phylum, genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07)
+#  table(is.na(phytoSp$phylum))  
+#   
+# View(filter(phytoSp,is.na(phylum))%>% select(genus_id,phylum,phylum07,phylum12,phylum_itis,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
+# 
+# View(filter(phytoSp,is.na(phylum))%>%select(phylum,phylum07,phylum12,division_itis)%>%distinct()%>%arrange(phylum12,phylum07))
+# 
+# View(filter(phytoSp,is.na(phylum) & (phylum12=='Chrysophyta' | phylum07=='Chrysophyta' | phylum07=='Chrysophyta (Bacillariophyceae)'))%>% select(genus_id,phylum,phylum07,phylum12,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
+# 
+# View(filter(phytoSp,division_itis=='Chlorophyta')%>% select(genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07))
+# 
+# View(filter(phytoSp,is.na(phylum) & is.na(phylum07) & phylum12==division_itis))%>% select(phylum, genus_id,phylum07,phylum12,phylum_itis,division_itis,genus,sp12,sp07,order12,order07)%>%arrange(phylum12,phylum07)
 
 
 
 ```
 
+```{r class, include=FALSE, echo=FALSE}
+phytoSp$class<-NA
+
+View(filter(phytoSp,phylum=='Cyanobacteria')%>%select(phylum,class12,class_itis,order12,order07,order_itis)%>%distinct())
+
+View(filter(phytoSp, genus==genus_itis)%>%select(phylum,phylum_itis,class,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,sp12,sp07))
+
+View(filter(phytoSp,is.na(class))%>%select(phylum,class,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,sp12,sp07)
+
+,class12,class_itis,genus)
+
+
+View(filter(phytoSp,is.na(class))%>%select(phylum,class,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,sp12,sp07)%>%distinct()%>%arrange(class12,class_itis))
+
+View(filter(phytoSp,is.na(phylum))%>% select(genus_id,phylum,phylum07,phylum12,phylum_itis,division_itis,class12,class_itis,genus,sp12,sp07,order12,order07,order_itis)%>%arrange(phylum12,phylum07))
+
+
+
+
+```
+
+################old below
 
 * harmonize taxonomy: note for taxonomy we will follow algaebase if 2007 and 2012 disagree
     - algal_group
@@ -255,7 +284,7 @@ View(filter(phytoSp,is.na(phylum) & is.na(phylum07) & phylum12==division_itis))%
       
       
       
-```{r harmony, include=FALSE, echo=FALSE} 
+``{r harmony, include=FALSE, echo=FALSE} 
 #algal_group & phylum
 phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Blue-green algae','Cyanobacteria',algal_group))
 phytoSp2012<-mutate(phytoSp2012,algal_group=ifelse(algal_group=='Diatom','Diatoms',algal_group))

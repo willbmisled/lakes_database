@@ -21,7 +21,7 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 ```
 
 ## To Do
-* add uid to the do2 data
+* add uid and sample category to the do2 data 
 * make sure all uid/duplicate combinations are unique see uid=7541 duplicate='P' for algal toxins
 * compare 2007 2012 values to original data
 * `r paste("insult of the day:",bismer::insult())`
@@ -87,6 +87,19 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 #get the data
 a<-read1('data/raw_data/','nla2007_waterchem.csv')  
 
+############check sample_category
+uid<-select(a,SITE_ID,VISIT_NO,VISIT_ID)%>%distinct()
+nrow(uid) #1252
+names(uid)<-tolower(names(uid))
+
+x<-as.data.frame(table(uid$VISIT_ID))
+y<-filter(x,Freq>1)
+
+
+filter(uid,VISIT_ID%in%y$Var1)
+
+filter(a,VISIT_ID==7470)%>%select(SITE_ID,VISIT_NO,VISIT_ID,SAMPLE_CATEGORY)
+
 #get the modified data structure
 struc<-read1('data/workfiles/','waterchem_nla2007.csv') 
 
@@ -124,6 +137,7 @@ names(waterchem)<-tolower(names(waterchem))
 
 #add source
 waterchem$source<-'nla2007_waterchem.csv'
+
 ```
 
 ### waterchem updates
@@ -199,29 +213,35 @@ unique(waterchem$parameter)
 * for the 2007 dataset we will calculate it directly from the profile data
 * read the profile data
 * add VISIT_ID from the 'nla2007_site_info.csv' file
+    - NOTE: VISIT_ID==NA for SITE_ID=="NLA06608-3846"; change to VISIT_ID==8844
 
 
 ```{r do2, include=FALSE}
 do2<-read1('data/raw_data/','nla2007_profile.csv')
 
-#add the uid
-uid<-select(read1('data/raw_data/','nla2007_site_info.csv'),SITE_ID,VISIT_NO,VISIT_ID)
-filter(uid,SITE_ID=="NLA06608-3846")%>%select(SITE_ID,VISIT_ID)
-uid<-mutate(uid,VISIT_ID=ifelse(SITE_ID=="NLA06608-3846",8844,VISIT_ID) )
+#change column names to snake case
+names(do2)<-tolower(names(do2))
 
+#THIS IS NOT WORKING  stop AND FIX
+
+#add the UID
+nrow(uid) #1326
 nrow(do2) #12670
 do2<-(left_join(do2,uid))
 nrow(do2) #12670
 
+#keep the profile data to use for temp below
+  profile<-do2
+
 # filter for depth<=2m
-do2<-filter(do2,DEPTH<=2)%>%select(VISIT_ID,DEPTH,DO_FIELD)
+do2<-filter(do2,depth<=2)%>%select(visit_id,depth,do_field)
 
 #calculate average do for depth<=2
-do2 <- group_by(do2, VISIT_ID)%>%
-  summarise(mean=mean(DO_FIELD, na.rm = TRUE))
+do2 <- group_by(do2, visit_id)%>%
+  summarise(mean=mean(do_field, na.rm = TRUE))
 
 #add UNITS='mg/l'
-do2$UNITS<-'mg/l'
+do2$units<-'mg/l'
 
 #add parameter
 do2$parameter<-'do2_2m'
@@ -231,14 +251,63 @@ do2$source<-'nla2007_profile.csv'
 
 #add SAMPLE_CATEGORY
 nrow(do2) #1245
-length(unique(do2$VISIT_ID)) #1245
+length(unique(do2$visit_id)) #1245
 
-do2$SAMPLE_CATEGORY<-'P'
+do2$sample_category<-'P'
 
 #change column names to snake case
 names(do2)<-tolower(names(do2))
 
 ```
+
+###temperature   NEEDS WORK
+
+* the field water temperature data are in the profile dataset as "TEMP_FIELD" for multiple depths
+* depths are not standardized so we'll calculate
+    - max_temp: max for the whole profile
+    - min_temp: min for the whole profile
+    - mean_temp: mean for the whole profile
+    - mean_temp_2m: mean for the DEPTH<=2 meters
+* profile data downloaded and UID added 
+    
+```{r temp, include=FALSE,eval=FALSE}
+
+# max_temp
+max_temp<- group_by(profile, VISIT_ID,VISIT_NO)%>%
+  summarise(max=max(TEMP_FIELD, na.rm = TRUE))
+    nrow(max_temp) #1252
+    
+# max_temp
+max_temp<- group_by(profile, VISIT_ID,VISIT_NO)%>%
+  summarise(max=max(TEMP_FIELD, na.rm = TRUE))
+    nrow(max_temp) #1252
+
+
+# filter for depth<=2m
+
+#calculate average do for depth<=2
+field_temp <- group_by(field_temp, VISIT_ID)%>%
+  summarise(mean=mean(DO_FIELD, na.rm = TRUE))
+
+#add UNITS='degrees C'
+field_temp$UNITS<-'degrees C'
+
+#add parameter
+field_temp$parameter<-'field_temp_2m'
+
+#add source
+field_temp$source<-'nla2007_profile.csv'
+
+#add SAMPLE_CATEGORY
+nrow(field_temp) #1245
+length(unique(field_temp$VISIT_ID)) #1245
+
+field_temp$SAMPLE_CATEGORY<-'P'
+
+#change column names to snake case
+names(field_temp)<-tolower(names(field_temp))
+
+``
 
 ### algal toxins
 
