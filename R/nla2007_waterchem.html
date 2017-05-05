@@ -11,7 +11,7 @@
 
 <meta name="author" content="Bryan Milstead" />
 
-<meta name="date" content="2017-04-06" />
+<meta name="date" content="2017-05-05" />
 
 <title>nla2007_waterchem</title>
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">nla2007_waterchem</h1>
 <h4 class="author"><em>Bryan Milstead</em></h4>
-<h4 class="date"><em>06 April 2017</em></h4>
+<h4 class="date"><em>05 May 2017</em></h4>
 
 </div>
 
@@ -127,10 +127,7 @@ $(document).ready(function () {
 <div id="to-do" class="section level2">
 <h2>To Do</h2>
 <ul>
-<li>add uid to the do2 data</li>
-<li>make sure all uid/duplicate combinations are unique see uid=7541 duplicate=‘P’ for algal toxins</li>
-<li>compare 2007 2012 values to original data</li>
-<li>insult of the day: thou churlish spur-galled mammet</li>
+<li>insult of the day: thou errant rough-hewn mammet</li>
 </ul>
 </div>
 <div id="naming-conventions" class="section level2">
@@ -184,7 +181,7 @@ $(document).ready(function () {
 <div id="waterchem" class="section level3">
 <h3>Waterchem</h3>
 <ul>
-<li><p>Manually changed all column names in NLA2007_waterchem.csv for NA??? to SODIUM??? e.g. NA=SODIUM &amp; NA_RL_ALERT=SODIUM_RL_ALERT</p></li>
+<li>Manually changed all column names in NLA2007_waterchem.csv for NA??? to SODIUM??? e.g. NA=SODIUM &amp; NA_RL_ALERT=SODIUM_RL_ALERT</li>
 <li>The 2012 data use “UID” as a unique identifier for each sampling event</li>
 <li>For the 2007 data a unique event is defined by:
 <ul>
@@ -192,8 +189,15 @@ $(document).ready(function () {
 <li>VISIT_NO = 1 or 2; all sites visited at least once (VISIT_NO == 1) but some were revisted (VISIT_NO == 2)</li>
 <li>SAMPLE_CATEGORY = “P” or “D”; a primary sample (“P”) collected from all sites and a field duplicate (“D”) from some</li>
 </ul></li>
-<li>VISIT_ID appears to be unique to SITE_ID and VISIT_NO combinations but not to SAMPLE_CATEGORY.</li>
-<li><p>The parameter ‘NO3_NO2’ renamed to NO3NO2 for consistency</p></li>
+<li>VISIT_ID appears to be unique to SITE_ID and VISIT_NO combinations.
+<ul>
+<li>in the dataset some “uid” are repeated because of duplicate samples (SAMPLE_CATEGORY==“D”)</li>
+<li>it is tempting to eliminate the duplicates but will keep them for now</li>
+</ul></li>
+<li>use VISIT_ID as the unique identifier (“uid”)</li>
+<li>restrict data to LAKE_SAMP==“Target_Sampled”</li>
+<li>make sure all VISIT_ID are in ‘nla_samples.csv’ (TRUE)</li>
+<li>rename uid=VISIT_ID and add the prefix “2007_”</li>
 </ul>
 </div>
 <div id="waterchem-updates" class="section level3">
@@ -1660,40 +1664,55 @@ $(document).ready(function () {
 <ul>
 <li>The waterchem dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;site_id&quot;         &quot;visit_no&quot;        &quot;visit_id&quot;       
-##  [4] &quot;sample_category&quot; &quot;clear_to_bottom&quot; &quot;sample_depth&quot;   
-##  [7] &quot;comment_im_chem&quot; &quot;comment_secchi&quot;  &quot;datechla&quot;       
-## [10] &quot;date_received&quot;   &quot;date_filtered&quot;   &quot;datefilt_alert&quot; 
-## [13] &quot;day_ship&quot;        &quot;dayship_alert&quot;   &quot;flag_fld_chla&quot;  
-## [16] &quot;flag_lab_chla&quot;   &quot;flag_secchi&quot;     &quot;parameter&quot;      
-## [19] &quot;flag&quot;            &quot;ht&quot;              &quot;ht_alert&quot;       
-## [22] &quot;result&quot;          &quot;rl_alert&quot;        &quot;comment&quot;        
-## [25] &quot;source&quot;          &quot;sample_id&quot;       &quot;lab_id&quot;         
-## [28] &quot;comment_fld&quot;     &quot;comment_lab&quot;     &quot;units&quot;          
-## [31] &quot;rl&quot;</code></pre>
+<pre><code>##  [1] &quot;clear_to_bottom&quot; &quot;comment&quot;         &quot;comment_fld&quot;    
+##  [4] &quot;comment_im_chem&quot; &quot;comment_lab&quot;     &quot;comment_secchi&quot; 
+##  [7] &quot;date_filtered&quot;   &quot;date_received&quot;   &quot;datechla&quot;       
+## [10] &quot;datefilt_alert&quot;  &quot;day_ship&quot;        &quot;dayship_alert&quot;  
+## [13] &quot;flag&quot;            &quot;flag_fld_chla&quot;   &quot;flag_lab_chla&quot;  
+## [16] &quot;flag_secchi&quot;     &quot;ht&quot;              &quot;ht_alert&quot;       
+## [19] &quot;lab_id&quot;          &quot;parameter&quot;       &quot;result&quot;         
+## [22] &quot;rl&quot;              &quot;rl_alert&quot;        &quot;sample_category&quot;
+## [25] &quot;sample_depth&quot;    &quot;sample_id&quot;       &quot;site_id&quot;        
+## [28] &quot;source&quot;          &quot;uid&quot;             &quot;units&quot;          
+## [31] &quot;visit_no&quot;</code></pre>
 <ul>
 <li>The following parameters are included as rows in the waterchem dataset (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;anc&quot;               &quot;andef2&quot;            &quot;ansum2&quot;           
-##  [4] &quot;balance2&quot;          &quot;calcium&quot;           &quot;catsum&quot;           
-##  [7] &quot;chla&quot;              &quot;chloride&quot;          &quot;color&quot;            
-## [10] &quot;concal2&quot;           &quot;cond&quot;              &quot;condho2&quot;          
-## [13] &quot;doc&quot;               &quot;h&quot;                 &quot;potassium&quot;        
-## [16] &quot;magnesium&quot;         &quot;ammonia_n&quot;         &quot;nh4ion&quot;           
-## [19] &quot;nitrate_n&quot;         &quot;nitrate_nitrite_n&quot; &quot;ntl&quot;              
-## [22] &quot;oh&quot;                &quot;orgion&quot;            &quot;ph_field&quot;         
-## [25] &quot;ph&quot;                &quot;ptl&quot;               &quot;secchi&quot;           
-## [28] &quot;silica&quot;            &quot;sulfate&quot;           &quot;sobc&quot;             
-## [31] &quot;sodium&quot;            &quot;toc&quot;               &quot;turb&quot;</code></pre>
+<pre><code>##  [1] &quot;ammonia_n&quot;         &quot;anc&quot;               &quot;andef2&quot;           
+##  [4] &quot;ansum2&quot;            &quot;balance2&quot;          &quot;calcium&quot;          
+##  [7] &quot;catsum&quot;            &quot;chla&quot;              &quot;chloride&quot;         
+## [10] &quot;color&quot;             &quot;concal2&quot;           &quot;cond&quot;             
+## [13] &quot;condho2&quot;           &quot;doc&quot;               &quot;h&quot;                
+## [16] &quot;magnesium&quot;         &quot;nh4ion&quot;            &quot;nitrate_n&quot;        
+## [19] &quot;nitrate_nitrite_n&quot; &quot;ntl&quot;               &quot;oh&quot;               
+## [22] &quot;orgion&quot;            &quot;ph&quot;                &quot;ph_field&quot;         
+## [25] &quot;potassium&quot;         &quot;ptl&quot;               &quot;secchi&quot;           
+## [28] &quot;silica&quot;            &quot;sobc&quot;              &quot;sodium&quot;           
+## [31] &quot;sulfate&quot;           &quot;toc&quot;               &quot;turb&quot;</code></pre>
 </div>
 <div id="do2" class="section level3">
 <h3>do2</h3>
 <ul>
 <li>do2_2m is the average do2 reading for profile samples for depths less than 2m.</li>
-<li>this is included in the 2012 waterchem data</li>
-<li>for the 2007 dataset we will calculate it directly from the profile data</li>
+<li>we will calculate it directly from the profile data</li>
 <li>read the profile data</li>
-<li>add VISIT_ID from the ‘nla2007_site_info.csv’ file</li>
+<li>add uid</li>
+<li>delete rows with uid==NA; these are the LAKE_SAMP!=‘Target_Sampled’</li>
+</ul>
+</div>
+<div id="temperature" class="section level3">
+<h3>temperature</h3>
+<ul>
+<li>the field water temperature data are in the profile dataset as “TEMP_FIELD” for multiple depths</li>
+<li>depths are not standardized so we’ll calculate
+<ul>
+<li>max_temp: max for the whole profile</li>
+<li>min_temp: min for the whole profile</li>
+<li>mean_temp: mean for the whole profile</li>
+<li>mean_temp_2m: mean for the DEPTH&lt;=2 meters</li>
+</ul></li>
+<li>rbind all temp variables</li>
+<li>add units, source, &amp; sample_category</li>
 </ul>
 </div>
 <div id="algal-toxins" class="section level3">
@@ -1732,6 +1751,8 @@ $(document).ready(function () {
 <li>data were read in</li>
 <li>gathered into the long format</li>
 <li>units and rl added</li>
+<li>add uid</li>
+<li>delete rows with uid==NA; these are the LAKE_SAMP!=‘Target_Sampled’</li>
 </ul>
 </div>
 <div id="join-the-datasets-and-a-few-tweaks" class="section level3">
@@ -1740,31 +1761,19 @@ $(document).ready(function () {
 <li>convert fields result and rl to numeric</li>
 <li>all files joined</li>
 <li>drop “site_id and visit_no”</li>
-<li>rename “visit_id” to “uid”</li>
 <li>rename “sample_category” to “duplicate”</li>
-<li>check that all uid are in ‘nla2007_site_info.csv’</li>
-<li>check that all uid correspond to LAKE_SAMP==“Target_Sampled”
-<ul>
-<li>The following uid will be removed from chem2007</li>
-</ul></li>
+<li>check that all uid are in “nla_samples.csv” (TRUE)</li>
 </ul>
-<pre><code>##    uid              SITE_ID    LAKE_SAMP
-## 1 7799        NLA06608-0439 Lake_Shallow
-## 2 7842        NLA06608-0508 Lake_Shallow
-## 3 7879        NLA06608-0583 Lake_Shallow
-## 4 8012        NLA06608-0830 Lake_Shallow
-## 5 8376        NLA06608-1596 Lake_Shallow
-## 6 8800 NLA06608-ELS:1D2-087   Non_Target</code></pre>
 </div>
 <div id="qaqc" class="section level3">
 <h3>QA/QC</h3>
 <ul>
-<li>two qa/qc checks were run to make sure the data were assembled correctly.
+<li>Two qa/qc checks were run on the waterchem data to make sure the data were assembled correctly.
 <ul>
-<li>sums by parameter were calculated and compared for the chem2007 and ‘nla2007_waterchem.csv’ data; all matched</li>
-<li>sums by uid were calculated and compared for the chem2007 and ‘nla2007_waterchem.csv’ data; all matched</li>
+<li>sums by parameter for the raw and final datasets were compared and were equal.</li>
+<li>sums by uid for the raw and final datasets were compared and were equal.</li>
 </ul></li>
-<li>did not check sums for the algal_toxins or secchi data but the waterchem check shows the process worked.</li>
+<li>did not check sums for the algal_toxins or profile data but the waterchem check shows the process worked.</li>
 </ul>
 </div>
 </div>
@@ -2248,7 +2257,7 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td align="left">do2_2m</td>
-<td align="left">NA</td>
+<td align="left">do2_2m</td>
 <td align="left">DO2_2M</td>
 <td align="left">mg/l</td>
 <td align="left">mg/l</td>

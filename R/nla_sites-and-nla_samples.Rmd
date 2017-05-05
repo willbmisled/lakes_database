@@ -1,0 +1,245 @@
+---
+title: "nla_sites-and-nla_samples"
+author: "B"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+
+read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
+  a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+  return(a)
+}    
+
+```
+
+## To Do
+* `r paste("insult of the day:",bismer::insult())`
+
+## Naming Conventions
+* All variable names in lowercase
+* use snake case for compound names (e.g., big_data)
+* use parameter for the variable (e.g., NTL)
+* use value for the measured value of the parameter
+* when names differ between the 2007 and 2012 files prefer the 2012 name; hopefully future NLA datasets will follow the 2012 naming conventions.
+
+## Introduction
+
+* This document shows how the NLA2007 and NLA2012 site_info files were processed.  The files contain the site and sampling event information along with the survey design info. Naming conventions were not conserved across years. Not all of the fields in these files are relevant to the uses of most researchers but will be kept for now.  Names will be harmonized across the datasets for the most important fields such as indices, and ancillary data.  As we find additional shared fields these names can be harmonized as well in later versions.
+
+Each site_info file from the 2007 & 20012 NLA will be split into a site_info file and a sample_info file. The site_info file will have the design information and geographic data.  The sample_info file will have the data specific to each sampling event (e.g., date, what was collected, etc.).  The "site_id" will be used to link the two files.  The "uid" in the sample_info file will be used to link the sample_info to the nla data files (e.g. chem2007, chem2012, etc.)
+
+## Data Steps
+
+* read the two datafiles
+    - i07<-'nla2007_site_info.csv'
+    - i12<-'nla2012_site_info.csv'
+    
+* The 2007 site_info table for SITE_ID=="NLA06608-3846" is missing the VISIT_ID
+    - add missing VISIT_ID==8844
+    
+* add prefix "2007_" to i07$VISIT_ID (uid)
+* add prefix "2012_" to i07$UID
+    
+* change values for i12$RT_NLA12 to match i12$RT_NLA12 
+    - "R"=="REF"
+    - "s"=="SO-SO"
+    - "T"=="TRASH"
+    - "?"=="UNKNOWN"  NOTE: only on 2012 value in this category; none in 2007
+    
+* read the structure file (e.g. the combined data definitions file)
+    - struc<-'nla2007_2012_site_and_sample_info_data_defintions.csv'
+
+```{r getData, include=FALSE}
+#get the data
+i07<-read1('data/raw_data/','nla2007_site_info.csv')
+i12<-read1('data/raw_data/','nla2012_site_info.csv')
+
+#update missing VISIT_ID
+
+filter(i07,SITE_ID=="NLA06608-3846")%>%select(SITE_ID,VISIT_ID)
+i07<-mutate(i07,VISIT_ID=ifelse(SITE_ID=="NLA06608-3846",8844,VISIT_ID) )
+
+# add year prefix to uid
+i07<-mutate(i07,VISIT_ID=paste("2007_",VISIT_ID,sep=""))
+i12<-mutate(i12,UID=paste("2012_",UID,sep=""))
+
+#change values for i12$RT_NLA12 to match i12$RT_NLA12 
+
+table(i07$RT_NLA)
+table(i12$RT_NLA12)
+
+i12<-mutate(i12,RT_NLA12=ifelse(RT_NLA12=="R","REF",RT_NLA12))
+i12<-mutate(i12,RT_NLA12=ifelse(RT_NLA12=="S","SO-SO",RT_NLA12))
+i12<-mutate(i12,RT_NLA12=ifelse(RT_NLA12=="T","TRASH",RT_NLA12))
+i12<-mutate(i12,RT_NLA12=ifelse(RT_NLA12=="?","UNKNOWN",RT_NLA12))
+
+# check that all VISIT_ID are unique
+names(i07)[order(names(i07))]
+nrow(i07) #1252
+nrow(select(i07,VISIT_ID)%>%distinct()) #1252
+
+#get the data structure file
+struc<-read1('data/workfiles/','nla_sites-and-nla_samples.csv')
+```
+* below is the structure file.  This will also serve as the data definitions file for all four output files.  This file includes the following fields:
+    - **site**: 1=include this field from the original site_info file in the output site_info file
+    - **sample**: 1=include this field from the original site_info file in the output sample_info file
+    - **column_name**: name of the field in the output file
+    - **name07**: name of the field in the the original 2007 site_info file
+    - **name12**: name of the field in the the original 2012 site_info file
+
+```{r struc, include=TRUE, echo=FALSE}
+kable(struc)
+```
+
+* split the site_info files into site_info and sample_info
+* rename column based on the "struc" file
+* NOTE: the site and sample files will only contain sites that were sampled.
+* create final output files
+    - "nla_sites": bind site2007 and site2012
+    - "nla_samples": bind sample2007 and sample2012
+
+```{r split, include=FALSE, echo=FALSE}
+#site2007
+site07<-filter(struc,site==1,!is.na(name07))%>%select(column_name,name07)
+table(names(i07)%in%site07$name07)
+
+site2007<-filter(i07,LAKE_SAMP=='Target_Sampled')%>%select_(.dots=site07$name07)%>%distinct()
+all.equal(names(site2007),site07$name07)
+names(site2007)<-site07$column_name
+
+length(unique(site2007$site_id))  #1151 (of 1157)
+nrow(site2007)  #1151 (of 1157)
+
+#sample2007  
+sample07<-filter(struc,sample==1,!is.na(name07))%>%select(column_name,name07)
+table(names(i07)%in%sample07$name07)
+
+sample2007<-filter(i07,LAKE_SAMP=='Target_Sampled')%>%select_(.dots=sample07$name07)
+all.equal(names(sample2007),sample07$name07)
+names(sample2007)<-sample07$column_name
+nrow(sample2007) #1246
+
+#site2012
+site12<-filter(struc,site==1,!is.na(name12))%>%select(column_name,name12)
+table(names(i12)%in%site12$name12)
+
+site2012<-filter(i12,STATUS=='Target_Sampled')%>%select_(.dots=site12$name12)%>%distinct()
+all.equal(names(site2012),site12$name12)
+names(site2012)<-site12$column_name
+
+length(unique(site2012$site_id))  #1130 of (2664)
+nrow(site2012)  #1130 of (2664)
+
+#sample2012  
+sample12<-filter(struc,sample==1,!is.na(name12))%>%select(column_name,name12)
+table(names(i12)%in%sample12$name12)
+
+sample2012<-filter(i12,STATUS=='Target_Sampled')%>%select_(.dots=sample12$name12)
+all.equal(names(sample2012),sample12$name12)
+names(sample2012)<-sample12$column_name
+nrow(sample2012) #1230
+
+# nla_sites
+site2007$mdcaty<-as.character(site2007$mdcaty)
+nla_sites<-bind_rows(site2007,site2012)
+nrow(site2007)+nrow(site2012)==nrow(nla_sites) #T
+
+#reorder fields for nla_sites
+a<-names(nla_sites)[order(names(nla_sites))]
+a<-a[-which(a=='site_id')]
+a<-c('site_id',a)
+nla_sites<-nla_sites[,a]
+
+# nla_samples
+nla_samples<-bind_rows(sample2007,sample2012)
+nrow(sample2007)+nrow(sample2012)==nrow(nla_samples) #T
+
+x<-c("uid","site_id","visit_no")
+y<-names(nla_samples)[order(names(nla_samples))]
+a<-y%in%x
+b<-c(x,y[!a])
+nla_samples<-nla_samples[,b]
+```
+
+### metadata
+
+*  From the stucture file (see above) we create two data definition files.  
+    - "nla_sites_meta"
+    - "nla_samples_meta"
+* both metadata files have the same fields (see below)
+
+```{r meta, include=FALSE, echo=FALSE}
+a<-data.frame(column_name=names(nla_sites))
+a$order<-row.names(a)
+nla_sites_meta<-left_join(a,struc)%>%select(column_name,name07,name12,description)
+
+a<-data.frame(column_name=names(nla_samples))
+a$order<-row.names(a)
+nla_samples_meta<-left_join(a,struc)%>%select(column_name,name07,name12,description)
+```
+
+* structure of the metadata records "nla_sites_meta" and "nla_samples_meta"
+
+Field  | Description
+------------- | ------------------------------------------------------------------------------------------
+column_name | column names for the variables in the final data table ("nla_sites" or "nla_samples")
+name07  | variable name in the original NLA2007 spreadsheet
+name12  | variable name in the original NLA2012 spreadsheet
+description | a description of the variable
+
+* Below is the metadata file (data definitions really) for "nla_sites_meta".
+
+```{r meta1, include=TRUE, echo=FALSE}
+kable(nla_sites_meta)
+```
+
+* Below is the metadata file (data definitions really) for "nla_samples_meta".
+
+```{r meta2, include=TRUE, echo=FALSE}
+kable(nla_samples_meta) 
+```
+
+
+### save the data in csv format in the "output" folder
+
+* this script generates the following files
+    - "nla_sites.csv"
+    - "nla_samples.csv"
+    - "nla_sites_meta.csv"
+    - "nla_samples_meta.csv"
+
+
+```{r save, include=FALSE, echo=FALSE,eval=TRUE}
+tryCatch(write.table(nla_sites,'output/nla_sites.csv',sep=',',row.names=FALSE),warning = function(e) write.table(nla_sites,'../output/nla_sites.csv',sep=',',row.names=FALSE))
+
+tryCatch(write.table(nla_samples,'output/nla_samples.csv',sep=',',row.names=FALSE),warning = function(e) write.table(nla_samples,'../output/nla_samples.csv',sep=',',row.names=FALSE))
+
+tryCatch(write.table(nla_sites_meta,'output/nla_sites_meta.csv',sep=',',row.names=FALSE),warning = function(e) write.table(nla_sites_meta,'../output/nla_sites_meta.csv',sep=',',row.names=FALSE))
+
+tryCatch(write.table(nla_samples_meta,'output/nla_samples_meta.csv',sep=',',row.names=FALSE),warning = function(e) write.table(nla_samples_meta,'../output/nla_samples_meta.csv',sep=',',row.names=FALSE))
+```
+
+### Data Notes
+* The data.frame "nla_sites" has the information unique to each site.  The file contains `r nrow(nla_sites)` records
+* The data.frame "nla_samples" has the information unique to each sample.  The file contains `r nrow(nla_samples)` records
+* The field "site_id" is the common identifier to join the two data files "nla_sites" and "nla_samples"
+* The field "uid" in the data.frame "nla_samples" is the unique identifier to join this data.frame to other NLA data files
+    - Note: uid was created by been modified by adding the prefix "NLA2007_"  to the field "VISIT_ID" for NLA2007 &  by adding the prefix "NLA2012_" to the field "UID" for NLA2012.   
+* The first 5 characters of the field "site_id" can be used to extract the sample year from the data with the following code "unique(substr(nla_samples$site_id,1,5))"
+    - site_id for NLA2007 begins with "nla06" (why couldn't it be "nla07"?)
+    - site_id for NLA2012 begins with "nla12" 
+
+
+
+
+
+
+

@@ -1,0 +1,160 @@
+site,sample,column_name,name07,name12,description
+1,,aggr_eco3_2015,,AGGR_ECO3_2015,"NARS 3-level reporting region (2015), based on aggregating AGGR_ECO9_2015 reporting regions"
+1,,aggr_eco9_2015,,AGGR_ECO9_2015,"NARS 9-level reporting region (2015), based on aggregated Omernik Level III ecoregions"
+1,,aquacultur,AQUACULTUR,,Lake is a a private aquaculture waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,area_cat7,AREA_CAT7,,Lake area unequal probability category (7 categories)
+1,,area_ha,AREA_HA,AREA_HA,Surface area of lake based on NHD polygon
+1,,areacls,,AREACLS,Lake Area Class (ha) developed for use in indicator evaluation.  Note the categories are different from those used for design purposes (SIZE_CLASS)
+1,,bord_lake,,BORD_LAKE,State border lake = Yes; state non-border lake = No
+1,,cat_unique,,CAT_UNIQUE,Identifies the unique NLA survey design groups that require separate weight adjustments
+1,,ch0712_cat,,CH0712_CAT,Unequal probability category used in change analysis for 2007-2012
+1,,ch0712_use,,CH0712_USE,Include SITE_ID in change analysis for 2007-2012 
+1,,ch0712_wgt,,CH0712_WGT,Site weight for 2007-2012 change analysis
+1,,cntyname,CNTYNAME,CNTYNAME,County name
+1,,comid2007,COM_ID,COMID2007,NHD COMID from NLA 2007 sample frame (primary)
+1,,comid2012,,COMID2012,NHD common identifier for NLA 2012 sampling frame
+1,,comids2007,,COMIDS2007,NHD COMIDs from NLA 2007 sample frame when multiple polygons from 2007 sample frame were combined for 2012 sample frame
+,1,comment_info,COMMENT_INFO,,Comments and flag explanations for lake info data
+,1,date_col,DATE_COL,DATE_COL,Date of sample collection
+,1,depth_x,DEPTH_X,,Lake Depth (m) at Index Site
+,1,depthmax,DEPTHMAX,,Maximum Observed Lake Depth (m)
+1,,des_ftype,,DES_FTYPE,NLA design feature type (based on NHD feature type)
+1,,disposal,DISPOSAL,,"Lake is used for disposal (tailings, mine-tailings, etc.) (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP"
+1,,dsgn_cat,DSGN_CAT,,Probability survey design categories used to assign unequal probability of selection
+1,,dsgn12,,DSGN12,Is lake included in the NLA 2012 integrated design? Included= included in NLA 2012 integrated National/State design; Excluded=Not included. These are hand-selected lakes and additional lakes selected in Oklahoma that will be sampled after 2012.
+1,,eco_bio,,ECO_BIO,Bioregions
+1,,eco_l3_nam,ECO_L3_NAM,,Omernik level 3 ecoregion name
+1,,eco_nuta,ECO_NUTA,,NLA Aggregate Nutrient Ecoregion
+1,,eco3_x_origin,ECO3_X_ORIGIN,,WSA_ECO3 x LAKE_ORIGIN CLASS
+1,,elevation,ELEV_PT,ELEVATION,"Elevation at lake coordinates (LAT_DD_N83, LON_DD_N83) from NHD Digital Elevation Map layer (2012) or NED (2007); are sources the same?"
+1,,epa_reg,EPA_REG,EPA_REG,EPA Region
+1,,eval_name,,EVAL_NAME,Name of Lake
+1,,evalstat,,EVALSTAT,"Status assigned based on lake evaluation guidelines: TargetSampleable= Lake can be accessed and sampled; TargetNotSampled= Lake is target, but was temporarily inaccessible to sampling in 2012; TargetOther= Lake is considered target, but cannot be sampled for reasons other than physical inaccessibility or lack of access permission; AccessDenied=No permission to access and sample lake; Inaccessible-Barrier/Safety=Lake cannot be accessed and/or sampled sue to hazardous conditions or physical barriers (including access by boat); Inaccessible-Effort=Lake is too remote to visit.; Nontarget-CoastalSaline=lake is maintained primarily by overland flow from an adjacent estuary or ocean; Nontarget-Ephemeral=Lake determined to be dry during the index period during all but extremely wet years; Nontarget-MapError=no lake present at coordinates (includes lakes that have permanently dried up); Nontarget-NoRecAquatUse=Lake constructed for special purpose (e.g., sewage lagoon, stock pond); Nontarget-NotLake=Lake is either riverine (&lt; 7 d residence time) or fully developed wetland with no open water; Nontarget-Other=Lake is nontarget for other reasons; Nontarget-TooSmall+ Lake evaluated to be &lt; 1 ha in surface area; NonTarget-TooShallow= Lake had maximum depth of &lt; 1 m; NonTarget-Vegetated= Lake has &lt; 1000 m2 of open water, but is not a fully developed wetland with no open water; NotNeeded- Over sample lake that was not needed to meet sample size requirements within a state"
+1,,evaporate,EVAPORATE,,Lake is used for evaporation (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,feow_id,,FEOW_ID,Freshwater Ecoregions of the World (2015)
+,1,fid_1,FID_1,,GIS record number for site-visit combination
+,1,flag_info,FLAG_INFO,,Data qualifier flag for lake info data
+,1,fld_flag,FLD_FLAG,,Not NHD Lake-reference lake not found in NHD. Not in NHD lake polygon-field location was not found in NHD lake polygon
+,1,fld_lat_dd,FLD_LAT_DD,,Latitude (decimal degrees) recorded from the field form (lake verification)
+,1,fld_lon_dd,FLD_LON_DD,,Longitude (decimal degrees) recorded from the field form (lake verification)
+,1,fld_src,FLD_SRC,,"Field location source: Index_Site: location where index sample was taken. Launch_Site: point where boat was launched. Map_Loc: Location obtained from design file.  Priority:  lake index site; then launch site, then map location"
+1,,fs_ew,,FS_EW,Eastern or western US Forest Service land
+1,,fw_eco3,WSA_ECO3,FW_ECO3,"Original NARS 3-level reporting region, based on aggregating WSA9 reporting regions: EHIGH=Eastern Highlands (NAP, SAP); PLNLOW=Plains and Lowlands (CPL, NPL, SPL, TPL, UMW); WMTNS=Western Mountains and Xeric (WMT, XER)."
+1,,fw_eco9,WSA_ECO9,FW_ECO9,"Original NARS 9-level reporting region, based on aggregated Omernik Level III ecoregions: CPL=Coastal Plains; NAP=Northern Appalachians; NPL=Northern Plains; SAP=Southern Appalachians; SPL=Southern Plains; TPL=Temperate Plains; UMW=Upper Midwest; WMT=Western Mountains; XER=Xeric West."
+1,,gnis_id,,GNIS_ID,Goegraphic Names Information System ID (from NHD)
+1,,gnis_name,,GNIS_NAME,USGS Geographic Names Information System name
+1,,huc2,HUC_2,HUC2,USGS Level 2 Hydrologic Unit Code where lake is located
+1,,huc8,HUC_8,HUC8,USGS Level 8 Hydrologic Unit Code where lake is located
+,1,im_comment,,IM_COMMENT,Explanation of IM_FLAG or comment assigned during QA review
+,1,index_nla,,INDEX_NLA,"Index visit for lake (used in population estimates).  For sites visited, VISIT_NO=1 is designated as the index visit (even if no samples were collected).  Blank= not assigned (sites not evaluated or not needed). Y=Index visit, N=Not index visit"
+1,,index_samp,INDEX_SAMP,,Confirmation that lake was sampled. Secchi_Samp-Secchi depth determined
+,1,indxsamp_bent,,INDXSAMP_BENT,Index sample for benthic macroinvertebrates
+,1,indxsamp_chem,INDXSAMP_CHEM,INDXSAMP_CHEM,Index sample for water chemistry
+,1,indxsamp_chla,INDXSAMP_CHLA,INDXSAMP_CHLA,Index sample for Chlorophyll a
+,1,indxsamp_core,INDXSAMP_CORE,INDXSAMP_CORE,Index sample for sediment core
+,1,indxsamp_ente,INDXSAMP_ENTE,INDXSAMP_ENTE,Index sample for enterococci
+,1,indxsamp_inf,INDXSAMP_INF,,Index sample for site (YES/NO); typically visit 1)
+,1,indxsamp_micr,INDXSAMP_MICR,INDXSAMP_MICR,Index sample for microcystin
+,1,indxsamp_phab,INDXSAMP_PHAB,INDXSAMP_PHAB,Index sample for physical habitat
+,1,indxsamp_phyt,INDXSAMP_PHYT,,Index phytoplankton sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,indxsamp_sdhg,INDXSAMP_SDHG,INDXSAMP_SDHG,Index sample for sediment mercury
+,1,indxsamp_zoop,INDXSAMP_ZOOP,INDXSAMP_ZOOP,Index sample for zooplankton
+1,,lake_origin,LAKE_ORIGIN,LAKE_ORIGIN,"Lake origin based on codes used in NLA 2007:MAN-MADE=includes LAKE-ORIGIN12= MAN_MADE, MAN_MADE_AB, and RESERVOIR; NATURAL=includes LAKE_ORIGIN12=NATURAL and NATURAL_ENH; UNCERTAIN= Includes LAKE_ORIGIN12=UNCERTAIN"
+1,,lake_origin12,,LAKE_ORIGIN12,"Lake origin as determined during the 2012 site evaluation process, or from the sampling visit: MAN_MADE=Impoundment created by humans with current use for purpose of water storage, wildlife/fishing, and recreation.  Not used for active irrigation or power generation.  Includes lakes that were historically used for other purposes (e.g. mining pit pond, mill pond) but currently not a ‘working” impoundment; MAN_MADE_AB=Lakes have been abandoned from their man-made function for many decades (or a century).  These are still called  man-made but function 'naturally'; NATURAL=Naturally occurring impoundment; NATURAL_ENH=Lake was originally a natural open water shallow lake that has been ‘enhanced’ with flow diversions to form larger/deeper lake to support recreational uses; RESERVOIR=Man-made impoundment for hydropower, flood control, and/or active irrigation storage; UNCERTAIN=Origin could not be determined from either site evaluation or sampling visit"
+1,,lakearea,LAKEAREA,,Lake polygon area (km^2) from NHD
+1,,lakename,LAKENAME,,Lake name (from field forms)
+1,,lat_dd83,LAT_DD,LAT_DD83,"Latitude (based on NAD83 datum) assigned to lake during site selection from NHD-based sample frame. Generally, but not always, represents centriod of lake polygon in NHD."
+1,,lon_dd83,LON_DD,LON_DD83,"Longitude (based on NAD83 datum) assigned to lake during site selection from NHD-based sample frame. Generally, but not always represents centriod of lake polygon in NHD."
+1,,maj_basin,,MAJ_BASIN,Major USGS Hydrologic Basins derived from NHDPlus
+1,,mdcaty,MDCATY,MDCATY,"Categories used for unequal probability selection within a stratum. For value definitions, see survey-specific design documentation."
+1,,meter_deep,METER_DEEP,,Lake is > 1 m deep (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,miss_basin,,MISS_BASIN,"Within Mississippi basin, yes or no"
+1,,na_l1code,,NA_L1CODE,CEC North American Level I ecoregion code
+1,,na_l2code,,NA_L2CODE,CEC North American Level II ecoregion code
+1,,na_l3code,,NA_L3CODE,CEC North American Level III ecoregion code
+1,,nars_name,,NARS_NAME,Name assigned to lake for NLA. Based on LOC_NAME in tblVERIFICATION and GNIS_NAME in tblDESIGN
+1,,nes_lake,,NES_LAKE,Was lake included in the 1970s National Eutrophication Survey?
+1,,neslake,NESLAKE,,NESLake-Lake was included in 1970s National Eutrophication Survey
+1,,neslake_id,NESLAKE_ID,NESLAKE_ID,NES Lake ID number
+1,,nesstoret,,NESSTORET,STORET ID number assigned to NES lake (from NLA 2007)
+1,,nhdname,NHDNAME,,Lake name (from NHD)
+1,,non_saline,NON_SALINE,,Lake is non-saline waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,nut_reg,NUT_REG,,"Nutrient ecoregion, based on EPA nutrient criteria documents for lakes & reservoirs)"
+1,,nutreg_name,NUTREG_NAME,,Nutrient ecoregion name
+1,,open_water,OPEN_WATER,,Lake has > 1000 m2 of open water (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,own_type,,OWN_TYPE,Federal Agency land ownership category based on most current spatial land records from federal agencies
+1,,ownshp,,OWNSHP,Land ownership derived from USGS fedlands shapefile (http://www.nationalatlas.gov/mld/fedlanp.html)
+1,,panel,PANEL,PANEL,"Design panel. Identified base and oversample list of sites for both national and state-specific designs. For value definitions, see survey-specific design documentation."
+1,,perim_km,LAKEPERIM,PERIM_KM,NHD lake polygon perimeter (kilometers)
+1,,perm_water,PERM_WATER,,Lake is a permanent waterbody (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,phys_acces,PHYS_ACCES,,Lake is physically accessible for crew and boats (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP
+1,,publication_date,,PUBLICATION_DATE,Publication Date
+1,,rchcode,,RCHCODE,NHD Reach code assigned
+1,,reachcode,REACHCODE,,Unique NHD 14-digit Reach Code (0=code not assigned in NHDPlus
+1,,ref_cluster,REF_CLUSTER,,NLA Reference Site Cluster (A-G)
+,1,ref_nla12_nutr,,REF_NLA12_NUTR,Disturbance category for nutrients for NLA 2012
+1,,ref_nutr,REF_NUTR,,Nutrient Least Disturbed Reference Site (Y/N)
+1,,refclus_name,REFCLUS_NAME,,NLA Reference Cluster Description
+1,,repeat_visit,REPEAT,,Repeat visit lake (YES/blank)
+1,,rt_nla,RT_NLA,RT_NLA12,"NLA Reference Class Assignment (REF=reference, SO-SO=intermediate, TRASH=impacted, UNKNOWN=unknown)"
+,,rt_nla12_bent,,RT_NLA12_BENT,DELETED because values not unique by site_id;  Disturbance category for benthic macroinvertebrates for NLA 2012
+,,rt_nla12_zoop,,RT_NLA12_ZOOP,DELETED because values not unique by site_id;  Disturbance category for zooplankton for NLA 2012
+,1,sampled_assess,SAMPLED_ASSESS,,Site Sample Status - Assessment Form
+,1,sampled_bent,,SAMPLED_BENT,Benthic sample collected?
+,1,sampled_chem,SAMPLED_CHEM,,Index chemistry sample for site (YES/NO)-typically the Visit 1 Primary sample
+,1,sampled_chla,SAMPLED_CHLA,,CHLA SAMPLE COLLECTED/ANALYZED?
+,1,sampled_core,SAMPLED_CORE,SAMPLED_CORE,Sediment core sampled?
+,1,sampled_ente,SAMPLED_ENTE,SAMPLED_ENTE,Enterococci sample collected?
+,1,sampled_inf,SAMPLED_INF,,"Sediment core samples (Top, Bottom) used for diatom-inferred chemistry?"
+,1,sampled_micr,SAMPLED_MICR,SAMPLED_MICR,Microcystin sample collected?
+,1,sampled_phab,SAMPLED_PHAB,SAMPLED_PHAB,Physical habitat sampled?
+,1,sampled_phyt,SAMPLED_PHYT,SAMPLED_PHYT,Phytoplankton sample collected?
+,1,sampled_profile,SAMPLED_PROFILE,SAMPLED_PROFILE,Profile data collected?
+,1,sampled_sdhg,SAMPLED_SDHG,SAMPLED_SDHG,Sediment mercury collected?
+,1,sampled_secchi,SAMPLED_SECCHI,,Secchi Depth Site Sample Status
+,1,sampled_zocn,,SAMPLED_ZOCN,Coarse net zooplankton sample collected?
+,1,sampled_zocr,,SAMPLED_ZOCR,Coarse-mesh zooplankton sample collected (using NLA 2007 method)
+,1,sampled_zofn,,SAMPLED_ZOFN,Fine net zooplankton sample collected?
+,1,sampled_zofr,,SAMPLED_ZOFR,Fine-mesh zooplankton sample collected (using NLA 2007 method)
+,1,sampled_zoop,SAMPLED_ZOOP,SAMPLED_ZOOP,Zooplankton sample collected?
+1,,sewage,SEWAGE,,Lake is sewage treatment pond (YES). Derived from Lake evaluation desktop and field forms. Used with other information to to construct LAKE_SAMP
+1,1,site_id,SITE_ID,SITE_ID,Identification code for site
+1,,siteid_07,,SITEID_07,Site ID assigned in 2007 NLA
+1,,sitesamp,SAMPLED,SITESAMP,Did you sample this site (Y/N)
+1,,sitetype,SITE_TYPE,SITETYPE,Site type (Probability-based or hand-picked)
+1,,size_class,SIZE_CLASS,SIZE_CLASS,Lake area class
+1,,sld,SLD,,Shoreline development index (=LAKEPERIM/(2*sqrt(LAKEAREA*pi))
+1,,srfc_area,SRFC_AREA,,Lake is > 4 ha (YES). Derived from Lake evaluation desktop and field forms. Used with other information to construct LAKE_SAMP.
+1,,st_dsgn,,ST_DSGN,"Is lake included in State-specific design? Included=Included in State-specific design; Excluded=Not included in State-specific design. For value definitions, see survey-specific design documentation."
+1,,st_mdcaty,,ST_MDCATY,"Categories used for unequal probability selection within a stratum for NLA 2012 State-specific assessments. For value definitions, see survey-specific design documentation."
+1,,st_panel,,ST_PANEL,"Base and oversample design panels for state-specific designs. For value definitions, see survey-specific design documentation."
+1,,st_siteid,,ST_SITEID,Site ID code assigned for use in state-specific assessments. It is equal to SITE_ID unless a State provided its own specific ID code
+1,,st_stratum,,ST_STRATUM,"Design stratum for state-specific assessments. For value definitions, see survey-specific design documentation."
+1,,st_wgt_all,,ST_WGT_ALL,Adjusted weight for site. To be used for State-specific population estimation
+1,,st_wgt_cat,,ST_WGT_CAT,"Categories used for unequal probability selection within a stratum for state-specific sampling frames. For value definitions, see survey-specific design documentation."
+1,,st_wgt_dsgn,,ST_WGT_DSGN,"Initial weight assigned to State-specific sampling frames (MI, MN, OK, UT, and VT). "
+1,,state,ST,STATE,State lake is assigned to for sampling in NLA 2012
+1,,state_name,STATE_NAME,,STATE_NAME
+1,,state_nla,,STATE_NLA,"State (if border lake, all states)"
+1,,state_pcnt,,STATE_PCNT,Percent of lake area occurring in STATE.
+1,,statecty,,STATECTY,FIPS state and county code
+1,,status,LAKE_SAMP,STATUS,"Site status based on EVALSTAT and codes used for 2007 NLA, for use in national-scale population estimates: Target_Sampled=TargetSampled; Target_Denied=AccessDenied; Target_Inacc=Inaccessible-Barrier/Safety or Inaccessible-Effort; Target_Other=TargetOther.  Target lakes that wer not sampled.; Lake_LT_1 ha=Nontarget-TooSmall; Lake_Saline=Coastal_Saline; Lake_Shallow=Nontarget-TooShallow; Lake_Vegetated=Nontarget-Vegetated; Lake-Special_Purpose=Nontarget-NoRecAquatUse; Non_Target=Nontarget-Ephemeral or Nontarget-Other; Unknown=Lake was not evaluated or visited.  Generally applicable to additional State-specific sites that can be included in the national assessment."
+1,,status_dsk,STATUS_DSK,,Lake evaluation status from lake evaluation desktop form.Used with other information to construct LAKE_SAMP
+1,,status_fld,STATUS_FLD,,Lake evaluation status from lake evaluation field form. Used with other information to construct LAKE_SAMP
+1,,status_st,,STATUS_ST,"Site status based on EVALSTAT and codes used for 2007 NLA, for use in State-scale population estimates for MI, MN, OK, UT, and VT: Same code as STATUS_12, plus Lake_LT_4 ha= for MI and MN, lakes &lt; 4 ha were not part of the target population for the State assessment.; Lake_LT_10_ha= For UT, lakes &lt; 10 ha in FS Wilderness Areas were not part of the target population for the State assessment.; Lake_Tribal=For UT, lakes on Tribal land were not part of the target population for the State assessment"
+1,,status_ver,STATUS_VER,,Lake evaluation status from lake verification form. Used with other information to construct LAKE_SAMP
+1,,stratum,STRATUM,STRATUM,"Stratum use for survey design (national assessment). Needed for population estimates. For value definitions, see survey-specific design documentation."
+1,,tnt,TNT,TNT,"NLA target status assigned based on lake evaluation for use in national assessments. Target_Presumed= Assigned to lakes evaluated as target but were not sampled (e.g., access denials or physically inaccessible). Uncertain-Final target status cannot be determined because open water and depth criteria could not be evaluated. NotNeeded=Not needed for national level assessments (includes sites selected as part of individual state-level designs. Blank=represent errors or changes in design file, such as lakes selected &gt; 1 time or lakes whose polygons have been combined with other lakes."
+1,,tnt_st,,TNT_ST,NLA target status assigned based on lake evaluation for use in State-specific assessments
+,1,uid,VISIT_ID,UID,"Unique site visit ID; note the year added as prefix (e.g. ""2007_"" or ""2012_"")"
+1,,urban,URBAN,URBAN,Urban lake defined using WBDC 12 digit HUCs that intersect either US Census Urban Clusters or Urban Areas
+1,,us_l3code,ECO_LEV_3,US_L3CODE,Original Omernik Level III ecoregion code
+1,,us_l3code_2015,,US_L3CODE_2015,Omernik Level III ecoregion code (2015)
+1,,us_l4code,,US_L4CODE,Original Omernik Level IV ecoregion code
+1,,us_l4code_2015,,US_L4CODE_2015,Omernik Level IV ecoregion code (2015)
+,1,visit_no,VISIT_NO,VISIT_NO,Sequential number of visit to site
+1,,wgt_all,WGT_NLA,WGT_ALL,Adjusted weight for site. To be used for NLA national population estimation
+1,,wgt_cat,ADJWGT_CAT,WGT_CAT,Categories used for unequal probability selection within a stratum
+1,,wgt_dsgn,WGT,WGT_DSGN,Initial site weight assigned during site selection. DO NOT USE FOR POPULATION ESTIMATION!
+1,,xcoord,ALBERS_X,XCOORD,x-coordinate from US Contiguous Albers Equal Area Conic projection EXCEPT Hawaii sites which are calculated from Hawaii Albers Equal Area Conic projection
+1,,ycoord,ALBERS_Y,YCOORD,"Longitude (based on NAD83 datum) assigned to lake during site selection from NHD-based sample frame. Generally, but not always represents centriod of lake polygon in NHD."

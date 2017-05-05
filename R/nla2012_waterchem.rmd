@@ -67,6 +67,13 @@ return(list(ch,struc))
 
 
 ## To Do
+* add "2012_" prefix to all uid
+* delete uid not in 'nla_samples.csv' 
+* restrict to status=="Target_Sampled"
+* redo the QA/QC checks
+* make sure metadata are correct
+* make sure the data can be spread
+* check that all sample and site ids are included
 * change character to numeric for result, mdl, rl ???
 * change col_names and character data to snake case
 * `r paste("insult of the day:",bismer::insult())`

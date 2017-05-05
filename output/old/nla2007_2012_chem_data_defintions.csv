@@ -1,0 +1,50 @@
+name,name2007,name2012,definition
+batch_id,,X_BATCH_ID,Batch ID from lab
+chem_sample_id,,CHEM_SAMPLE_ID,Chemistry Sample ID
+chem_ship_flag,,CHEM_SHIP_FLAG,Chemistry Shipping Flag
+clear_to_bottom,CLEAR_TO_BOTTOM,CLEAR_TO_BOTTOM,Lake clear to the bottom; if Y (yes) secchi reading should be NA
+comment_fld,COMMENT_FLD_CHEM/CHLA,,Field Sampling Comments
+comment_im_chem,COMMENT_IM_CHEM,,IM Data Validation Comments
+comment_lab,COMMENT_LAB_CHEM/CHLA,,Laboratory Analysis Comments
+comment_secchi,COMMENT_SECCHI,,Comments and flag explanations for Secchi determination
+date_analyzed,,X_DATE_ANALYZED,Date of sample analysis
+date_filtered,,X_DATE_FILTERED,Date sample filtered
+date_filtered,DATE_FILTERED,,Date Sample was Filtered at Lab
+date_received,DATE_RECEIVED,X_DATE_RECEIVED,Date sample received by laboratory
+date_received,DATE_RECEIVED,,Date Sample was Received by Lab (from tracking data or WRS lab file '2007 Plan 0331081.xls')
+datechla,DATECHLA,,Date chlorophyll a sample collected
+datefilt_alert,DATEFILT_ALERT,,Sample Filtered at Lab Date (DATE_FILTERED) is AFTER Sample Received by Lab Date (DATE_RECEIVED) (Y/N)
+day_ship,DAY_SHIP,,Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED)
+dayship_alert,DAYSHIP_ALERT,,Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED) Exceeded 2 Days (Y/N)
+dilution_factor,,X_DILUTION_FACTOR,Dilution factor used in chlorophyll calculation
+duplicate,SAMPLE_CATEGORY,,(P)rimary or Field (D)uplicate; original name: SAMPLE_CATEGORY
+extract,,X_EXTRACT,Chlorophyll a in laboratory extract (raw)
+flag,X_FLAG,X_FLAG,Flag
+flag_fld_chla,FLAG_FLD_CHLA,,Data qualifier (Field Crew) (K=Value could not be determined U=nonstandard measurement Fn=other comment
+flag_lab_chla,FLAG_LAB_CHLA,,Data qualifier (laboratory) (K=Value could not be determined S=value changed [orig. value in parentheses] B=below reporting level [3 æg/L])
+flag_secchi,FLAG_SECCHI,,Data Qualifier flag for Secchi determination
+ht,X_HT,X__HOLDING_TIME,Sample holding time; time between sampling and lab analysis (days)
+ht_alert,X_HT_ALERT,,Holding Time Exceeded Limit (Y?N)
+lab,,LAB,Lab name
+lab_comment,,X_LAB_COMMENT,Laboratory comment 
+lab_flag,,X_LAB_FLAG,Flag from laboratory
+lab_id,LAB_ID_CHEM/CHLA,,Laboratory sample ID
+lab_sample_id,,X_LAB_SAMPLE_ID,Laboratory Sample ID
+loq,,X_LOQ, Limit of Quantitation (LOQ) associated with sample
+mdl,,X_MDL,Minimum detection limit of analyte
+nuts_sample_id,,NUTS_SAMPLE_ID,Nutrients Sample ID
+nuts_ship_flag,,NUTS_SHIP_FLAG,Nutrients Shipping Flag
+parameter,X=parameter,X:from:X_RESULT,What was measured
+qa_flag,,X_QA_FLAG,QA flag associated with sample
+result,X:value,X_RESULT,Measured value for parameter
+rl,value:X_RL_ALERT,X_RL,Reporting limit
+rl_alert,X_RL_ALERT,,Value Below Reporting Limit
+sample_depth,SAMPLE_DEPTH,,Depth of integrated sample (typically 2 m)
+sample_id,SAMPLE_ID_CHEM/CHLA,SAMPLE_ID_CHEM,Laboratory Sample Identification Number
+samplevol,,X_SAMPLEVOL,Volume of sample from field (chla)
+source,nameOfFile,nameOfFile,Source file for data
+tria_sample_id,,TRIA_SAMPLE_ID,Triazine sample ID (atrazine)
+uid,VISIT_ID,UID,Unique site visit ID; 
+units,fromDescription,X_UNITS,measurement units
+usgs_id,USGS_OGRL_laboratory_ID,,USGS Sample Identification Number for 2007 Algal Toxin analysis
+volume_adjust,,X_VOLUME_ADJUST,Sample volume adjustment (chla)
