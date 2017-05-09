@@ -31,7 +31,7 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 
 ## Introduction
 
-* This document shows how the NLA2007 and NLA2012 site_info files were processed.  The files contain the site and sampling event information along with the survey design info. Naming conventions were not conserved across years. Not all of the fields in these files are relevant to the uses of most researchers but will be kept for now.  Names will be harmonized across the datasets for the most important fields such as indices, and ancillary data.  As we find additional shared fields these names can be harmonized as well in later versions.
+* This document ([nla_sites-and-nla_samples](https://github.com/willbmisled/lakes_database/blob/master/R/nla_sites-and-nla_samples.Rmd)) shows how the NLA2007 and NLA2012 site_info files were processed.  The files contain the site and sampling event information along with the survey design info. Naming conventions were not conserved across years. Not all of the fields in these files are relevant to the uses of most researchers but will be kept for now.  Names will be harmonized across the datasets for the most important fields such as indices, and ancillary data.  As we find additional shared fields these names can be harmonized as well in later versions.
 
 Each site_info file from the 2007 & 20012 NLA will be split into a site_info file and a sample_info file. The site_info file will have the design information and geographic data.  The sample_info file will have the data specific to each sampling event (e.g., date, what was collected, etc.).  The "site_id" will be used to link the two files.  The "uid" in the sample_info file will be used to link the sample_info to the nla data files (e.g. chem2007, chem2012, etc.)
 
