@@ -5,7 +5,7 @@ MICX_BATCH_ID,microcystin,batch_id,Batch ID from lab for X-site Microcystin
 MICX_DATE_ANALYZED,microcystin,date_analyzed,Date of sample analysis for X-site Microcystin
 MICX_DATE_RECEIVED,microcystin,date_received,Date sample received by laboratory for X-site Microcystin
 MICX_FLAG,microcystin,flag,Flag for X-site Microcystin
-MICX_HOLDING_TIME,microcystin,holding_time,Sample holding time for X-site Microcystin
+MICX_HOLDING_TIME,microcystin,ht,Sample holding time for X-site Microcystin
 MICX_MDL,microcystin,mdl,Minimum detection limit of analyte for X-site Microcystin
 MICX_QA_FLAG,microcystin,qa_flag,QA flag associated with sample for X-site Microcystin
 MICX_RESULT,microcystin,result,Analyte value for X-site Microcystin
@@ -16,7 +16,7 @@ MICL_BATCH_ID,microcystin_littoral,batch_id,Batch ID from lab for Littoral Micro
 MICL_DATE_ANALYZED,microcystin_littoral,date_analyzed,Date of sample analysis for Littoral Microcystin
 MICL_DATE_RECEIVED,microcystin_littoral,date_received,Date sample received by laboratory for Littoral Microcystin
 MICL_FLAG,microcystin_littoral,flag,Flag for Littoral Microcystin
-MICL_HOLDING_TIME,microcystin_littoral,holding_time,Sample holding time for Littoral Microcystin
+MICL_HOLDING_TIME,microcystin_littoral,ht,Sample holding time for Littoral Microcystin
 MICL_MDL,microcystin_littoral,mdl,Minimum detection limit of analyte for Littoral Microcystin
 MICL_QA_FLAG,microcystin_littoral,qa_flag,QA flag associated with sample for Littoral Microcystin
 MICL_RESULT,microcystin_littoral,result,Analyte value for Littoral Microcystin

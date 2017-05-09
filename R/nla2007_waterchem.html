@@ -11,7 +11,7 @@
 
 <meta name="author" content="Bryan Milstead" />
 
-<meta name="date" content="2017-05-05" />
+<meta name="date" content="2017-05-09" />
 
 <title>nla2007_waterchem</title>
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">nla2007_waterchem</h1>
 <h4 class="author"><em>Bryan Milstead</em></h4>
-<h4 class="date"><em>05 May 2017</em></h4>
+<h4 class="date"><em>09 May 2017</em></h4>
 
 </div>
 
@@ -127,7 +127,7 @@ $(document).ready(function () {
 <div id="to-do" class="section level2">
 <h2>To Do</h2>
 <ul>
-<li>insult of the day: thou errant rough-hewn mammet</li>
+<li>insult of the day: thou unmuzzled guts-griping dewberry</li>
 </ul>
 </div>
 <div id="naming-conventions" class="section level2">
@@ -195,10 +195,43 @@ $(document).ready(function () {
 <li>it is tempting to eliminate the duplicates but will keep them for now</li>
 </ul></li>
 <li>use VISIT_ID as the unique identifier (“uid”)</li>
-<li>restrict data to LAKE_SAMP==“Target_Sampled”</li>
 <li>make sure all VISIT_ID are in ‘nla_samples.csv’ (TRUE)</li>
 <li>rename uid=VISIT_ID and add the prefix “2007_”</li>
+<li>restrict data to LAKE_SAMP==“Target_Sampled”
+<ul>
+<li>The following uid / duplicate combinations were deleted for LAKE_SAMP!=“Target_Sampled”</li>
+</ul></li>
 </ul>
+<pre><code>##          uid              site_id visit_no duplicate       status
+## 1  2007_7470        NLA06608-0002        2         D         &lt;NA&gt;
+## 2  2007_7474        NLA06608-0004        2         D         &lt;NA&gt;
+## 3  2007_7476        NLA06608-0005        2         D         &lt;NA&gt;
+## 4  2007_7478        NLA06608-0006        2         D         &lt;NA&gt;
+## 5  2007_7484        NLA06608-0010        2         D         &lt;NA&gt;
+## 6  2007_7488        NLA06608-0013        2         D         &lt;NA&gt;
+## 7  2007_7490        NLA06608-0014        2         D         &lt;NA&gt;
+## 8  2007_7492        NLA06608-0015        2         D         &lt;NA&gt;
+## 9  2007_7494        NLA06608-0016        2         D         &lt;NA&gt;
+## 10 2007_7497        NLA06608-0019        2         D         &lt;NA&gt;
+## 11 2007_7499        NLA06608-0020        2         D         &lt;NA&gt;
+## 12 2007_7507        NLA06608-0025        2         D         &lt;NA&gt;
+## 13 2007_7509        NLA06608-0029        2         D         &lt;NA&gt;
+## 14 2007_7513        NLA06608-0033        2         D         &lt;NA&gt;
+## 15 2007_7515        NLA06608-0036        2         D         &lt;NA&gt;
+## 16 2007_7517        NLA06608-0037        2         D         &lt;NA&gt;
+## 17 2007_7519        NLA06608-0038        2         D         &lt;NA&gt;
+## 18 2007_7521        NLA06608-0041        2         D         &lt;NA&gt;
+## 19 2007_7522        NLA06608-0042        1         D         &lt;NA&gt;
+## 20 2007_7527        NLA06608-0044        2         D         &lt;NA&gt;
+## 21 2007_7529        NLA06608-0045        2         D         &lt;NA&gt;
+## 22 2007_7531        NLA06608-0048        2         D         &lt;NA&gt;
+## 23 2007_7534        NLA06608-0050        2         D         &lt;NA&gt;
+## 24 2007_7799        NLA06608-0439        1         P Lake_Shallow
+## 25 2007_7842        NLA06608-0508        1         P Lake_Shallow
+## 26 2007_7879        NLA06608-0583        1         P Lake_Shallow
+## 27 2007_8012        NLA06608-0830        1         P Lake_Shallow
+## 28 2007_8376        NLA06608-1596        1         P Lake_Shallow
+## 29 2007_8800 NLA06608-ELS:1D2-087        1         P   Non_Target</code></pre>
 </div>
 <div id="waterchem-updates" class="section level3">
 <h3>waterchem updates</h3>
@@ -1763,6 +1796,7 @@ $(document).ready(function () {
 <li>drop “site_id and visit_no”</li>
 <li>rename “sample_category” to “duplicate”</li>
 <li>check that all uid are in “nla_samples.csv” (TRUE)</li>
+<li>delete any uid that are in deleted_samples$uid (these were previously deleted for the waterchem data only)</li>
 </ul>
 </div>
 <div id="qaqc" class="section level3">
@@ -1780,6 +1814,7 @@ $(document).ready(function () {
 <div id="data-definitions-for-the-nla2007-and-nla2012-chemistry-data" class="section level2">
 <h2>Data definitions for the NLA2007 and NLA2012 chemistry data</h2>
 <ul>
+<li>check that all column names are in ‘nla_chem_data_defintions.csv’ (TRUE)</li>
 <li>Below are the data definitions for column names of the chemistry data</li>
 <li>Included are four fields
 <ul>
@@ -1824,270 +1859,276 @@ $(document).ready(function () {
 <td align="left">Lake clear to the bottom; if Y (yes) secchi reading should be NA</td>
 </tr>
 <tr class="odd">
+<td align="left">comment</td>
+<td align="left">comment</td>
+<td align="left">NA</td>
+<td align="left">general comment field</td>
+</tr>
+<tr class="even">
 <td align="left">comment_fld</td>
 <td align="left">COMMENT_FLD_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Field Sampling Comments</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">comment_im_chem</td>
 <td align="left">COMMENT_IM_CHEM</td>
 <td align="left">NA</td>
 <td align="left">IM Data Validation Comments</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">comment_lab</td>
 <td align="left">COMMENT_LAB_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Laboratory Analysis Comments</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">comment_secchi</td>
 <td align="left">COMMENT_SECCHI</td>
 <td align="left">NA</td>
 <td align="left">Comments and flag explanations for Secchi determination</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_analyzed</td>
 <td align="left">NA</td>
 <td align="left">X_DATE_ANALYZED</td>
 <td align="left">Date of sample analysis</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">date_filtered</td>
 <td align="left">NA</td>
 <td align="left">X_DATE_FILTERED</td>
 <td align="left">Date sample filtered</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_filtered</td>
 <td align="left">DATE_FILTERED</td>
 <td align="left">NA</td>
 <td align="left">Date Sample was Filtered at Lab</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">date_received</td>
 <td align="left">DATE_RECEIVED</td>
 <td align="left">X_DATE_RECEIVED</td>
 <td align="left">Date sample received by laboratory</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_received</td>
 <td align="left">DATE_RECEIVED</td>
 <td align="left">NA</td>
 <td align="left">Date Sample was Received by Lab (from tracking data or WRS lab file ‘2007 Plan 0331081.xls’)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">datechla</td>
 <td align="left">DATECHLA</td>
 <td align="left">NA</td>
 <td align="left">Date chlorophyll a sample collected</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">datefilt_alert</td>
 <td align="left">DATEFILT_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Sample Filtered at Lab Date (DATE_FILTERED) is AFTER Sample Received by Lab Date (DATE_RECEIVED) (Y/N)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">day_ship</td>
 <td align="left">DAY_SHIP</td>
 <td align="left">NA</td>
 <td align="left">Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">dayship_alert</td>
 <td align="left">DAYSHIP_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED) Exceeded 2 Days (Y/N)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">dilution_factor</td>
 <td align="left">NA</td>
 <td align="left">X_DILUTION_FACTOR</td>
 <td align="left">Dilution factor used in chlorophyll calculation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">duplicate</td>
 <td align="left">SAMPLE_CATEGORY</td>
 <td align="left">NA</td>
 <td align="left">(P)rimary or Field (D)uplicate; original name: SAMPLE_CATEGORY</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">extract</td>
 <td align="left">NA</td>
 <td align="left">X_EXTRACT</td>
 <td align="left">Chlorophyll a in laboratory extract (raw)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">flag</td>
 <td align="left">X_FLAG</td>
 <td align="left">X_FLAG</td>
 <td align="left">Flag</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">flag_fld_chla</td>
 <td align="left">FLAG_FLD_CHLA</td>
 <td align="left">NA</td>
 <td align="left">Data qualifier (Field Crew) (K=Value could not be determined U=nonstandard measurement Fn=other comment</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">flag_lab_chla</td>
 <td align="left">FLAG_LAB_CHLA</td>
 <td align="left">NA</td>
 <td align="left">Data qualifier (laboratory) (K=Value could not be determined S=value changed [orig. value in parentheses] B=below reporting level [3 æg/L])</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">flag_secchi</td>
 <td align="left">FLAG_SECCHI</td>
 <td align="left">NA</td>
 <td align="left">Data Qualifier flag for Secchi determination</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">ht</td>
 <td align="left">X_HT</td>
 <td align="left">X__HOLDING_TIME</td>
 <td align="left">Sample holding time; time between sampling and lab analysis (days)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">ht_alert</td>
 <td align="left">X_HT_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Holding Time Exceeded Limit (Y?N)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab</td>
 <td align="left">NA</td>
 <td align="left">LAB</td>
 <td align="left">Lab name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">lab_comment</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_COMMENT</td>
 <td align="left">Laboratory comment</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab_flag</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_FLAG</td>
 <td align="left">Flag from laboratory</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">lab_id</td>
 <td align="left">LAB_ID_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Laboratory sample ID</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab_sample_id</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_SAMPLE_ID</td>
 <td align="left">Laboratory Sample ID</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">loq</td>
 <td align="left">NA</td>
 <td align="left">X_LOQ</td>
 <td align="left">Limit of Quantitation (LOQ) associated with sample</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">mdl</td>
 <td align="left">NA</td>
 <td align="left">X_MDL</td>
 <td align="left">Minimum detection limit of analyte</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">nuts_sample_id</td>
 <td align="left">NA</td>
 <td align="left">NUTS_SAMPLE_ID</td>
 <td align="left">Nutrients Sample ID</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">nuts_ship_flag</td>
 <td align="left">NA</td>
 <td align="left">NUTS_SHIP_FLAG</td>
 <td align="left">Nutrients Shipping Flag</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">parameter</td>
 <td align="left">X=parameter</td>
 <td align="left">X:from:X_RESULT</td>
 <td align="left">What was measured</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">qa_flag</td>
 <td align="left">NA</td>
 <td align="left">X_QA_FLAG</td>
 <td align="left">QA flag associated with sample</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">result</td>
 <td align="left">X:value</td>
 <td align="left">X_RESULT</td>
 <td align="left">Measured value for parameter</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">rl</td>
 <td align="left">value:X_RL_ALERT</td>
 <td align="left">X_RL</td>
 <td align="left">Reporting limit</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">rl_alert</td>
 <td align="left">X_RL_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Value Below Reporting Limit</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">sample_depth</td>
 <td align="left">SAMPLE_DEPTH</td>
 <td align="left">NA</td>
 <td align="left">Depth of integrated sample (typically 2 m)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">sample_id</td>
 <td align="left">SAMPLE_ID_CHEM/CHLA</td>
 <td align="left">SAMPLE_ID_CHEM</td>
 <td align="left">Laboratory Sample Identification Number</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">samplevol</td>
 <td align="left">NA</td>
 <td align="left">X_SAMPLEVOL</td>
 <td align="left">Volume of sample from field (chla)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">source</td>
 <td align="left">nameOfFile</td>
 <td align="left">nameOfFile</td>
 <td align="left">Source file for data</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tria_sample_id</td>
 <td align="left">NA</td>
 <td align="left">TRIA_SAMPLE_ID</td>
 <td align="left">Triazine sample ID (atrazine)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">uid</td>
 <td align="left">VISIT_ID</td>
 <td align="left">UID</td>
 <td align="left">Unique site visit ID;</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">units</td>
 <td align="left">fromDescription</td>
 <td align="left">X_UNITS</td>
 <td align="left">measurement units</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">usgs_id</td>
 <td align="left">USGS_OGRL_laboratory_ID</td>
 <td align="left">NA</td>
 <td align="left">USGS Sample Identification Number for 2007 Algal Toxin analysis</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">volume_adjust</td>
 <td align="left">NA</td>
 <td align="left">X_VOLUME_ADJUST</td>
@@ -2096,6 +2137,7 @@ $(document).ready(function () {
 </tbody>
 </table>
 <ul>
+<li>check that all parameters are in ‘nla_chem_data_paramters.csv’ (TRUE)</li>
 <li>The following table defines the parameters in the chem data</li>
 <li>This table has six fields
 <ul>
@@ -2257,8 +2299,8 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td align="left">do2_2m</td>
-<td align="left">do2_2m</td>
-<td align="left">DO2_2M</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
 <td align="left">mg/l</td>
 <td align="left">mg/l</td>
 <td align="left">Dissolved oxygen averaged over the top 2 m of water</td>
@@ -2299,9 +2341,9 @@ $(document).ready(function () {
 <td align="left">sequential freeze/thaw</td>
 <td align="left">cycles and filtered before analyses. The ass</td>
 <td align="left">ay is capable of detecting</td>
-<td align="left">both micro</td>
-<td align="left">cystins and no</td>
-<td align="left">dularins, however, nodularins are considered to be predominately found in brackish waters. As a result response for these results will be discussed in terms of microcystins, but in a rare cases nodularin has been measured in inland freshwaters.</td>
+<td align="left">both microcy</td>
+<td align="left">stins and nodu</td>
+<td align="left">larins, however, nodularins are considered to be predominately found in brackish waters. As a result response for these results will be discussed in terms of microcystins, but in a rare cases nodularin has been measured in inland freshwaters.</td>
 </tr>
 <tr class="even">
 <td align="left">microcystin_littoral</td>
@@ -2448,6 +2490,38 @@ $(document).ready(function () {
 <td align="left">Analyte value for Sulfate</td>
 </tr>
 <tr class="even">
+<td align="left">temp_min</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Min temperature from the profile data</td>
+</tr>
+<tr class="odd">
+<td align="left">temp_max</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Max temperature from the profile data</td>
+</tr>
+<tr class="even">
+<td align="left">temp_mean</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Mean temperature from the profile data</td>
+</tr>
+<tr class="odd">
+<td align="left">temp_2m</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Mean temperature from the profile data for depth &lt;= 2 meters</td>
+</tr>
+<tr class="even">
 <td align="left">toc</td>
 <td align="left">TOC</td>
 <td align="left">TOC_RESULT</td>
@@ -2471,18 +2545,26 @@ $(document).ready(function () {
 <td align="left">NTU</td>
 <td align="left">Analyte value for Turbidity</td>
 </tr>
-<tr class="odd">
-<td align="left">## Save the data</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
 </tbody>
 </table>
+</div>
+<div id="spread-check" class="section level2">
+<h2>spread check</h2>
+<ul>
+<li>make sure the data can be “spread”; works</li>
+</ul>
+</div>
+<div id="save-the-data" class="section level2">
+<h2>Save the data</h2>
 <ul>
 <li>chem2007 saved as ‘output/nla2007_chem.csv’</li>
+</ul>
+</div>
+<div id="data-notes" class="section level2">
+<h2>Data Notes</h2>
+<ul>
+<li>Decide whether or not to keep duplicate samples (chem2007$duplicate==‘D’)</li>
+<li>To create a wide format verison of the data use: “chem2007_wide&lt;-select(chem2007,uid,duplicate,parameter,result)%&gt;% spread(parameter,result)”</li>
 </ul>
 </div>
 

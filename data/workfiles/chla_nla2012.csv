@@ -6,7 +6,7 @@ CHLL_DATE_ANALYZED,chla_littoral,date_analyzed,Date of sample analysis for Litto
 CHLL_DATE_FILTERED,chla_littoral,date_filtered,Date sample filtered for Littoral chlorophyll a
 CHLL_DILUTION_FACTOR,chla_littoral,dilution_factor,Dilution factor used in chlorophyll calculation for Littoral chlorophyll a
 CHLL_EXTRACT,chla_littoral,extract,Chlorophyll a in laboratory extract (raw) for Littoral chlorophyll a
-CHLL_HOLDING_TIME,chla_littoral,holding_time,Sample holding time for Littoral chlorophyll a
+CHLL_HOLDING_TIME,chla_littoral,ht,Sample holding time for Littoral chlorophyll a
 CHLL_LAB_COMMENT,chla_littoral,lab_comment,Laboratory comment for Littoral chlorophyll a
 CHLL_LAB_FLAG,chla_littoral,lab_flag,Flag from laboratory for Littoral chlorophyll a
 CHLL_LAB_SAMPLE_ID,chla_littoral,lab_sample_id,Laboratory Sample ID for Littoral chlorophyll a
@@ -22,7 +22,7 @@ CHLX_DATE_ANALYZED,chla,date_analyzed,Date of sample analysis for X-site chlorop
 CHLX_DATE_FILTERED,chla,date_filtered,Date sample filtered for X-site chlorophyll a
 CHLX_DILUTION_FACTOR,chla,dilution_factor,Dilution factor used in chlorophyll calculation for X-site chlorophyll a
 CHLX_EXTRACT,chla,extract,Chlorophyll a in laboratory extract (raw) for X-site chlorophyll a
-CHLX_HOLDING_TIME,chla,holding_time,Sample holding time for X-site chlorophyll a
+CHLX_HOLDING_TIME,chla,ht,Sample holding time for X-site chlorophyll a
 CHLX_LAB_COMMENT,chla,lab_comment,Laboratory comment for X-site chlorophyll a
 CHLX_LAB_FLAG,chla,lab_flag,Flag from laboratory for X-site chlorophyll a
 CHLX_LAB_SAMPLE_ID,chla,lab_sample_id,Laboratory Sample ID for X-site chlorophyll a

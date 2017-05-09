@@ -3,6 +3,7 @@ batch_id,,X_BATCH_ID,Batch ID from lab
 chem_sample_id,,CHEM_SAMPLE_ID,Chemistry Sample ID
 chem_ship_flag,,CHEM_SHIP_FLAG,Chemistry Shipping Flag
 clear_to_bottom,CLEAR_TO_BOTTOM,CLEAR_TO_BOTTOM,Lake clear to the bottom; if Y (yes) secchi reading should be NA
+comment,comment,,general comment field
 comment_fld,COMMENT_FLD_CHEM/CHLA,,Field Sampling Comments
 comment_im_chem,COMMENT_IM_CHEM,,IM Data Validation Comments
 comment_lab,COMMENT_LAB_CHEM/CHLA,,Laboratory Analysis Comments

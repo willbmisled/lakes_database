@@ -6,7 +6,7 @@ oreder,DATA_COLUMN,parameter,column_name,LABEL
 4,ATRAZINE_DATE_ANALYZED,atrazine,date_analyzed,Date sample was processed by lab for Atrazine
 4,ATRAZINE_DATE_RECEIVED,atrazine,date_received,Date sample was received by lab for Atrazine
 4,ATRAZINE_FLAG,atrazine,flag,Flag for Atrazine
-4,ATRAZINE_HOLDING_TIME,atrazine,holding_time,Time between sampling and lab analysis (days) for Atrazine
+4,ATRAZINE_HOLDING_TIME,atrazine,ht,Time between sampling and lab analysis (days) for Atrazine
 4,ATRAZINE_LOQ,atrazine,loq,Quality information: Limit of Quantitation (LOQ) associated with sample for Atrazine
 4,ATRAZINE_MDL,atrazine,mdl,Quality information: Method Detection Limit (MDL) associated with sample for Atrazine
 4,ATRAZINE_QA_FLAG,atrazine,qa_flag,QA flag for Atrazine

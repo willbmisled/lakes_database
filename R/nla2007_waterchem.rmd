@@ -23,7 +23,6 @@ names1<-function(df) names(df)[order(names(df))]
 ```
 
 ## To Do
-* check spread: some of the duplicate values are showing up as NA
 * `r paste("insult of the day:",bismer::insult())`
 
 ## Naming Conventions
@@ -79,19 +78,26 @@ names1<-function(df) names(df)[order(names(df))]
     - in the dataset some "uid" are repeated because of duplicate samples (SAMPLE_CATEGORY=="D")
     - it is tempting to eliminate the duplicates but will keep them for now
 * use VISIT_ID as the unique identifier ("uid")
-* restrict data to LAKE_SAMP=="Target_Sampled"
 * make sure all VISIT_ID are in 'nla_samples.csv' (TRUE)
 * rename uid=VISIT_ID and add the prefix "2007_"
+* restrict data to LAKE_SAMP=="Target_Sampled"
+    - The following uid / duplicate combinations were deleted for LAKE_SAMP!="Target_Sampled"
 
 ```{r waterchem2007, include=FALSE}
 #get the data
 a<-read1('data/raw_data/','nla2007_waterchem.csv')
+nrow(a) #1326
 
 #get the sample info file
 samples<-read1('output/','nla_samples.csv')%>%select(uid,site_id,visit_no)%>%filter(substr(uid,1,4)=="2007")
 
 #restrict data to LAKE_SAMP=="Target_Sampled"
+deleted_samples<-filter(a,LAKE_SAMP!="Target_Sampled"|is.na(LAKE_SAMP))%>%select(uid=VISIT_ID,site_id=SITE_ID,visit_no=VISIT_NO,duplicate=SAMPLE_CATEGORY,status=LAKE_SAMP)%>%mutate(uid=paste("2007_",uid,sep=''))
+  
 a<-filter(a,LAKE_SAMP=="Target_Sampled")
+nrow(a) #1297
+
+
 
 #check uid
 uid<-mutate(a,uid=paste("2007_",VISIT_ID,sep=''))%>%select(uid,site_id=SITE_ID,visit_no=VISIT_NO)%>%distinct()
@@ -140,6 +146,10 @@ waterchem$source<-'nla2007_waterchem.csv'
 # rename uid=VISIT_ID and add the prefix "2007_"
 waterchem<-mutate(waterchem,uid=paste("2007_",visit_id,sep=''))%>%select(-visit_id)
 
+```
+
+```{r deleted, include=TRUE, echo=FALSE}
+deleted_samples
 ```
 
 ### waterchem updates
@@ -280,19 +290,19 @@ names(do2)<-tolower(names(do2))
 # max_temp
 max_temp<- group_by(profile, uid)%>%
   summarise(result=max(temp_field, na.rm = TRUE))
-    max_temp$parameter<-'max_temp'
+    max_temp$parameter<-'temp_max'
       max_temp #1246
 
 # min_temp     
 min_temp<- group_by(profile, uid)%>%
   summarise(result=min(temp_field, na.rm = TRUE))
-    min_temp$parameter<-'min_temp'
+    min_temp$parameter<-'temp_min'
       min_temp #1246
       
 # mean_temp
 mean_temp<- group_by(profile, uid)%>%
   summarise(result=mean(temp_field, na.rm = TRUE))
-    mean_temp$parameter<-'mean_temp'
+    mean_temp$parameter<-'temp_mean'
       mean_temp #1246
 
 # mean_temp_2m
@@ -302,7 +312,7 @@ profile2m<-filter(profile,depth<=2)%>%select(uid,temp_field)
 #calculate average do for depth<=2
 mean_temp_2m<- group_by(profile2m, uid)%>%
   summarise(result=mean(temp_field, na.rm = TRUE))
-    mean_temp_2m$parameter<-'mean_temp_2m'
+    mean_temp_2m$parameter<-'temp_2m'
       mean_temp_2m #1239
       
 #rbind temp variables
@@ -390,6 +400,7 @@ nrow(algal_toxins) #3963
 * drop "site_id and visit_no"
 * rename "sample_category" to "duplicate"
 * check that all uid are in "nla_samples.csv" (TRUE)
+* delete any uid that are in deleted_samples$uid (these were previously deleted for the waterchem data only)
 
 ```{r join, include=FALSE, echo=FALSE,eval=TRUE, message=FALSE}
 #convert fields result and rl to numeric
@@ -405,6 +416,10 @@ chem2007<-select(chem2007, -site_id,-visit_no)%>%rename(duplicate=sample_categor
 UID<-select(chem2007,uid)%>%distinct()
 nrow(UID) #1246
 table(UID$uid%in%samples$uid) #T=1246
+
+#delete uid%in%deleted_samples$uid
+chem2007<-filter(chem2007,!uid%in%deleted_samples$uid)
+nrow(chem2007) #51968
 ```
 
 ###QA/QC
@@ -451,18 +466,32 @@ filter(compare1,test==FALSE)
 
 ## Data definitions for the NLA2007 and NLA2012 chemistry data
 
+* check that all column names are in 'nla_chem_data_defintions.csv' (TRUE)
 * Below are the data definitions for column names of the chemistry data
 * Included are four fields
     - **name**: is the column name (field)
     - **2007**: 1=field included in chem2007
     - **2012**: 1=field included in chem2012
     - **definition**: a brief description of the field 
+    
+```{r check_meta, include=FALSE, echo=FALSE,eval=TRUE}
+#check that all names are in the dd file
+dd<-read1('output/','nla_chem_data_defintions.csv')
+ table(names(chem2007)%in%dd$name)
+ #names(chem2007)[!names(chem2007)%in%dd$name]  
+ #filter(chem2007,!is.na("comment"))%>%select(source)%>%distinct()
+ 
+#check that all parameters are in the pd file
+pd<-read1('output/','nla_chem_parameters.csv')
+table(unique(chem2007$parameter)%in%pd$parameter)
+#filter(chem2012,!parameter%in%pd$parameter)%>%select(parameter,source)%>%distinct()
+```
 
 ```{r data_defintions, include=TRUE, echo=FALSE,eval=TRUE}
-dd<-read1('output/','nla_chem_data_defintions.csv')
 kable(dd)
 ```
 
+* check that all parameters are in 'nla_chem_data_paramters.csv' (TRUE)
 * The following table defines the parameters in the chem data
 * This table has six fields
     - **parameter**: the name of the chemical analyte or measurement 
@@ -473,12 +502,11 @@ kable(dd)
     - **definition**: a brief description of the parameter 
     
 ```{r param_defintions, include=TRUE, echo=FALSE,eval=TRUE}
-pd<-read1('output/','nla_chem_parameters.csv')
 kable(pd)
 ```
 
 ## spread check
-* make sure the data can be "spread"
+* make sure the data can be "spread"; works
 
 ```{r spread, include=FALSE, echo=FALSE,eval=TRUE,eval=TRUE}
 spread<-select(chem2007,uid,duplicate,parameter,result)%>%
@@ -494,6 +522,12 @@ spread<-select(chem2007,uid,duplicate,parameter,result)%>%
 tryCatch(write.table(chem2007,'output/nla2007_chem.csv',sep=',',row.names=FALSE),warning = function(e) write.table(chem2007,'../output/nla2007_chem.csv',sep=',',row.names=FALSE))
 ```
 
+
+## Data Notes
+
+* Decide whether or not to keep duplicate samples (chem2007$duplicate=='D')
+* To create a wide format verison of the data use: "chem2007_wide<-select(chem2007,uid,duplicate,parameter,result)%>%
+  spread(parameter,result)"
 
 
 

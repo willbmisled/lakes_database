@@ -5,6 +5,12 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output: html_document
 ---
 
+## To Do
+* redo the QA/QC checks
+* make sure metadata are correct
+* make sure the data can be spread
+* `r paste("insult of the day:",bismer::insult())`
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -17,6 +23,8 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
   a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
   return(a)
 }  
+
+names1<-function(df) names(df)[order(names(df))]
 ```
 
 ```{r formatData_function, include=FALSE}
@@ -65,19 +73,6 @@ return(list(ch,struc))
 }
 ```
 
-
-## To Do
-* add "2012_" prefix to all uid
-* delete uid not in 'nla_samples.csv' 
-* restrict to status=="Target_Sampled"
-* redo the QA/QC checks
-* make sure metadata are correct
-* make sure the data can be spread
-* check that all sample and site ids are included
-* change character to numeric for result, mdl, rl ???
-* change col_names and character data to snake case
-* `r paste("insult of the day:",bismer::insult())`
-
 ## Naming Conventions
 * All variable names in lowercase
 * use snake case for compound names (e.g., big_data)
@@ -94,7 +89,7 @@ return(list(ch,struc))
     - algal toxins
     - atrazine
     - secchi
-    - profile (partial: only the DO2_2M data are included)
+    - profile (partial: only the DO2_2M and temperature data are included)
     
 * Four of these datasets (waterchem, chla, algal toxins, and atrazine) were processed in the same way:
     
@@ -145,12 +140,12 @@ kable(struc_waterchem)
 * The waterchm dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_waterchem, include=TRUE, echo=FALSE}   
-colnames(waterchem)
+names1(waterchem)
 ```
 
 * The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
     
-```{r p_waterchem, include=TRUE, echo=FALSE}   
+```{r p_waterchem, include=TRUE, echo=FALSE}  
 unique(waterchem$parameter)
 ```
 
@@ -179,7 +174,7 @@ kable(struc_chla)
 * The chla dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_chla, include=TRUE, echo=FALSE}   
-colnames(chla)
+names1(chla)
 ```
 
 * The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
@@ -213,7 +208,7 @@ kable(struc_mcl)
 * The mcl dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_mcl, include=TRUE, echo=FALSE}   
-colnames(mcl)
+names1(mcl)
 ```
 
 * The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
@@ -243,7 +238,7 @@ kable(struc_atrazine)
 * The atrazine dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):
 
 ```{r c_atrazine, include=TRUE, echo=FALSE}   
-colnames(atrazine)
+names1(atrazine)
 ```
 
 * The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):
@@ -285,43 +280,155 @@ kable(struc_secchi)
 
 ### do2
 
+* read the data from 'nla2012_profile.csv'
+* There are 16955 rows in the do2 data that have UIDs but no SITE_IDs.  None of these UIDs is represented in the siteInfo so these were dropped.
+* filter for !is.na(site_id)
+* DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake.  It is based on the profile data.
+* harvest the NLA calculated do2_2m values for comparision
+* calculate do2_2m from the profile data
+    - note: the first observation (usually depth==0) was collected twice.  To avoid double counting we will calculate the mean do by depth then take the mean for the top 2m
+* units='mg/l' was added 
+* source='nla2012_profile.csv' added
+
+### do2
+
 ```{r do2, include=FALSE, echo=FALSE, eval=TRUE}
 #read the raw data; trycatch will look for the data in two directories
 do2<-read1('data/raw_data/','nla2012_profile.csv')
 
+#change column names to snake case
+names(do2)<-tolower(names(do2))
+
 #many observations with UIDs are missing SITE_ID
-table(is.na(do2$SITE_ID)) #F==13762 T==16955
-nrow(filter(do2,is.na(SITE_ID))) #16955
+table(is.na(do2$site_id)) #F==13762 T==16955
+nrow(filter(do2,!is.na(site_id))) #13762
 
 #check if the UID's are in the info file
-i12<-read1('data/raw_data/','nla2012_site_info.csv')
+samples<-read1('output/','nla_samples.csv')
 
-nrow(filter(do2, !UID%in%i12$UID))  #16955
-nrow(filter(do2,is.na(SITE_ID))) #16955
+nrow(filter(do2, paste("2012_",uid,sep='')%in%samples$uid))  #13762
+nrow(filter(do2,is.na(site_id))) #16955
 
-#harvest the UID and DO2_2M fields; delete rows with is.na(do2$SITE_ID)
-do2<-filter(do2,!is.na(DO2_2M),!is.na(SITE_ID))%>%select(UID,DO2_2M)
-nrow(do2)  #1189
-nrow(filter(do2, !UID%in%i12$UID))  #0
+#filter for !is.na(site_id)
+do2<-filter(do2,!is.na(site_id)) #13762
+nrow(select(do2,uid)%>%distinct()) #1230
 
+#harvest the UID and DO2_2M fields; delete rows with is.na(do2$SITE_ID) and save for comparison to calculated values
+    
+do2old<-filter(do2,!is.na(do2_2m),!is.na(site_id))%>%select(uid,do2_2m)
+nrow(do2old)  #1189
 
-do2<-select(do2,UID,DO2_2M)%>%filter(!is.na(DO2_2M))
-nrow(do2)  #1189
+#calculate do2_2m
+  #calculate mean do and temp by depth
+profile <- group_by(do2, uid,depth)%>%
+  summarise(oxygen=mean(oxygen, na.rm = TRUE),temperature=mean(temperature, na.rm = TRUE))%>%
+    select(uid,depth,oxygen,temperature)
+      nrow(profile) #11225
+
+# filter for depth<=2m
+do2<-filter(profile,depth<=2);nrow(do2) #3941
+
+#calculate average do for depth<=2
+do2 <- group_by(do2, uid)%>%
+  summarise(result=mean(oxygen, na.rm = TRUE));nrow(do2) #1202
+
+#delete rows for result==NA
+do2<-filter(do2,!is.na(result));nrow(do2) #1190
 
 #add UNITS='mg/l'
-do2$UNITS<-'mg/l'
+do2$units<-'mg/l'
 
 #add parameter
 do2$parameter<-'do2_2m'
 
-#rename and reorder
-do2<-select(do2,uid=UID,parameter,result=DO2_2M,units=UNITS)
-
 #add source
 do2$source<-'nla2012_profile.csv'
 
+#compare
+nrow(do2old) #1189
+nrow(do2) #1190
+
+test<-full_join(do2,do2old);nrow(test) #1190
+
+test$dif<-abs(test$result-test$do2_2m)
+
+filter(test,is.na(do2_2m)) #7164
+filter(profile,uid==7164)
+```
+* compare the do2_2m calculated from the profile data (do2$result) and the NLA calculated value (do2old$do2_2m)
+    - table below shows the results
+* although the max is large the mean is small
+* uid with large differences were visually inspected.  In these cases the calculated values were consistent with the data and the NLA values were not.  Some had irregularities in the profile depths (not consistent or even).
+* The one missing value from the NLA is for uid==7164.  Data from only 2 depths below 2m were reported and these were for depths=c(1.49,1.69).  For now I'll leave this.
+
+
+```{r do2a, include=TRUE, echo=FALSE, eval=TRUE}
+summary(test$dif)
+```
+
+* a plot of the observed (result) and predicted values (do2_2m) shows that the results are fairly close
+    - go with the calculated values 
+
+```{r do2a, include=TRUE, echo=FALSE, eval=TRUE}
+plot(test$do2_2m,test$result)
+```
+
+###temperature   
+
+* the field water temperature data are in the profile dataset as "temperature" for multiple depths
+* depths are not standardized so we'll calculate
+- max_temp: max for the whole profile
+- min_temp: min for the whole profile
+- mean_temp: mean for the whole profile
+- mean_temp_2m: mean for the DEPTH<=2 meters
+* rbind all temp variables
+* add units & source
+
+```{r temp, include=FALSE,eval=TRUE}
+
+# max_temp
+max_temp<- group_by(profile, uid)%>%
+  summarise(result=max(temperature, na.rm = TRUE))%>%
+    filter(!is.na(result))
+max_temp$parameter<-'temp_max'
+max_temp #1200
+
+# min_temp     
+min_temp<- group_by(profile, uid)%>%
+  summarise(result=min(temperature, na.rm = TRUE))%>%
+    filter(!is.na(result))
+min_temp$parameter<-'temp_min'
+min_temp #1200
+
+# mean_temp
+mean_temp<- group_by(profile, uid)%>%
+  summarise(result=mean(temperature, na.rm = TRUE))%>%
+    filter(!is.na(result))
+mean_temp$parameter<-'temp_mean'
+mean_temp #1200
+
+# mean_temp_2m
+# filter for depth<=2m
+profile2m<-filter(profile,depth<=2)%>%select(uid,temperature)
+
+#calculate average do for depth<=2
+mean_temp_2m<- group_by(profile2m, uid)%>%
+  summarise(result=mean(temperature, na.rm = TRUE))%>%
+    filter(!is.na(result))
+mean_temp_2m$parameter<-'temp_2m'
+mean_temp_2m #1200
+
+#rbind temp variables
+field_temp<-rbind(min_temp,max_temp,mean_temp,mean_temp_2m)
+
+#add UNITS='degrees C'
+field_temp$units<-'degrees C'
+
+#add source
+field_temp$source<-'nla2012_profile.csv'
 
 ```
+
 
 * There are 16955 rows in the do2 data that have UIDs but no SITE_IDs.  None of these UIDs is represented in the siteInfo so these were dropped.
 * Only the UID and DO2_2M columns are harvested from the profile dataset.
@@ -333,12 +440,11 @@ do2$source<-'nla2012_profile.csv'
 
 * convert (if exist) fields RESULT, MDL, RL, and LOQ to numeric
 * all files joined
-* delete rows for is.na(result) 
+* delete rows for result==NA
 * add field duplicate=='P'; for the 2007 data there are primary and duplicate value; for consistency we'll add the same field to the 2012 data and set all values to P=primary.
-* as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.
-* check that all uid are in 'nla2007_site_info.csv'
-* check that all uid correspond to STATUS=="Target_Sampled"
-
+* add "2012_" prefix to all uid 
+* check that all uid are in 'nla_samples.csv' (TRUE)
+* uid in 'nla_samples.csv' have STATUS=="Target_Sampled"
 
 ```{r join, include=FALSE, echo=FALSE,eval=TRUE}
 waterchem<-mutate(waterchem,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
@@ -346,77 +452,72 @@ chla<-mutate(chla,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl
 atrazine<-mutate(atrazine,result=as.numeric(result),loq=as.numeric(loq),mdl=as.numeric(mdl))
 mcl<-mutate(mcl,result=as.numeric(result),mdl=as.numeric(mdl),rl=as.numeric(rl))
 
-chem2012<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2)
+chem2012<-bind_rows(waterchem,chla,mcl,atrazine,secchi,do2,field_temp)
 
 chem2012$duplicate='P'
 
 chem2012<-filter(chem2012,!is.na(result))
 
-#check that all uid are in 'nla2012_site_info.csv' and that they correspond to LAKE_SAMP=="Target_Sampled"
-i12<-select(read1('data/raw_data/','nla2012_site_info.csv'),SITE_ID,UID,STATUS) #get the siteinfo
-names(i12)<-tolower(names(i12))
-nrow(chem2012) #32810
-a<-left_join(chem2012,i12)%>%filter(status!="Target_Sampled")%>%select(uid,site_id,status)%>%distinct()
-nrow(chem2012) #32810  all uid in 'nla2012_site_info.csv'
+#add year prefix to uid
+chem2012<-mutate(chem2012,uid=paste('2012_',uid,sep=''))
+
+#check if the UID's are in the info file
+nrow(chem2012) #40419
+nrow(filter(chem2012, uid%in%samples$uid))  #40419
+
 ```
 
-###QA/QC
+##QA/QC
 
-* two qa/qc checks were run to make sure the data were assembled correctly.  
-- sums by parameter were calculated and compared for the chem2012 and 'nla2012_waterchem.csv' data; all matched
-- sums by uid were calculated and compared for the chem2012 and 'nla2012_waterchem.csv' data; all matched
-* did not check sums for other datasets but the waterchem check shows the process worked.
+* Two qa/qc checks were run on the chem data to make sure the data were assembled correctly.
+- sums by parameter for the raw and final datasets were compared and were equal.
+- sums by uid for the raw and final datasets were compared and were equal.
+* checked sums for the waterchem data only; shows the process worked.
 
 ```{r qa, include=FALSE, echo=FALSE,eval=TRUE}
 #get the raw data and change names to lowercase
 a<-read1('data/raw_data/','nla2012_waterchem.csv') 
 
-#keep results and uid
-a<-select(a,1,grep('_RESULT',names(a)))
+names(a)<-tolower(names(a))
 
-#rename to match chem2012
-names(a)<-tolower(unlist(strsplit(names(a),"_RESULT")))
+#limit to the waterchem results
+a<-a[,c(grep("uid",names(a)),grep("_result",names(a)))]
 
-#read the parameters from chem2012
-param<-filter(chem2012,source=='nla2012_waterchem.csv')%>%select(parameter)%>%distinct()
-param<-param$parameter
+#rename to match parameters
+names(a)<-sub("_result",'',names(a))
 
-#restrict raw data to params and uid in chem2012
-table(a$uid%in%chem2012$uid) #T=1230
-table(chem2012$uid%in%a$uid) #T=32810
+#update uid
+raw<-mutate(a,uid=paste("2012_",uid,sep=''))
 
-#get sums by parameter for raw and chem2012
-rawParam<-apply(a[,-1],2,sum,na.rm=TRUE)
-rawParam<-data.frame(parameter=names(rawParam),rawSum=rawParam)
+nrow(raw) #1230
+nrow(select(chem2012,uid)%>%distinct()) #1230
 
-chemParam<-group_by(chem2012, parameter) %>%
-  summarize(chemSum=sum(result, na.rm = TRUE))
+#get raw sums
+raw_sums<-apply(raw[,-1],2,sum,na.rm=TRUE)
+raw_sums<-data.frame(parameter=names(raw_sums),raw_sums=raw_sums)
 
-test<-inner_join(chemParam,rawParam)%>%mutate(test=chemSum==rawSum)
-all.equal(test$chemSum,test$rawSum)
+#get final sums 
+final_sums<-group_by(chem2012, parameter)%>%summarise(sum=sum(result, na.rm = TRUE))
+
+compare<-left_join(raw_sums,final_sums)%>%mutate(test=sum==raw_sums)
+table(compare$test,useNA='ifany') #TRUE==22
 
 #compare  sums by UID
-#get sums by parameter for raw and chem2012
-names(a[,-1])
-unique(chem2012$parameter)
+#get sums by parameter for raw and chem2007
+raw_sums1<-apply(raw[,-1],1,sum,na.rm=TRUE)
+raw_sums1<-data.frame(uid=raw$uid,raw_sum=raw_sums1)
 
-b<-filter(chem2012,parameter%in%names(a[,-c(1:2)]))
 
-table(b$parameter%in%names(a[,-c(1:2)]))
-table(names(a[,-c(1:2)])%in%b$parameter)
+final1<-filter(chem2012,parameter%in%names(raw))
+final_sums1<-group_by(final1, uid)%>%summarise(sum=sum(result, na.rm = TRUE))
 
-rawUid<-data.frame(uid=a$uid,sumRaw=apply(a[,-c(1:2)],1,sum,na.rm=TRUE))
-
-chemUid<-group_by(b, uid) %>%
-  summarize(sumChem=sum(result, na.rm = TRUE))
-
-test1<-inner_join(chemUid,rawUid)%>%mutate(test=sumChem==sumRaw)
-all.equal(test1$sumChem,test1$sumRaw)
-
-```
+compare1<-full_join(final_sums1,raw_sums1)%>%mutate(test=sum==raw_sum)
+table(compare1$test,useNA='ifany') #TRUE==1228 NA==18; the falses are floating point errors
+````
 
 ## Data definitions for the NLA2007 and NLA2012 chemistry data
 
+* check that all column names are in 'nla_chem_data_defintions.csv' (TRUE)
 * Below are the data definitions for column names of the chemistry data
 * Included are four fields
     - **name**: is the column name (field)
@@ -424,11 +525,24 @@ all.equal(test1$sumChem,test1$sumRaw)
     - **2012**: 1=field included in chem2012
     - **definition**: a brief description of the field 
 
-```{r data_defintions, include=TRUE, echo=FALSE}
-dd<-read1('output/','nla2007_2012_chem_data_defintions.csv')
+```{r check_meta, include=FALSE, echo=FALSE,eval=TRUE}
+#check that all names are in the dd file
+dd<-read1('output/','nla_chem_data_defintions.csv')
+ table(names(chem2012)%in%dd$name)
+ #names(chem2012)[!names(chem2012)%in%dd$name]  #holding time is missing
+ 
+ #filter(chem2012,!is.na(holding_time))%>%select(source)%>%distinct()
+ 
+#check that all parameters are in the pd file
+table(unique(chem2012$parameter)%in%pd$parameter)
+filter(chem2012,!parameter%in%pd$parameter)%>%select(parameter,source)%>%distinct()
+```
+
+```{r data_defintions, include=TRUE, echo=FALSE,eval=TRUE}
 kable(dd)
 ```
 
+* check that all parameters are in 'nla_chem_data_paramters.csv' (TRUE)
 * The following table defines the parameters in the chem data
 * This table has six fields
     - **parameter**: the name of the chemical analyte or measurement 
@@ -438,10 +552,22 @@ kable(dd)
     - **units12**: the measurement units for the parameter in the NLA2012 data 
     - **definition**: a brief description of the parameter 
     
-```{r param_defintions, include=TRUE, echo=FALSE}
-pd<-read1('output/','nla2007_2012_chem_parameters.csv')
+```{r param_defintions, include=TRUE, echo=FALSE,eval=TRUE}
+
+
+
 kable(pd)
 ```
+## spread check
+* make sure the data can be "spread"; works
+
+```{r spread, include=FALSE, echo=FALSE,eval=TRUE,eval=TRUE}
+spread<-select(chem2012,uid,duplicate,parameter,result)%>%
+  spread(parameter,result)
+nrow(spread) #1230
+
+```
+
 ## Save the data
 
 * chem2012 saved as 'output/nla2012_chem.csv'
