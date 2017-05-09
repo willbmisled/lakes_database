@@ -29,13 +29,12 @@ names1<-function(df) names(df)[order(names(df))]
 * This document ([nla2007_&_2012_data_for_farnaz_may2017](https://github.com/willbmisled/lakes_database/blob/master/R/nla2007_&_2012_data_for_farnaz_may2017.Rmd)) describes how a subset of the 2007 and 2012 National Lake Assessment data were assembled and processed.
 * The raw data are available on the NARS website:  https://www.epa.gov/national-aquatic-resource-surveys
 * These data were processed and harmonized.  See the following documents for more information:
-    - [nla2007_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2007_waterchem.Rmd)
-    - [nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.Rmd)
+    - [nla2007_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2007_waterchem.rmd)
+    - [nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.rmd)
     - [nla_sites-and-nla_samples](https://github.com/willbmisled/lakes_database/blob/master/R/nla_sites-and-nla_samples.Rmd)
-
 * The output includes the following datasets:
-    - [farnaz201705.csv]
-    - [farnaz201705_meta.csv]
+    - [farnaz201705.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201705.csv)
+    - [farnaz201705_meta.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201705_meta.csv)
 
 ## Data Notes
 * Decide whether or not to keep duplicate samples (...$duplicate=='D')
