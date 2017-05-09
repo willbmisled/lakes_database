@@ -1,46 +1,46 @@
-"column_name","name07","name12","description"
-"uid","VISIT_ID","UID","Unique site visit ID; note the year added as prefix (e.g. \"2007_\" or \"2012_\")"
-"site_id","SITE_ID","SITE_ID","Identification code for site"
-"visit_no","VISIT_NO","VISIT_NO","Sequential number of visit to site"
-"comment_info","COMMENT_INFO",NA,"Comments and flag explanations for lake info data"
-"date_col","DATE_COL","DATE_COL","Date of sample collection"
-"depth_x","DEPTH_X",NA,"Lake Depth (m) at Index Site"
-"depthmax","DEPTHMAX",NA,"Maximum Observed Lake Depth (m)"
-"fid_1","FID_1",NA,"GIS record number for site-visit combination"
-"flag_info","FLAG_INFO",NA,"Data qualifier flag for lake info data"
-"fld_flag","FLD_FLAG",NA,"Not NHD Lake-reference lake not found in NHD. Not in NHD lake polygon-field location was not found in NHD lake polygon"
-"fld_lat_dd","FLD_LAT_DD",NA,"Latitude (decimal degrees) recorded from the field form (lake verification)"
-"fld_lon_dd","FLD_LON_DD",NA,"Longitude (decimal degrees) recorded from the field form (lake verification)"
-"fld_src","FLD_SRC",NA,"Field location source: Index_Site: location where index sample was taken. Launch_Site: point where boat was launched. Map_Loc: Location obtained from design file.  Priority:  lake index site; then launch site, then map location"
-"im_comment",NA,"IM_COMMENT","Explanation of IM_FLAG or comment assigned during QA review"
-"index_nla",NA,"INDEX_NLA","Index visit for lake (used in population estimates).  For sites visited, VISIT_NO=1 is designated as the index visit (even if no samples were collected).  Blank= not assigned (sites not evaluated or not needed). Y=Index visit, N=Not index visit"
-"indxsamp_bent",NA,"INDXSAMP_BENT","Index sample for benthic macroinvertebrates"
-"indxsamp_chem","INDXSAMP_CHEM","INDXSAMP_CHEM","Index sample for water chemistry"
-"indxsamp_chla","INDXSAMP_CHLA","INDXSAMP_CHLA","Index sample for Chlorophyll a"
-"indxsamp_core","INDXSAMP_CORE","INDXSAMP_CORE","Index sample for sediment core"
-"indxsamp_ente","INDXSAMP_ENTE","INDXSAMP_ENTE","Index sample for enterococci"
-"indxsamp_inf","INDXSAMP_INF",NA,"Index sample for site (YES/NO); typically visit 1)"
-"indxsamp_micr","INDXSAMP_MICR","INDXSAMP_MICR","Index sample for microcystin"
-"indxsamp_phab","INDXSAMP_PHAB","INDXSAMP_PHAB","Index sample for physical habitat"
-"indxsamp_phyt","INDXSAMP_PHYT",NA,"Index phytoplankton sample for site (YES/NO)-typically the Visit 1 Primary sample"
-"indxsamp_sdhg","INDXSAMP_SDHG","INDXSAMP_SDHG","Index sample for sediment mercury"
-"indxsamp_zoop","INDXSAMP_ZOOP","INDXSAMP_ZOOP","Index sample for zooplankton"
-"ref_nla12_nutr",NA,"REF_NLA12_NUTR","Disturbance category for nutrients for NLA 2012"
-"sampled_assess","SAMPLED_ASSESS",NA,"Site Sample Status - Assessment Form"
-"sampled_bent",NA,"SAMPLED_BENT","Benthic sample collected?"
-"sampled_chem","SAMPLED_CHEM",NA,"Index chemistry sample for site (YES/NO)-typically the Visit 1 Primary sample"
-"sampled_chla","SAMPLED_CHLA",NA,"CHLA SAMPLE COLLECTED/ANALYZED?"
-"sampled_core","SAMPLED_CORE","SAMPLED_CORE","Sediment core sampled?"
-"sampled_ente","SAMPLED_ENTE","SAMPLED_ENTE","Enterococci sample collected?"
-"sampled_inf","SAMPLED_INF",NA,"Sediment core samples (Top, Bottom) used for diatom-inferred chemistry?"
-"sampled_micr","SAMPLED_MICR","SAMPLED_MICR","Microcystin sample collected?"
-"sampled_phab","SAMPLED_PHAB","SAMPLED_PHAB","Physical habitat sampled?"
-"sampled_phyt","SAMPLED_PHYT","SAMPLED_PHYT","Phytoplankton sample collected?"
-"sampled_profile","SAMPLED_PROFILE","SAMPLED_PROFILE","Profile data collected?"
-"sampled_sdhg","SAMPLED_SDHG","SAMPLED_SDHG","Sediment mercury collected?"
-"sampled_secchi","SAMPLED_SECCHI",NA,"Secchi Depth Site Sample Status"
-"sampled_zocn",NA,"SAMPLED_ZOCN","Coarse net zooplankton sample collected?"
-"sampled_zocr",NA,"SAMPLED_ZOCR","Coarse-mesh zooplankton sample collected (using NLA 2007 method)"
-"sampled_zofn",NA,"SAMPLED_ZOFN","Fine net zooplankton sample collected?"
-"sampled_zofr",NA,"SAMPLED_ZOFR","Fine-mesh zooplankton sample collected (using NLA 2007 method)"
-"sampled_zoop","SAMPLED_ZOOP","SAMPLED_ZOOP","Zooplankton sample collected?"
+column_name,name07,name12,units07,units12,description
+uid,VISIT_ID,UID,,,"Unique site visit ID; note the year added as prefix (e.g. \2007_\"" or \""2012_\"")"""
+site_id,SITE_ID,SITE_ID,,,Identification code for site
+visit_no,VISIT_NO,VISIT_NO,,,Sequential number of visit to site
+comment_info,COMMENT_INFO,NA,,,Comments and flag explanations for lake info data
+date_col,DATE_COL,DATE_COL,,,Date of sample collection
+depth_x,DEPTH_X,NA,m,,Lake Depth (m) at Index Site
+depthmax,DEPTHMAX,NA,m,,Maximum Observed Lake Depth (m)
+fid_1,FID_1,NA,,,GIS record number for site-visit combination
+flag_info,FLAG_INFO,NA,,,Data qualifier flag for lake info data
+fld_flag,FLD_FLAG,NA,,,Not NHD Lake-reference lake not found in NHD. Not in NHD lake polygon-field location was not found in NHD lake polygon
+fld_lat_dd,FLD_LAT_DD,NA,,,Latitude (decimal degrees) recorded from the field form (lake verification)
+fld_lon_dd,FLD_LON_DD,NA,,,Longitude (decimal degrees) recorded from the field form (lake verification)
+fld_src,FLD_SRC,NA,,,"Field location source: Index_Site: location where index sample was taken. Launch_Site: point where boat was launched. Map_Loc: Location obtained from design file.  Priority:  lake index site; then launch site, then map location"
+im_comment,NA,IM_COMMENT,,,Explanation of IM_FLAG or comment assigned during QA review
+index_nla,NA,INDEX_NLA,,,"Index visit for lake (used in population estimates).  For sites visited, VISIT_NO=1 is designated as the index visit (even if no samples were collected).  Blank= not assigned (sites not evaluated or not needed). Y=Index visit, N=Not index visit"
+indxsamp_bent,NA,INDXSAMP_BENT,,,Index sample for benthic macroinvertebrates
+indxsamp_chem,INDXSAMP_CHEM,INDXSAMP_CHEM,,,Index sample for water chemistry
+indxsamp_chla,INDXSAMP_CHLA,INDXSAMP_CHLA,,,Index sample for Chlorophyll a
+indxsamp_core,INDXSAMP_CORE,INDXSAMP_CORE,,,Index sample for sediment core
+indxsamp_ente,INDXSAMP_ENTE,INDXSAMP_ENTE,,,Index sample for enterococci
+indxsamp_inf,INDXSAMP_INF,NA,,,Index sample for site (YES/NO); typically visit 1)
+indxsamp_micr,INDXSAMP_MICR,INDXSAMP_MICR,,,Index sample for microcystin
+indxsamp_phab,INDXSAMP_PHAB,INDXSAMP_PHAB,,,Index sample for physical habitat
+indxsamp_phyt,INDXSAMP_PHYT,NA,,,Index phytoplankton sample for site (YES/NO)-typically the Visit 1 Primary sample
+indxsamp_sdhg,INDXSAMP_SDHG,INDXSAMP_SDHG,,,Index sample for sediment mercury
+indxsamp_zoop,INDXSAMP_ZOOP,INDXSAMP_ZOOP,,,Index sample for zooplankton
+ref_nla12_nutr,NA,REF_NLA12_NUTR,,,Disturbance category for nutrients for NLA 2012
+sampled_assess,SAMPLED_ASSESS,NA,,,Site Sample Status - Assessment Form
+sampled_bent,NA,SAMPLED_BENT,,,Benthic sample collected?
+sampled_chem,SAMPLED_CHEM,NA,,,Index chemistry sample for site (YES/NO)-typically the Visit 1 Primary sample
+sampled_chla,SAMPLED_CHLA,NA,,,CHLA SAMPLE COLLECTED/ANALYZED?
+sampled_core,SAMPLED_CORE,SAMPLED_CORE,,,Sediment core sampled?
+sampled_ente,SAMPLED_ENTE,SAMPLED_ENTE,,,Enterococci sample collected?
+sampled_inf,SAMPLED_INF,NA,,,"Sediment core samples (Top, Bottom) used for diatom-inferred chemistry?"
+sampled_micr,SAMPLED_MICR,SAMPLED_MICR,,,Microcystin sample collected?
+sampled_phab,SAMPLED_PHAB,SAMPLED_PHAB,,,Physical habitat sampled?
+sampled_phyt,SAMPLED_PHYT,SAMPLED_PHYT,,,Phytoplankton sample collected?
+sampled_profile,SAMPLED_PROFILE,SAMPLED_PROFILE,,,Profile data collected?
+sampled_sdhg,SAMPLED_SDHG,SAMPLED_SDHG,,,Sediment mercury collected?
+sampled_secchi,SAMPLED_SECCHI,NA,,,Secchi Depth Site Sample Status
+sampled_zocn,NA,SAMPLED_ZOCN,,,Coarse net zooplankton sample collected?
+sampled_zocr,NA,SAMPLED_ZOCR,,,Coarse-mesh zooplankton sample collected (using NLA 2007 method)
+sampled_zofn,NA,SAMPLED_ZOFN,,,Fine net zooplankton sample collected?
+sampled_zofr,NA,SAMPLED_ZOFR,,,Fine-mesh zooplankton sample collected (using NLA 2007 method)
+sampled_zoop,SAMPLED_ZOOP,SAMPLED_ZOOP,,,Zooplankton sample collected?

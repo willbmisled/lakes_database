@@ -1,4 +1,4 @@
-name,name2007,name2012,definition
+column_name,name07,name12,description
 batch_id,,X_BATCH_ID,Batch ID from lab
 chem_sample_id,,CHEM_SAMPLE_ID,Chemistry Sample ID
 chem_ship_flag,,CHEM_SHIP_FLAG,Chemistry Shipping Flag
@@ -45,7 +45,7 @@ sample_id,SAMPLE_ID_CHEM/CHLA,SAMPLE_ID_CHEM,Laboratory Sample Identification Nu
 samplevol,,X_SAMPLEVOL,Volume of sample from field (chla)
 source,nameOfFile,nameOfFile,Source file for data
 tria_sample_id,,TRIA_SAMPLE_ID,Triazine sample ID (atrazine)
-uid,VISIT_ID,UID,Unique site visit ID; 
+uid,VISIT_ID,UID,"Unique site visit ID; note the year added as prefix (e.g. \2007_\"" or \""2012_\"")"""
 units,fromDescription,X_UNITS,measurement units
 usgs_id,USGS_OGRL_laboratory_ID,,USGS Sample Identification Number for 2007 Algal Toxin analysis
 volume_adjust,,X_VOLUME_ADJUST,Sample volume adjustment (chla)

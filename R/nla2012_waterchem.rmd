@@ -6,9 +6,6 @@ output: html_document
 ---
 
 ## To Do
-* redo the QA/QC checks
-* make sure metadata are correct
-* make sure the data can be spread
 * `r paste("insult of the day:",bismer::insult())`
 
 ```{r setup, include=FALSE}
@@ -369,7 +366,7 @@ summary(test$dif)
 * a plot of the observed (result) and predicted values (do2_2m) shows that the results are fairly close
     - go with the calculated values 
 
-```{r do2a, include=TRUE, echo=FALSE, eval=TRUE}
+```{r do2b, include=TRUE, echo=FALSE, eval=TRUE}
 plot(test$do2_2m,test$result)
 ```
 
@@ -517,25 +514,25 @@ table(compare1$test,useNA='ifany') #TRUE==1228 NA==18; the falses are floating p
 
 ## Data definitions for the NLA2007 and NLA2012 chemistry data
 
-* check that all column names are in 'nla_chem_data_defintions.csv' (TRUE)
+
 * Below are the data definitions for column names of the chemistry data
 * Included are four fields
-    - **name**: is the column name (field)
-    - **2007**: 1=field included in chem2007
-    - **2012**: 1=field included in chem2012
-    - **definition**: a brief description of the field 
+    - **column_name**: is the column name (field)
+    - **name07**: the original name for the parameter in the NLA2007 data (if measured)
+    - **name12**: the original name for the parameter in the NLA2012 data (if measured)
+    - **description**: a brief description of the field 
 
 ```{r check_meta, include=FALSE, echo=FALSE,eval=TRUE}
 #check that all names are in the dd file
 dd<-read1('output/','nla_chem_data_defintions.csv')
  table(names(chem2012)%in%dd$name)
- #names(chem2012)[!names(chem2012)%in%dd$name]  #holding time is missing
- 
+ #names(chem2012)[!names(chem2012)%in%dd$name]  
  #filter(chem2012,!is.na(holding_time))%>%select(source)%>%distinct()
  
 #check that all parameters are in the pd file
+pd<-read1('output/','nla_chem_parameters.csv')
 table(unique(chem2012$parameter)%in%pd$parameter)
-filter(chem2012,!parameter%in%pd$parameter)%>%select(parameter,source)%>%distinct()
+#filter(chem2012,!parameter%in%pd$parameter)%>%select(parameter,source)%>%distinct()
 ```
 
 ```{r data_defintions, include=TRUE, echo=FALSE,eval=TRUE}
@@ -550,12 +547,9 @@ kable(dd)
     - **name12**: the original name for the parameter in the NLA2012 data (if measured)
     - **units07**: the measurement units for the parameter in the NLA2007 data 
     - **units12**: the measurement units for the parameter in the NLA2012 data 
-    - **definition**: a brief description of the parameter 
+    - **description**: a brief description of the parameter 
     
 ```{r param_defintions, include=TRUE, echo=FALSE,eval=TRUE}
-
-
-
 kable(pd)
 ```
 ## spread check

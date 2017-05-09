@@ -11,7 +11,7 @@
 
 <meta name="author" content="Bryan Milstead" />
 
-<meta name="date" content="2017-04-06" />
+<meta name="date" content="2017-05-09" />
 
 <title>nla2012_waterchem</title>
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">nla2012_waterchem</h1>
 <h4 class="author"><em>Bryan Milstead</em></h4>
-<h4 class="date"><em>06 April 2017</em></h4>
+<h4 class="date"><em>09 May 2017</em></h4>
 
 </div>
 
@@ -127,9 +127,7 @@ $(document).ready(function () {
 <div id="to-do" class="section level2">
 <h2>To Do</h2>
 <ul>
-<li>change character to numeric for result, mdl, rl ???</li>
-<li>change col_names and character data to snake case</li>
-<li>insult of the day: thou spleeny hasty-witted nut-hook</li>
+<li>insult of the day: thou wayward rump-fed puttock</li>
 </ul>
 </div>
 <div id="naming-conventions" class="section level2">
@@ -152,7 +150,7 @@ $(document).ready(function () {
 <li>algal toxins</li>
 <li>atrazine</li>
 <li>secchi</li>
-<li>profile (partial: only the DO2_2M data are included)</li>
+<li>profile (partial: only the DO2_2M and temperature data are included)</li>
 </ul></li>
 <li><p>Four of these datasets (waterchem, chla, algal toxins, and atrazine) were processed in the same way:</p>
 <ul>
@@ -261,7 +259,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">ALUMINUM_HOLDING_TIME</td>
 <td align="left">aluminum</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Aluminum</td>
 </tr>
 <tr class="odd">
@@ -321,7 +319,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">AMMONIA_N_HOLDING_TIME</td>
 <td align="left">ammonia_n</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Ammonia as N</td>
 </tr>
 <tr class="odd">
@@ -387,7 +385,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">ANC_HOLDING_TIME</td>
 <td align="left">anc</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Acid Neutralizing Capacity</td>
 </tr>
 <tr class="even">
@@ -441,7 +439,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">CALCIUM_HOLDING_TIME</td>
 <td align="left">calcium</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Calcium</td>
 </tr>
 <tr class="odd">
@@ -507,7 +505,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">CHLORIDE_HOLDING_TIME</td>
 <td align="left">chloride</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Chloride ion</td>
 </tr>
 <tr class="even">
@@ -573,7 +571,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">COLOR_HOLDING_TIME</td>
 <td align="left">color</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Color</td>
 </tr>
 <tr class="odd">
@@ -639,7 +637,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">COND_HOLDING_TIME</td>
 <td align="left">cond</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Conductivity</td>
 </tr>
 <tr class="even">
@@ -705,7 +703,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">DOC_HOLDING_TIME</td>
 <td align="left">doc</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Dissolved Organic Carbon</td>
 </tr>
 <tr class="odd">
@@ -771,7 +769,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">MAGNESIUM_HOLDING_TIME</td>
 <td align="left">magnesium</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Magnesium</td>
 </tr>
 <tr class="even">
@@ -837,7 +835,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">NITRATE_N_HOLDING_TIME</td>
 <td align="left">nitrate_n</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Nitrate as N</td>
 </tr>
 <tr class="odd">
@@ -903,7 +901,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">NITRATE_NITRITE_N_HOLDING_TIME</td>
 <td align="left">nitrate_nitrite_n</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Nitrate + Nitrite as N</td>
 </tr>
 <tr class="even">
@@ -963,7 +961,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">NITRITE_N_HOLDING_TIME</td>
 <td align="left">nitrite_n</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Nitrite as N</td>
 </tr>
 <tr class="even">
@@ -1029,7 +1027,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">NTL_HOLDING_TIME</td>
 <td align="left">ntl</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Total Nitrogen</td>
 </tr>
 <tr class="odd">
@@ -1095,7 +1093,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">PH_HOLDING_TIME</td>
 <td align="left">ph</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for pH</td>
 </tr>
 <tr class="even">
@@ -1149,7 +1147,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">POTASSIUM_HOLDING_TIME</td>
 <td align="left">potassium</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Potassium</td>
 </tr>
 <tr class="odd">
@@ -1215,7 +1213,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">PTL_HOLDING_TIME</td>
 <td align="left">ptl</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Total Phosphorus</td>
 </tr>
 <tr class="even">
@@ -1281,7 +1279,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">SILICA_HOLDING_TIME</td>
 <td align="left">silica</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Silica</td>
 </tr>
 <tr class="odd">
@@ -1347,7 +1345,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">SODIUM_HOLDING_TIME</td>
 <td align="left">sodium</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Sodium</td>
 </tr>
 <tr class="even">
@@ -1407,7 +1405,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">SULFATE_HOLDING_TIME</td>
 <td align="left">sulfate</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Sulfate</td>
 </tr>
 <tr class="even">
@@ -1461,7 +1459,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">TOC_HOLDING_TIME</td>
 <td align="left">toc</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Total Organic Carbon</td>
 </tr>
 <tr class="odd">
@@ -1497,7 +1495,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">TSS_HOLDING_TIME</td>
 <td align="left">tss</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Total Suspended Solids</td>
 </tr>
 <tr class="odd">
@@ -1557,7 +1555,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">TURB_HOLDING_TIME</td>
 <td align="left">turb</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Turbidity</td>
 </tr>
 <tr class="odd">
@@ -1607,11 +1605,11 @@ $(document).ready(function () {
 <ul>
 <li>The waterchm dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;uid&quot;            &quot;lab&quot;            &quot;chem_sample_id&quot; &quot;chem_ship_flag&quot;
-##  [5] &quot;nuts_sample_id&quot; &quot;nuts_ship_flag&quot; &quot;parameter&quot;      &quot;batch_id&quot;      
-##  [9] &quot;date_analyzed&quot;  &quot;holding_time&quot;   &quot;lab_flag&quot;       &quot;lab_sample_id&quot; 
-## [13] &quot;mdl&quot;            &quot;qa_flag&quot;        &quot;result&quot;         &quot;rl&quot;            
-## [17] &quot;units&quot;          &quot;flag&quot;           &quot;source&quot;</code></pre>
+<pre><code>##  [1] &quot;batch_id&quot;       &quot;chem_sample_id&quot; &quot;chem_ship_flag&quot; &quot;date_analyzed&quot; 
+##  [5] &quot;flag&quot;           &quot;ht&quot;             &quot;lab&quot;            &quot;lab_flag&quot;      
+##  [9] &quot;lab_sample_id&quot;  &quot;mdl&quot;            &quot;nuts_sample_id&quot; &quot;nuts_ship_flag&quot;
+## [13] &quot;parameter&quot;      &quot;qa_flag&quot;        &quot;result&quot;         &quot;rl&quot;            
+## [17] &quot;source&quot;         &quot;uid&quot;            &quot;units&quot;</code></pre>
 <ul>
 <li>The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
@@ -1697,7 +1695,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">CHLL_HOLDING_TIME</td>
 <td align="left">chla_littoral</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Littoral chlorophyll a</td>
 </tr>
 <tr class="odd">
@@ -1793,7 +1791,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">CHLX_HOLDING_TIME</td>
 <td align="left">chla</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for X-site chlorophyll a</td>
 </tr>
 <tr class="odd">
@@ -1861,13 +1859,13 @@ $(document).ready(function () {
 <ul>
 <li>The chla dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;uid&quot;             &quot;lab&quot;             &quot;parameter&quot;      
-##  [4] &quot;batch_id&quot;        &quot;date_analyzed&quot;   &quot;date_filtered&quot;  
-##  [7] &quot;dilution_factor&quot; &quot;extract&quot;         &quot;holding_time&quot;   
-## [10] &quot;lab_comment&quot;     &quot;lab_flag&quot;        &quot;lab_sample_id&quot;  
-## [13] &quot;mdl&quot;             &quot;qa_flag&quot;         &quot;result&quot;         
-## [16] &quot;rl&quot;              &quot;samplevol&quot;       &quot;units&quot;          
-## [19] &quot;volume_adjust&quot;   &quot;source&quot;</code></pre>
+<pre><code>##  [1] &quot;batch_id&quot;        &quot;date_analyzed&quot;   &quot;date_filtered&quot;  
+##  [4] &quot;dilution_factor&quot; &quot;extract&quot;         &quot;ht&quot;             
+##  [7] &quot;lab&quot;             &quot;lab_comment&quot;     &quot;lab_flag&quot;       
+## [10] &quot;lab_sample_id&quot;   &quot;mdl&quot;             &quot;parameter&quot;      
+## [13] &quot;qa_flag&quot;         &quot;result&quot;          &quot;rl&quot;             
+## [16] &quot;samplevol&quot;       &quot;source&quot;          &quot;uid&quot;            
+## [19] &quot;units&quot;           &quot;volume_adjust&quot;</code></pre>
 <ul>
 <li>The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
@@ -1940,7 +1938,7 @@ $(document).ready(function () {
 <tr class="odd">
 <td align="left">MICX_HOLDING_TIME</td>
 <td align="left">microcystin</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for X-site Microcystin</td>
 </tr>
 <tr class="even">
@@ -2006,7 +2004,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">MICL_HOLDING_TIME</td>
 <td align="left">microcystin_littoral</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Sample holding time for Littoral Microcystin</td>
 </tr>
 <tr class="odd">
@@ -2098,10 +2096,10 @@ $(document).ready(function () {
 <ul>
 <li>The mcl dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;uid&quot;           &quot;lab&quot;           &quot;parameter&quot;     &quot;batch_id&quot;     
-##  [5] &quot;date_analyzed&quot; &quot;date_received&quot; &quot;flag&quot;          &quot;holding_time&quot; 
-##  [9] &quot;mdl&quot;           &quot;qa_flag&quot;       &quot;result&quot;        &quot;rl&quot;           
-## [13] &quot;lab_sample_id&quot; &quot;units&quot;         &quot;source&quot;</code></pre>
+<pre><code>##  [1] &quot;batch_id&quot;      &quot;date_analyzed&quot; &quot;date_received&quot; &quot;flag&quot;         
+##  [5] &quot;ht&quot;            &quot;lab&quot;           &quot;lab_sample_id&quot; &quot;mdl&quot;          
+##  [9] &quot;parameter&quot;     &quot;qa_flag&quot;       &quot;result&quot;        &quot;rl&quot;           
+## [13] &quot;source&quot;        &quot;uid&quot;           &quot;units&quot;</code></pre>
 <ul>
 <li>The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
@@ -2184,7 +2182,7 @@ $(document).ready(function () {
 <td align="right">4</td>
 <td align="left">ATRAZINE_HOLDING_TIME</td>
 <td align="left">atrazine</td>
-<td align="left">holding_time</td>
+<td align="left">ht</td>
 <td align="left">Time between sampling and lab analysis (days) for Atrazine</td>
 </tr>
 <tr class="odd">
@@ -2283,10 +2281,10 @@ $(document).ready(function () {
 <ul>
 <li>The atrazine dataset has the following columns (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
-<pre><code>##  [1] &quot;uid&quot;            &quot;lab&quot;            &quot;tria_sample_id&quot; &quot;parameter&quot;     
-##  [5] &quot;batch_id&quot;       &quot;date_analyzed&quot;  &quot;date_received&quot;  &quot;flag&quot;          
-##  [9] &quot;holding_time&quot;   &quot;loq&quot;            &quot;mdl&quot;            &quot;qa_flag&quot;       
-## [13] &quot;result&quot;         &quot;units&quot;          &quot;source&quot;</code></pre>
+<pre><code>##  [1] &quot;batch_id&quot;       &quot;date_analyzed&quot;  &quot;date_received&quot;  &quot;flag&quot;          
+##  [5] &quot;ht&quot;             &quot;lab&quot;            &quot;loq&quot;            &quot;mdl&quot;           
+##  [9] &quot;parameter&quot;      &quot;qa_flag&quot;        &quot;result&quot;         &quot;source&quot;        
+## [13] &quot;tria_sample_id&quot; &quot;uid&quot;            &quot;units&quot;</code></pre>
 <ul>
 <li>The following parameters are included as rows in the final dataset (NOTE: some of these may be dropped or renamed in the final dataset):</li>
 </ul>
@@ -2412,10 +2410,55 @@ $(document).ready(function () {
 <div id="do2" class="section level3">
 <h3>do2</h3>
 <ul>
+<li>read the data from ‘nla2012_profile.csv’</li>
+<li>There are 16955 rows in the do2 data that have UIDs but no SITE_IDs. None of these UIDs is represented in the siteInfo so these were dropped.</li>
+<li>filter for !is.na(site_id)</li>
+<li>DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake. It is based on the profile data.</li>
+<li>harvest the NLA calculated do2_2m values for comparision</li>
+<li>calculate do2_2m from the profile data
+<ul>
+<li>note: the first observation (usually depth==0) was collected twice. To avoid double counting we will calculate the mean do by depth then take the mean for the top 2m</li>
+</ul></li>
+<li>units=‘mg/l’ was added</li>
+<li>source=‘nla2012_profile.csv’ added</li>
+</ul>
+</div>
+<div id="do2-1" class="section level3">
+<h3>do2</h3>
+<ul>
+<li>compare the do2_2m calculated from the profile data (do2<span class="math inline">\(result) and the NLA calculated value (do2old\)</span>do2_2m)
+<ul>
+<li>table below shows the results</li>
+</ul></li>
+<li>although the max is large the mean is small</li>
+<li>uid with large differences were visually inspected. In these cases the calculated values were consistent with the data and the NLA values were not. Some had irregularities in the profile depths (not consistent or even).</li>
+<li>The one missing value from the NLA is for uid==7164. Data from only 2 depths below 2m were reported and these were for depths=c(1.49,1.69). For now I’ll leave this.</li>
+</ul>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+##  0.00000  0.01333  0.04667  0.29530  0.18830 11.58000        1</code></pre>
+<ul>
+<li>a plot of the observed (result) and predicted values (do2_2m) shows that the results are fairly close
+<ul>
+<li>go with the calculated values</li>
+</ul></li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABUAAAAPACAMAAADDuCPrAAAAWlBMVEUAAAAAADoAAGYAOpAAZmYAZpAAZrY6AAA6OgA6kJA6kNtmAABmtv+QOgCQZgCQkNuQ29uQ2/+2ZgC2kDq2///bkDrb/7bb/9vb////tmb/25D//7b//9v///8At3gKAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3di3rjRtqoV3qcdGd3t5Pf2sPEss37v83wBKBwIoGPIFAFrfU8M01JJFiCqNcF4qDDCYCQw9YDACiVgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQFDeAT0ALGb5RC2+xAVtvbaBfVm8UUsvcElv+A8G8GUJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIECShAkIACBAkoQJCAAgQJKECQgAIk5lyoTkABGrMu9SmgALU6nJMKKqAAlSSbAtojoMADaSIm5EJAASoC+oiAAg8I6CMCCjwgoI8IKPCA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" width="672" /></p>
+</div>
+<div id="temperature" class="section level3">
+<h3>temperature</h3>
+<ul>
+<li>the field water temperature data are in the profile dataset as “temperature” for multiple depths</li>
+<li>depths are not standardized so we’ll calculate</li>
+<li>max_temp: max for the whole profile</li>
+<li>min_temp: min for the whole profile</li>
+<li>mean_temp: mean for the whole profile</li>
+<li>mean_temp_2m: mean for the DEPTH&lt;=2 meters</li>
+<li>rbind all temp variables</li>
+<li><p>add units &amp; source</p></li>
 <li>There are 16955 rows in the do2 data that have UIDs but no SITE_IDs. None of these UIDs is represented in the siteInfo so these were dropped.</li>
 <li>Only the UID and DO2_2M columns are harvested from the profile dataset.</li>
 <li>DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake. It is based on the profile data.</li>
-<li>UNITS=‘mg/l’ was added</li>
+<li><p>UNITS=‘mg/l’ was added</p></li>
 </ul>
 </div>
 <div id="join-the-datasets" class="section level3">
@@ -2423,23 +2466,22 @@ $(document).ready(function () {
 <ul>
 <li>convert (if exist) fields RESULT, MDL, RL, and LOQ to numeric</li>
 <li>all files joined</li>
-<li>delete rows for is.na(result)</li>
+<li>delete rows for result==NA</li>
 <li>add field duplicate==‘P’; for the 2007 data there are primary and duplicate value; for consistency we’ll add the same field to the 2012 data and set all values to P=primary.</li>
-<li>as a qa/qc check the sums of the results by parameters were calculated and compared to the column sums for the raw data; all matched.</li>
-<li>check that all uid are in ‘nla2007_site_info.csv’</li>
-<li>check that all uid correspond to STATUS==“Target_Sampled”</li>
+<li>add “2012_” prefix to all uid</li>
+<li>check that all uid are in ‘nla_samples.csv’ (TRUE)</li>
+<li>uid in ‘nla_samples.csv’ have STATUS==“Target_Sampled”</li>
 </ul>
 </div>
-<div id="qaqc" class="section level3">
-<h3>QA/QC</h3>
+</div>
+<div id="qaqc" class="section level2">
+<h2>QA/QC</h2>
 <ul>
-<li>two qa/qc checks were run to make sure the data were assembled correctly.<br />
-</li>
-<li>sums by parameter were calculated and compared for the chem2012 and ‘nla2012_waterchem.csv’ data; all matched</li>
-<li>sums by uid were calculated and compared for the chem2012 and ‘nla2012_waterchem.csv’ data; all matched</li>
-<li>did not check sums for other datasets but the waterchem check shows the process worked.</li>
+<li>Two qa/qc checks were run on the chem data to make sure the data were assembled correctly.</li>
+<li>sums by parameter for the raw and final datasets were compared and were equal.</li>
+<li>sums by uid for the raw and final datasets were compared and were equal.</li>
+<li>checked sums for the waterchem data only; shows the process worked.</li>
 </ul>
-</div>
 </div>
 <div id="data-definitions-for-the-nla2007-and-nla2012-chemistry-data" class="section level2">
 <h2>Data definitions for the NLA2007 and NLA2012 chemistry data</h2>
@@ -2488,270 +2530,276 @@ $(document).ready(function () {
 <td align="left">Lake clear to the bottom; if Y (yes) secchi reading should be NA</td>
 </tr>
 <tr class="odd">
+<td align="left">comment</td>
+<td align="left">comment</td>
+<td align="left">NA</td>
+<td align="left">general comment field</td>
+</tr>
+<tr class="even">
 <td align="left">comment_fld</td>
 <td align="left">COMMENT_FLD_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Field Sampling Comments</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">comment_im_chem</td>
 <td align="left">COMMENT_IM_CHEM</td>
 <td align="left">NA</td>
 <td align="left">IM Data Validation Comments</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">comment_lab</td>
 <td align="left">COMMENT_LAB_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Laboratory Analysis Comments</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">comment_secchi</td>
 <td align="left">COMMENT_SECCHI</td>
 <td align="left">NA</td>
 <td align="left">Comments and flag explanations for Secchi determination</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_analyzed</td>
 <td align="left">NA</td>
 <td align="left">X_DATE_ANALYZED</td>
 <td align="left">Date of sample analysis</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">date_filtered</td>
 <td align="left">NA</td>
 <td align="left">X_DATE_FILTERED</td>
 <td align="left">Date sample filtered</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_filtered</td>
 <td align="left">DATE_FILTERED</td>
 <td align="left">NA</td>
 <td align="left">Date Sample was Filtered at Lab</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">date_received</td>
 <td align="left">DATE_RECEIVED</td>
 <td align="left">X_DATE_RECEIVED</td>
 <td align="left">Date sample received by laboratory</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">date_received</td>
 <td align="left">DATE_RECEIVED</td>
 <td align="left">NA</td>
 <td align="left">Date Sample was Received by Lab (from tracking data or WRS lab file ‘2007 Plan 0331081.xls’)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">datechla</td>
 <td align="left">DATECHLA</td>
 <td align="left">NA</td>
 <td align="left">Date chlorophyll a sample collected</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">datefilt_alert</td>
 <td align="left">DATEFILT_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Sample Filtered at Lab Date (DATE_FILTERED) is AFTER Sample Received by Lab Date (DATE_RECEIVED) (Y/N)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">day_ship</td>
 <td align="left">DAY_SHIP</td>
 <td align="left">NA</td>
 <td align="left">Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">dayship_alert</td>
 <td align="left">DAYSHIP_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Number of Days between Sample Collection (DATECHEM) and Sample Filtering at Lab (DATE_FILTERED) Exceeded 2 Days (Y/N)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">dilution_factor</td>
 <td align="left">NA</td>
 <td align="left">X_DILUTION_FACTOR</td>
 <td align="left">Dilution factor used in chlorophyll calculation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">duplicate</td>
 <td align="left">SAMPLE_CATEGORY</td>
 <td align="left">NA</td>
 <td align="left">(P)rimary or Field (D)uplicate; original name: SAMPLE_CATEGORY</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">extract</td>
 <td align="left">NA</td>
 <td align="left">X_EXTRACT</td>
 <td align="left">Chlorophyll a in laboratory extract (raw)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">flag</td>
 <td align="left">X_FLAG</td>
 <td align="left">X_FLAG</td>
 <td align="left">Flag</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">flag_fld_chla</td>
 <td align="left">FLAG_FLD_CHLA</td>
 <td align="left">NA</td>
 <td align="left">Data qualifier (Field Crew) (K=Value could not be determined U=nonstandard measurement Fn=other comment</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">flag_lab_chla</td>
 <td align="left">FLAG_LAB_CHLA</td>
 <td align="left">NA</td>
 <td align="left">Data qualifier (laboratory) (K=Value could not be determined S=value changed [orig. value in parentheses] B=below reporting level [3 æg/L])</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">flag_secchi</td>
 <td align="left">FLAG_SECCHI</td>
 <td align="left">NA</td>
 <td align="left">Data Qualifier flag for Secchi determination</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">ht</td>
 <td align="left">X_HT</td>
 <td align="left">X__HOLDING_TIME</td>
 <td align="left">Sample holding time; time between sampling and lab analysis (days)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">ht_alert</td>
 <td align="left">X_HT_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Holding Time Exceeded Limit (Y?N)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab</td>
 <td align="left">NA</td>
 <td align="left">LAB</td>
 <td align="left">Lab name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">lab_comment</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_COMMENT</td>
 <td align="left">Laboratory comment</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab_flag</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_FLAG</td>
 <td align="left">Flag from laboratory</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">lab_id</td>
 <td align="left">LAB_ID_CHEM/CHLA</td>
 <td align="left">NA</td>
 <td align="left">Laboratory sample ID</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">lab_sample_id</td>
 <td align="left">NA</td>
 <td align="left">X_LAB_SAMPLE_ID</td>
 <td align="left">Laboratory Sample ID</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">loq</td>
 <td align="left">NA</td>
 <td align="left">X_LOQ</td>
 <td align="left">Limit of Quantitation (LOQ) associated with sample</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">mdl</td>
 <td align="left">NA</td>
 <td align="left">X_MDL</td>
 <td align="left">Minimum detection limit of analyte</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">nuts_sample_id</td>
 <td align="left">NA</td>
 <td align="left">NUTS_SAMPLE_ID</td>
 <td align="left">Nutrients Sample ID</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">nuts_ship_flag</td>
 <td align="left">NA</td>
 <td align="left">NUTS_SHIP_FLAG</td>
 <td align="left">Nutrients Shipping Flag</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">parameter</td>
 <td align="left">X=parameter</td>
 <td align="left">X:from:X_RESULT</td>
 <td align="left">What was measured</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">qa_flag</td>
 <td align="left">NA</td>
 <td align="left">X_QA_FLAG</td>
 <td align="left">QA flag associated with sample</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">result</td>
 <td align="left">X:value</td>
 <td align="left">X_RESULT</td>
 <td align="left">Measured value for parameter</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">rl</td>
 <td align="left">value:X_RL_ALERT</td>
 <td align="left">X_RL</td>
 <td align="left">Reporting limit</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">rl_alert</td>
 <td align="left">X_RL_ALERT</td>
 <td align="left">NA</td>
 <td align="left">Value Below Reporting Limit</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">sample_depth</td>
 <td align="left">SAMPLE_DEPTH</td>
 <td align="left">NA</td>
 <td align="left">Depth of integrated sample (typically 2 m)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">sample_id</td>
 <td align="left">SAMPLE_ID_CHEM/CHLA</td>
 <td align="left">SAMPLE_ID_CHEM</td>
 <td align="left">Laboratory Sample Identification Number</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">samplevol</td>
 <td align="left">NA</td>
 <td align="left">X_SAMPLEVOL</td>
 <td align="left">Volume of sample from field (chla)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">source</td>
 <td align="left">nameOfFile</td>
 <td align="left">nameOfFile</td>
 <td align="left">Source file for data</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tria_sample_id</td>
 <td align="left">NA</td>
 <td align="left">TRIA_SAMPLE_ID</td>
 <td align="left">Triazine sample ID (atrazine)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">uid</td>
 <td align="left">VISIT_ID</td>
 <td align="left">UID</td>
 <td align="left">Unique site visit ID;</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">units</td>
 <td align="left">fromDescription</td>
 <td align="left">X_UNITS</td>
 <td align="left">measurement units</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">usgs_id</td>
 <td align="left">USGS_OGRL_laboratory_ID</td>
 <td align="left">NA</td>
 <td align="left">USGS Sample Identification Number for 2007 Algal Toxin analysis</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">volume_adjust</td>
 <td align="left">NA</td>
 <td align="left">X_VOLUME_ADJUST</td>
@@ -2760,6 +2808,7 @@ $(document).ready(function () {
 </tbody>
 </table>
 <ul>
+<li>check that all parameters are in ‘nla_chem_data_paramters.csv’ (TRUE)</li>
 <li>The following table defines the parameters in the chem data</li>
 <li>This table has six fields
 <ul>
@@ -2922,7 +2971,7 @@ $(document).ready(function () {
 <tr class="even">
 <td align="left">do2_2m</td>
 <td align="left">NA</td>
-<td align="left">DO2_2M</td>
+<td align="left">NA</td>
 <td align="left">mg/l</td>
 <td align="left">mg/l</td>
 <td align="left">Dissolved oxygen averaged over the top 2 m of water</td>
@@ -2963,9 +3012,9 @@ $(document).ready(function () {
 <td align="left">sequential freeze/thaw</td>
 <td align="left">cycles and filtered before analyses. The ass</td>
 <td align="left">ay is capable of detecting</td>
-<td align="left">both micro</td>
-<td align="left">cystins and no</td>
-<td align="left">dularins, however, nodularins are considered to be predominately found in brackish waters. As a result response for these results will be discussed in terms of microcystins, but in a rare cases nodularin has been measured in inland freshwaters.</td>
+<td align="left">both microcy</td>
+<td align="left">stins and nodu</td>
+<td align="left">larins, however, nodularins are considered to be predominately found in brackish waters. As a result response for these results will be discussed in terms of microcystins, but in a rare cases nodularin has been measured in inland freshwaters.</td>
 </tr>
 <tr class="even">
 <td align="left">microcystin_littoral</td>
@@ -3112,6 +3161,38 @@ $(document).ready(function () {
 <td align="left">Analyte value for Sulfate</td>
 </tr>
 <tr class="even">
+<td align="left">temp_min</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Min temperature from the profile data</td>
+</tr>
+<tr class="odd">
+<td align="left">temp_max</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Max temperature from the profile data</td>
+</tr>
+<tr class="even">
+<td align="left">temp_mean</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Mean temperature from the profile data</td>
+</tr>
+<tr class="odd">
+<td align="left">temp_2m</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">degrees C</td>
+<td align="left">NA</td>
+<td align="left">Mean temperature from the profile data for depth &lt;= 2 meters</td>
+</tr>
+<tr class="even">
 <td align="left">toc</td>
 <td align="left">TOC</td>
 <td align="left">TOC_RESULT</td>
@@ -3136,8 +3217,16 @@ $(document).ready(function () {
 <td align="left">Analyte value for Turbidity</td>
 </tr>
 <tr class="odd">
-<td align="left">## Save the data</td>
+<td align="left">## spread check</td>
 <td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">* make sure the data ca</td>
+<td align="left">n be “spread”; works</td>
 <td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
@@ -3145,6 +3234,9 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+</div>
+<div id="save-the-data" class="section level2">
+<h2>Save the data</h2>
 <ul>
 <li>chem2012 saved as ‘output/nla2012_chem.csv’</li>
 </ul>

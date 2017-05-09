@@ -1,4 +1,4 @@
-parameter,name07,name12,units07,units12,definition
+parameter,name07,name12,units07,units12,description
 aluminum,,ALUMINUM_RESULT,,mg/L,Analyte value for Aluminum
 ammonia_n,NH4N_PPM,AMMONIA_N_RESULT,mg/L,mg N/L,Analyte value for Ammonia as N
 anc,ANC,ANC_RESULT,ueq/L,ueq/L,Analyte value for Acid Neutralizing Capacity
@@ -40,10 +40,10 @@ silica,SIO2,SILICA_RESULT,mg/L,mg/L,Analyte value for Silica
 sobc,SOBC,,ueq/L,,Sum of Base Cations (ueq/L)
 sodium,NA_PPM,SODIUM_RESULT,mg/L,mg/L,Analyte value for Sodium
 sulfate,SO4_PPM,SULFATE_RESULT,mg/L,mg/L,Analyte value for Sulfate
-temp_min,,,degrees C,,Min temperature from the profile data
-temp_max,,,degrees C,,Max temperature from the profile data
-temp_mean,,,degrees C,,Mean temperature from the profile data
-temp_2m,,,degrees C,,Mean temperature from the profile data for depth <= 2 meters
+temp_min,,,degrees C,degrees C,Min temperature from the profile data
+temp_max,,,degrees C,degrees C,Max temperature from the profile data
+temp_mean,,,degrees C,degrees C,Mean temperature from the profile data
+temp_2m,,,degrees C,degrees C,Mean temperature from the profile data for depth <= 2 meters
 toc,TOC,TOC_RESULT,mg/L,mg/L,Analyte value for Total Organic Carbon
 tss,,TSS_RESULT,,mg/L,Analyte value for Total Suspended Solids
 turb,TURB,TURB_RESULT,NTU,NTU,Analyte value for Turbidity

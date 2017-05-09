@@ -1,0 +1,136 @@
+---
+title: "nla2007_&_2012_data_for_farnaz_may2017"
+author: "B"
+date: "May 9, 2017"
+output: html_document
+---
+
+## To Do
+* `r paste("insult of the day:",bismer::insult())`
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(stringsAsFactors = FALSE) 
+library(knitr)
+library(tidyverse)
+library(readxl)
+
+read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
+  a<-tryCatch(read.csv(paste(dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")),warning = function(e) read.csv(paste('../',dir,file,sep=''),sep=',',na.strings = c(""," ","NA","N/A")))
+  return(a)
+}  
+
+names1<-function(df) names(df)[order(names(df))]
+```
+
+## Introduction
+
+* This document ([nla2007_&_2012_data_for_farnaz_may2017](https://github.com/willbmisled/lakes_database/blob/master/R/nla2007_&_2012_data_for_farnaz_may2017.Rmd)) describes how a subset of the 2007 and 2012 National Lake Assessment data were assembled and processed.
+* The raw data are available on the NARS website:  https://www.epa.gov/national-aquatic-resource-surveys
+* These data were processed and harmonized.  See the following documents for more information:
+    - [nla2007_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2007_waterchem.Rmd)
+    - [nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.Rmd)
+    - [nla_sites-and-nla_samples](https://github.com/willbmisled/lakes_database/blob/master/R/nla_sites-and-nla_samples.Rmd)
+
+* The output includes the following datasets:
+    - [farnaz201705.csv]
+    - [farnaz201705_meta.csv]
+
+## Data Notes
+* Decide whether or not to keep duplicate samples (...$duplicate=='D')
+* Decide whether or not to keep samples from ...$visit_no=2 
+
+## Data Steps
+* read in the raw data and data definitions (see: https://github.com/willbmisled/lakes_database/tree/master/output)
+    - 'nla2007_chem.csv'
+    - 'nla2012_chem.csv'
+    - 'nla_chem_data_defintions.csv'
+    - 'nla_chem_parameters.csv'
+    - 'nla_sites.csv'
+    - 'nla_sites_meta.csv'
+    - 'nla_samples.csv'
+    - 'nla_samples_meta.csv'
+* spread chem2007 and chem2012 based on uid, duplicate, parameter, and result then row_bind
+* merge sites, sample, and chem data
+* select fields to include and reorder
+
+```{r data, include=FALSE, echo=FALSE}
+#read the raw data files
+chem2007<-read1('output/','nla2007_chem.csv')
+chem2012<-read1('output/','nla2012_chem.csv')
+dd<-read1('output/','nla_chem_data_defintions.csv')
+pd<-read1('output/','nla_chem_parameters.csv')
+sites<-read1('output/','nla_sites.csv')
+sites_m<-read1('output/','nla_sites_meta.csv')
+samples<-read1('output/','nla_samples.csv')
+samples_m<-read1('output/','nla_samples_meta.csv')
+
+#merge sites and samples
+nrow(samples) #2476
+nrow(sites) #2281
+ss<-inner_join(samples,sites)
+nrow(ss) #2476
+
+#stack chem2007 and chem2012
+s1<-select(chem2007,uid,duplicate,parameter,result)%>%
+  spread(parameter,result)
+nrow(s1) #1276
+s1$year<-2007
+
+s2<-select(chem2012,uid,duplicate,parameter,result)%>%
+  spread(parameter,result)
+nrow(s2) #1230
+s2$year<-2012
+
+chem<-bind_rows(s1,s2)
+
+#merge chem and ss
+nrow(chem) #2506
+out<-left_join(chem,ss)
+
+#select fields and reorger
+out<-select(out,year,uid,site_id,visit_no,depthmax,lakearea,area_ha,lake_origin,fw_eco9,nut_reg,lat_dd83,lon_dd83,xcoord,ycoord,ammonia_n,chla,do2_2m,doc,microcystin,nh4ion,nitrate_n,nitrate_nitrite_n,nitrite_n,ntl,ph,ph_field,ptl,saxitoxin,secchi,silica,sulfate,toc,tss,turb)
+
+```
+
+```{r meta, include=FALSE, echo=FALSE}
+#make sure the names match
+names(dd)
+names(pd)[1]<-"column_name"
+    names(pd)
+names(sites_m)
+names(samples_m)
+names(chem)
+
+#select the column_names to include
+dd1<-filter(dd,column_name%in%names(out)[names(out)%in%dd$column_name])
+dd2<-filter(pd,column_name%in%names(out)[names(out)%in%pd$column_name])
+dd3<-filter(sites_m,column_name%in%names(out)[names(out)%in%sites_m$column_name])
+dd4<-filter(samples_m,column_name%in%names(out)[names(out)%in%samples_m$column_name])
+
+#add year
+dd5<-data.frame(column_name='year',description="sample year (e.g. 2007 or 2012)")
+
+#bind them all
+meta<-bind_rows(dd2,dd1,dd3,dd4,dd5)
+meta<-arrange(meta,column_name)%>%distinct()
+
+#check all are included
+table(names(out)%in%meta$column_name)
+```
+
+* The final dataset and the data definitions saved as:
+    - "farnaz201705.csv"
+    - "farnaz201705_meta.csv"
+
+```{r save, include=FALSE, echo=FALSE,eval=TRUE,eval=TRUE}
+write.table(out,'../output/views/farnaz201705.csv',sep=',',row.names=FALSE)
+write.table(meta,'../output/views/farnaz201705_meta.csv',sep=',',row.names=FALSE)
+
+```
+
+
+
+
+
