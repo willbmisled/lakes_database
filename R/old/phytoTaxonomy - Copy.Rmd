@@ -1,7 +1,7 @@
 ---
 title: "phytoTaxonomy"
 author: "B"
-date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "April 7, 2017"
 output: html_document
 ---
 
@@ -24,9 +24,7 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 
 ## Introduction
 
-* The goal is to get a harmonized list of phytoplankton taxa for the 2007 and 2012 National Lakes Assessments at the genus level.
-* We started with a list of the genera and Betty scraped the current taxonomy from algaebase.org
-* To this we will add a comma separted list of 2007 and 2012 species from the taxonomy lists.
+* The goal is to get a harmonized list of phytoplankton taxa for the 2007 and 2012 National Lakes Assessments.
 
 ## Data Steps
 
@@ -35,6 +33,10 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 * change all occurences of '(Undetermined)' to NA
 * change all SPECIES=="sp." to NA
 * delete observations where GENUS==NA or odd values (e.g,"Encapsulating Chrysophyte" )
+    - some species like 
+* Change genus name "Isthmochoron" to "Isthmochloron" in fields "OTU", "TAXANAME", and "GENUS_CNT"
+* Change genus name to "Sphaerodinium" for GENUS=="Sphaerodinium/Glenodinium/Peridiniopsis Complex"
+* Change genus name to "Staurodesmus" for GENUS=="Staurodesmus/Arthrodesmus/Octacanthium"
 * combine species names into a single field "sp2007"
 * In the past we deleted the following taxa; keep them?????
     - *Chamaesiphon*
@@ -45,8 +47,7 @@ read1<-function(dir='data/raw_data/',file='nla2012_waterchem_wide.csv'){
 * change all names to lowercase
 * chg(2007) 'taxatype' to 'algal_group'
 * chg(2007) 'division' to 'phylum'
-* delete observations where GENUS==NA
-
+* write table 'output/phytoSp2007.csv'
 
 ```{r phyto2007, include=FALSE, echo=FALSE}
 p2007<-read1('data/raw_data/','nla2007_phyto_count.csv')
@@ -54,9 +55,17 @@ p2007<-read1('data/raw_data/','nla2007_phyto_count.csv')
 #change all occurences of '(Undetermined)' to NA
 p2007[p2007=='(Undetermined)']<-NA
 
-#remove non-genus genus names
+#remove non-specific genus names
 p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Encapsulating Chrysophyte",NA,GENUS))
 p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Dinobryon (empty lorica)",NA,GENUS))
+
+#update taxonomy
+p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Sphaerodinium/Glenodinium/Peridiniopsis Complex","Sphaerodinium",GENUS))
+#p2007<-mutate(p2007,GENUS=ifelse(GENUS=="Staurodesmus/Arthrodesmus/Octacanthium","Staurodesmus",GENUS))
+#p2007<-mutate(p2007,OTU=ifelse(OTU=="Isthmochoron labulatum","Isthmochloron labulatum",OTU))
+p2007<-mutate(p2007,TAXANAME=ifelse(TAXANAME=="Isthmochoron labulatum","Isthmochloron labulatum",TAXANAME))
+p2007<-mutate(p2007,GENUS_CNT=ifelse(GENUS_CNT=="Isthmochoron","Isthmochloron",GENUS_CNT))
+
 
 #create output file
 phytoSp2007<-filter(p2007,!is.na(GENUS))%>%
@@ -92,6 +101,8 @@ phytoSp2007<-rename(phytoSp2007,phylum=division,algal_group=taxatype)
 * change SPECIES==*"PSEUDOKEPHYRION PSUEDOSPIRALE"* to SPECIES==*PSEUDOKEPHYRION PSEUDOSPIRALE*
 
 
+toupper('Pseudokephyrion psuedospirale')
+
 ```{r phyto2012, include=FALSE, echo=FALSE}
 p2012<-read1('data/raw_data/','nla2012_phyto_taxa.csv')
 
@@ -122,10 +133,12 @@ names(phytoSp2012)<-tolower(names(phytoSp2012))
 #View(phytoSp2012)
 ```
 
-* create a master taxa list 
-* join phytoSp2007 and phytoSp2012 to create phytoSp
+* create a master taxa list to compare
+* get higher level classification from www.itis.gov
+* join phytoSp2007, phytoSp2012 and itis to create phytoSp
 * add genus_id as rownumber
 * save itis file as 'phytoItis.csv'
+* save phytoSp as 'phytoSp.csv'
 
 ```{r master, include=FALSE, echo=FALSE}
 #join the 2007 and 2012 taxa lists
@@ -136,13 +149,43 @@ phytoSp<-full_join(phytoSp2012,p07)
 
 phytoSp<-select(phytoSp,algal_group12=algal_group,algal_group07,phylum12=phylum,phylum07,class12=class,order12=order,order07,family12=family,family07,genus,sp12=sp2012,sp07=sp2007)
 
+write.csv(phytoSp,'output/phtyosp.csv')
+
+#get higher classification from itis for each genus
+# tsn<-classification(phytoSp$genus, db = 'itis',row=1)
+# 
+# itis<-c()
+# for(i in c(1:length(tsn))){
+#   if(is.na(tsn[[i]])==TRUE) {
+#     itis<-bind_rows(itis,data.frame(genus=phytoSp$genus[i]))
+#   } else {
+#     x<-spread(tsn[[i]][-3],rank,name)
+#     y<-spread(tsn[[i]][-1],rank,id)
+#     names(x)<-paste(names(x),'itis',sep="_")
+#     names(y)<-paste(names(y),'tsn',sep="_")
+#     z<-data.frame(genus=phytoSp$genus[i])
+#     itis<-bind_rows(itis,cbind(z,x,y))
+#   }}
+# 
+# save(itis,file='data/workfiles/itis.rda')
+
+#phytoSp<-select(phytoSp,algal_group12,algal_group07,phylum12,phylum07,phylum_itis,division_itis,class12,class_itis,order12,order07,order_itis,family12,family07,family_itis,genus,genus_itis,sp12,sp07)
+
+#join the itis data
+#load(file='data/workfiles/itis.rda')
+#phytoSp<-full_join(phytoSp,itis)
+#phytoSp$genus_id<-as.numeric(row.names(phytoSp))
+
+
+#write.csv(itis,'output/phytoItis.csv',row.names=FALSE)
+#write.csv(phytoSp,'output/phytoSp.csv',row.names=FALSE)
+#itis<-read.csv('output/phytoItis.csv')
 ```
 
-### create final taxonomy
-* load the algaebase classification by genus ('data/workfiles/nla_algaebase_taxonomy.csv')
-* join to the 2007 and 2012 taxononmy
-* select fields to keep
-* write 'output/nla_phyto_taxonomy.csv'
+### get the algaebase classification by genus (thanks Betty)
+* Betty meticulously scraped the taxonomy from algaebase.org for each taxon
+* Get the 2007 and 2012 taxononmy
+* join them and harmonize to the genus level
 
 
 ```{r betty, include=FALSE, echo=FALSE}
@@ -154,28 +197,15 @@ nrow(phytoSp) #362
 
 keep<-select(phytoSp,genus,sp07,sp12)
 
-phytosp<-full_join(keep,ab)%>%select(phylum,subphylum,class,subclass,order,family,genus,genus_new,authority,sp07,sp12,flag,note,link)
+phytosp<-full_join(keep,ab)%>%select(phylum,subphylum,class,subclass,order,family,genus,genus_new,authority,sp07,sp12,flag,note)
 nrow(phytosp) #362
 
-write.csv(phytosp,'output/nla_phyto_taxonomy.csv',row.names = FALSE)
-```
-  
-##QA/QC
-
-* make sure all genera in the count data match observation in phytosp; all good
-
-```{r betty, include=FALSE, echo=FALSE}
-p2007<-read1('data/raw_data/','nla2007_phyto_count.csv');nrow(p2007) #31971
-p2012<-read1('data/raw_data/','nla2012_phyto_count.csv');nrow(p2012) #38627
-  p2012<-mutate(p2012,genus=ifelse(is.na(GENUS),NA,paste(toupper(substr(GENUS,1,1)),substr(GENUS,2,111),sep="")))
+write.csv(phytosp,'data/workfiles/nla_algaebase_taxonomy_to_check.csv',row.names = FALSE)
 
 
-t2007<-left_join(p2007,phytosp,by=c("GENUS"="genus"));nrow(t2007) #31971
-    filter(t2007,is.na(phylum))%>%select(GENUS)%>%distinct()
     
     
-t2012<-left_join(p2012,phytosp,by="genus");nrow(t2012) #38627
-    filter(t2012,is.na(phylum))%>%select(GENUS)%>%distinct()
+    
 ```
-
+    
     
