@@ -27,7 +27,7 @@ nh4ion,NH4ION,,ueq/L,,Calculated NH4+ protolyte (ueq/L)
 nitrate_n,NO3N_PPM,NITRATE_N_RESULT,mg/L,mg N/L,Analyte value for Nitrate as N
 nitrate_nitrite_n,NO3_NO2,NITRATE_NITRITE_N_RESULT,mg/L,mg N/L,2012: Analyte value for Nitrate + Nitrite as N: 2007: Nitrate + Nitrite by Flow Injection Analysis (mg N/L)
 nitrite_n,,NITRITE_N_RESULT,,mg N/L,Analyte value for Nitrite as N
-ntl,NTL_PPM,NTL_RESULT,mg/L,mg/L,Analyte value for Total Nitrogen
+ntl,NTL,NTL_RESULT,ug/L,mg/L,Analyte value for Total Nitrogen
 oh,OH,,ueq/L,,Hydroxide from PH_LAB (ueq/L)
 orgion,ORGION,,ueq/L,,Est. Organic Anion (ueq/L)
 ph,PH_LAB,PH_RESULT,ph,Std. Units,Analyte value for pH measured in the lab

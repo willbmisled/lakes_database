@@ -164,7 +164,7 @@ write.csv(phytosp,'output/nla_phyto_taxonomy.csv',row.names = FALSE)
 
 * make sure all genera in the count data match observation in phytosp; all good
 
-```{r betty, include=FALSE, echo=FALSE}
+```{r qaqc, include=FALSE, echo=FALSE}
 p2007<-read1('data/raw_data/','nla2007_phyto_count.csv');nrow(p2007) #31971
 p2012<-read1('data/raw_data/','nla2012_phyto_count.csv');nrow(p2012) #38627
   p2012<-mutate(p2012,genus=ifelse(is.na(GENUS),NA,paste(toupper(substr(GENUS,1,1)),substr(GENUS,2,111),sep="")))
