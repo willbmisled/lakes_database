@@ -1,0 +1,65 @@
+Data Recieved from Dave Peck on May 22, 2017 (see message below)
+
+file "wide_assessment.tab" saved as "nla2012_visual_assess.csv"
+file "wide_assessment.met" saved as "nla2012_visual_assess_meta.csv"
+
+From: Peck, Dave 
+Sent: Monday, May 22, 2017 11:32 AM
+To: Milstead, Bryan <Milstead.Bryan@epa.gov>
+Subject: RE: assessment form data for NLA2012
+
+HI, Bryan,
+
+I saw a file on the NLA SharePoint site named From: Peck, Dave 
+Sent: Monday, May 22, 2017 11:32 AM
+To: Milstead, Bryan <Milstead.Bryan@epa.gov>
+Subject: RE: assessment form data for NLA2012
+
+HI, Bryan,
+
+I saw a file on the NLA SharePoint site named wide_assessment.tab that was dated July 30, 2014.  It may not be posted on the public website because it is not directly used for the report. 
+
+Here is the version I found on our version of NARS IM (it has a later publication date).  The .met is the “metadata” file.  Both are tab-delimited text files.  I cannot say how much QA was done on these (especially for the things you listed below), so you make want to make sure they pass your laugh test in some fashion.
+
+We finally got some sunshine and warm weather for a few days!  Plus I get to see the total solar eclipse from my office window come August21!
+
+Dave
+
+
+David V. Peck
+Research Ecologist
+U.S. EPA
+National Health and Environmental Effects Research Laboratory
+Western Ecology Division
+Freshwater Ecology Branch
+200 SW 35th St.
+Corvallis, OR  97333
+
+Ph:  541-754-4426
+FAX:  541-754-4799
+EMAIL:  peck.david@epa.gov
+
+WED Website:  http://www.epa.gov/wed
+ that was dated July 30, 2014.  It may not be posted on the public website because it is not directly used for the report. 
+
+Here is the version I found on our version of NARS IM (it has a later publication date).  The .met is the “metadata” file.  Both are tab-delimited text files.  I cannot say how much QA was done on these (especially for the things you listed below), so you make want to make sure they pass your laugh test in some fashion.
+
+We finally got some sunshine and warm weather for a few days!  Plus I get to see the total solar eclipse from my office window come August21!
+
+Dave
+
+
+David V. Peck
+Research Ecologist
+U.S. EPA
+National Health and Environmental Effects Research Laboratory
+Western Ecology Division
+Freshwater Ecology Branch
+200 SW 35th St.
+Corvallis, OR  97333
+
+Ph:  541-754-4426
+FAX:  541-754-4799
+EMAIL:  peck.david@epa.gov
+
+WED Website:  http://www.epa.gov/wed
