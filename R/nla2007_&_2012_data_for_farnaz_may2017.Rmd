@@ -33,8 +33,8 @@ names1<-function(df) names(df)[order(names(df))]
     - [nla2012_waterchem](https://github.com/willbmisled/lakes_database/blob/master/R/nla2012_waterchem.rmd)
     - [nla_sites-and-nla_samples](https://github.com/willbmisled/lakes_database/blob/master/R/nla_sites-and-nla_samples.Rmd)
 * The output includes the following datasets:
-    - [farnaz201705.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201705.csv)
-    - [farnaz201705_meta.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201705_meta.csv)
+    - [farnaz201705.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201707.csv)
+    - [farnaz201705_meta.csv](https://github.com/willbmisled/lakes_database/blob/master/output/views/farnaz201707_meta.csv)
 
 ## Data Notes
 * Decide whether or not to keep duplicate samples (...$duplicate=='D')
@@ -124,8 +124,8 @@ table(names(out)%in%meta$column_name)
     - "farnaz201705_meta.csv"
 
 ```{r save, include=FALSE, echo=FALSE,eval=TRUE,eval=TRUE}
-write.table(out,'../output/views/farnaz201705.csv',sep=',',row.names=FALSE)
-write.table(meta,'../output/views/farnaz201705_meta.csv',sep=',',row.names=FALSE)
+write.table(out,'../output/views/farnaz201707.csv',sep=',',row.names=FALSE)
+write.table(meta,'../output/views/farnaz201707_meta.csv',sep=',',row.names=FALSE)
 
 ```
 
