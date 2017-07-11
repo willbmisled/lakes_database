@@ -2,7 +2,7 @@
 title: "nla2007_&_2012_data_for_farnaz_may2017"
 author: "B"
 date: "May 9, 2017"
-output: html_document
+output: pdf_document
 ---
 
 ## To Do
@@ -88,8 +88,8 @@ chem<-bind_rows(s1,s2)
 nrow(chem) #2506
 out<-left_join(chem,ss)
 
-#select fields and reorger
-out<-select(out,year,uid,site_id,visit_no,depthmax,lakearea,area_ha,lake_origin,fw_eco9,nut_reg,lat_dd83,lon_dd83,xcoord,ycoord,ammonia_n,chla,do2_2m,doc,microcystin,nh4ion,nitrate_n,nitrate_nitrite_n,nitrite_n,ntl,ph,ph_field,ptl,saxitoxin,secchi,silica,sulfate,toc,tss,turb)
+#select fields and reorder
+out<-select(out,year,uid,site_id,visit_no,depthmax,lakearea,area_ha,lake_origin,fw_eco9,nut_reg,lat_dd83,lon_dd83,xcoord,ycoord,ammonia_n,chla,do2_2m,doc,microcystin,nh4ion,nitrate_n,nitrate_nitrite_n,nitrite_n,ntl,ph,ph_field,ptl,saxitoxin,secchi,silica,sulfate,temp_min,temp_max,temp_mean,temp_2m,toc,tss,turb)
 
 ```
 
