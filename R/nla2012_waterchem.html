@@ -11,7 +11,7 @@
 
 <meta name="author" content="Bryan Milstead" />
 
-<meta name="date" content="2017-05-09" />
+<meta name="date" content="2017-07-13" />
 
 <title>nla2012_waterchem</title>
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">nla2012_waterchem</h1>
 <h4 class="author"><em>Bryan Milstead</em></h4>
-<h4 class="date"><em>09 May 2017</em></h4>
+<h4 class="date"><em>13 July 2017</em></h4>
 
 </div>
 
@@ -127,7 +127,7 @@ $(document).ready(function () {
 <div id="to-do" class="section level2">
 <h2>To Do</h2>
 <ul>
-<li>insult of the day: thou wayward rump-fed puttock</li>
+<li>insult of the day: thou froward dread-bolted baggage</li>
 </ul>
 </div>
 <div id="naming-conventions" class="section level2">
@@ -2412,6 +2412,7 @@ $(document).ready(function () {
 <ul>
 <li>read the data from ‘nla2012_profile.csv’</li>
 <li>There are 16955 rows in the do2 data that have UIDs but no SITE_IDs. None of these UIDs is represented in the siteInfo so these were dropped.</li>
+<li>There are some values in the TEMPERATURE field way of range (73.9 199.0 273.0 250.0 234.0 3075.0). These were examined manually and found to be decimal point issues. The values were corrected.</li>
 <li>filter for !is.na(site_id)</li>
 <li>DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake. It is based on the profile data.</li>
 <li>harvest the NLA calculated do2_2m values for comparision</li>
@@ -2448,6 +2449,7 @@ $(document).ready(function () {
 <h3>temperature</h3>
 <ul>
 <li>the field water temperature data are in the profile dataset as “temperature” for multiple depths</li>
+<li>some temperature measurements corrected (see above) due to decimal point errors</li>
 <li>depths are not standardized so we’ll calculate</li>
 <li>max_temp: max for the whole profile</li>
 <li>min_temp: min for the whole profile</li>
@@ -2489,19 +2491,19 @@ $(document).ready(function () {
 <li>Below are the data definitions for column names of the chemistry data</li>
 <li>Included are four fields
 <ul>
-<li><strong>name</strong>: is the column name (field)</li>
-<li><strong>2007</strong>: 1=field included in chem2007</li>
-<li><strong>2012</strong>: 1=field included in chem2012</li>
-<li><strong>definition</strong>: a brief description of the field</li>
+<li><strong>column_name</strong>: is the column name (field)</li>
+<li><strong>name07</strong>: the original name for the parameter in the NLA2007 data (if measured)</li>
+<li><strong>name12</strong>: the original name for the parameter in the NLA2012 data (if measured)</li>
+<li><strong>description</strong>: a brief description of the field</li>
 </ul></li>
 </ul>
 <table>
 <thead>
 <tr class="header">
-<th align="left">name</th>
-<th align="left">name2007</th>
-<th align="left">name2012</th>
-<th align="left">definition</th>
+<th align="left">column_name</th>
+<th align="left">name07</th>
+<th align="left">name12</th>
+<th align="left">description</th>
 </tr>
 </thead>
 <tbody>
@@ -2785,7 +2787,7 @@ $(document).ready(function () {
 <td align="left">uid</td>
 <td align="left">VISIT_ID</td>
 <td align="left">UID</td>
-<td align="left">Unique site visit ID;</td>
+<td align="left">Unique site visit ID; note the year added as prefix (e.g. 007_&quot; or &quot;2012_&quot;)“</td>
 </tr>
 <tr class="even">
 <td align="left">units</td>
@@ -2817,7 +2819,7 @@ $(document).ready(function () {
 <li><strong>name12</strong>: the original name for the parameter in the NLA2012 data (if measured)</li>
 <li><strong>units07</strong>: the measurement units for the parameter in the NLA2007 data</li>
 <li><strong>units12</strong>: the measurement units for the parameter in the NLA2012 data</li>
-<li><strong>definition</strong>: a brief description of the parameter</li>
+<li><strong>description</strong>: a brief description of the parameter</li>
 </ul></li>
 </ul>
 <table>
@@ -2828,7 +2830,7 @@ $(document).ready(function () {
 <th align="left">name12</th>
 <th align="left">units07</th>
 <th align="left">units12</th>
-<th align="left">definition</th>
+<th align="left">description</th>
 </tr>
 </thead>
 <tbody>
@@ -3058,9 +3060,9 @@ $(document).ready(function () {
 </tr>
 <tr class="odd">
 <td align="left">ntl</td>
-<td align="left">NTL_PPM</td>
+<td align="left">NTL</td>
 <td align="left">NTL_RESULT</td>
-<td align="left">mg/L</td>
+<td align="left">ug/L</td>
 <td align="left">mg/L</td>
 <td align="left">Analyte value for Total Nitrogen</td>
 </tr>
@@ -3165,7 +3167,7 @@ $(document).ready(function () {
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">degrees C</td>
-<td align="left">NA</td>
+<td align="left">degrees C</td>
 <td align="left">Min temperature from the profile data</td>
 </tr>
 <tr class="odd">
@@ -3173,7 +3175,7 @@ $(document).ready(function () {
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">degrees C</td>
-<td align="left">NA</td>
+<td align="left">degrees C</td>
 <td align="left">Max temperature from the profile data</td>
 </tr>
 <tr class="even">
@@ -3181,7 +3183,7 @@ $(document).ready(function () {
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">degrees C</td>
-<td align="left">NA</td>
+<td align="left">degrees C</td>
 <td align="left">Mean temperature from the profile data</td>
 </tr>
 <tr class="odd">
@@ -3189,7 +3191,7 @@ $(document).ready(function () {
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">degrees C</td>
-<td align="left">NA</td>
+<td align="left">degrees C</td>
 <td align="left">Mean temperature from the profile data for depth &lt;= 2 meters</td>
 </tr>
 <tr class="even">

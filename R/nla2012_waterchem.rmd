@@ -279,6 +279,7 @@ kable(struc_secchi)
 
 * read the data from 'nla2012_profile.csv'
 * There are 16955 rows in the do2 data that have UIDs but no SITE_IDs.  None of these UIDs is represented in the siteInfo so these were dropped.
+* There are some values in the TEMPERATURE field way of range (73.9  199.0  273.0  250.0  234.0 3075.0).  These were examined manually and found to be decimal point issues.  The values were corrected.
 * filter for !is.na(site_id)
 * DO2_2M is their calculation of the average dissolved oxygen in the top 2 meters of the lake.  It is based on the profile data.
 * harvest the NLA calculated do2_2m values for comparision
@@ -309,6 +310,11 @@ nrow(filter(do2,is.na(site_id))) #16955
 #filter for !is.na(site_id)
 do2<-filter(do2,!is.na(site_id)) #13762
 nrow(select(do2,uid)%>%distinct()) #1230
+
+#correct decimal point error for temperature
+do2<-mutate(do2,temperature=ifelse(temperature>1000,temperature/100,temperature))
+do2<-mutate(do2,temperature=ifelse(temperature>70,temperature/10,temperature))
+
 
 #harvest the UID and DO2_2M fields; delete rows with is.na(do2$SITE_ID) and save for comparison to calculated values
     
@@ -373,6 +379,7 @@ plot(test$do2_2m,test$result)
 ###temperature   
 
 * the field water temperature data are in the profile dataset as "temperature" for multiple depths
+* some temperature measurements corrected (see above) due to decimal point errors
 * depths are not standardized so we'll calculate
 - max_temp: max for the whole profile
 - min_temp: min for the whole profile
